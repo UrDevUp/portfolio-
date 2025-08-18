@@ -1,0 +1,28 @@
+body::-webkit-scrollbar {
+  display: none; /* Hide the default scrollbar */
+}
+#horizontal {
+  display: flex;
+  overflow-x: hidden; /* Hide horizontal overflow */
+  min-width: 100vw;
+  background-color: white;
+}
+
+:root.dark #horizontal {
+  background-color: black;
+}
+.content {
+  width: 100vw; /* Take full viewport width */
+  height: 100vh; /* Take full viewport height */
+  display: flex;
+  font-size: 30px;
+  flex-shrink: 0; /* Prevent shrinking */
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+
+:root.dark .content {
+  background-color: black;
+}

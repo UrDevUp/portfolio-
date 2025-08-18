@@ -1,0 +1,53 @@
+/* Light mode overrides */
+:root:not([class~="dark"]) .gallery-wrapper {
+  --color-text: #000000;
+  --color-text-dim: 0.7;
+}
+
+:root:not([class~="dark"]) .project-title {
+  color: #000000;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+:root:not([class~="dark"]) .overlay {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+:root:not([class~="dark"]) .controls-wrap {
+  color: #000000;
+}
+
+:root:not([class~="dark"]) .gallery-body {
+  color: #000000;
+}
+
+/* Dark mode overrides */
+:root[class~="dark"] .gallery-wrapper {
+  --color-text: #ffffff;
+  --color-text-dim: 0.6;
+}
+
+:root[class~="dark"] .project-title {
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+:root[class~="dark"] .overlay {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+:root[class~="dark"] .controls-wrap {
+  color: #ffffff;
+}
+
+:root[class~="dark"] .gallery-body {
+  color: #ffffff;
+}
+
+/* Fix backdrop-filter for Safari */
+.gallery-wrapper .overlay,
+.gallery-wrapper .expanded-content,
+.gallery-wrapper .project-title {
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}

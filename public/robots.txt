@@ -1,0 +1,8 @@
+# robots.txt for LuxyDev
+User-agent: *
+Disallow:
+
+# Allow all crawlers to access everything
+# Add specific rules below if needed
+
+Sitemap: https://luxydev.com/sitemap.xml
