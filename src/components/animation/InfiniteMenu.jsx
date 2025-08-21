@@ -1201,7 +1201,7 @@ export default function InfiniteMenu({ items = [] }) {
               : "opacity-100 pointer-events-auto duration-500"
           }
         `}>
-            <SplitText text={activeItem.title} />{" "}
+            <SplitText key={activeItem.title} text={activeItem.title} />
           </h2>
 
           <p

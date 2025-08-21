@@ -146,8 +146,7 @@ const SplitText = ({
       style={{
         textAlign,
         wordWrap: "break-word",
-      }}
-    >
+      }}>
       {text}
     </p>
   );

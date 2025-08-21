@@ -35,28 +35,26 @@
 export const projects = [
   {
     id: 1,
-    title: "Dope Sushi",
-    image: "/assets/images/dopeSushi.webp",
-    description:
-      "DopeShuchi réinvente l’expérience sushi avec une touche audacieuse et créative.Des recettes inspirées du Japon, twistées avec des saveurs urbaines et tendances.",
-    links: {
-      "github": "https://github.com/username/chromatic-loopscape",
-      "website": "https://dived0611.github.io/O2/",
-      "behance": "https://www.behance.net/username", 
-    },
-
-  },
-  {
-    id: 2,  
     title: "CarLux",
     image: "/assets/images/carlux.webp",
     description:
       "Carluxe est une plateforme de location de voitures haut de gamme conçue pour les clients exigeants. Elle propose une sélection raffinée de véhicules de luxe, disponibles à la demande.",
     links: {
-      "github": "https://github.com/username/solar-bloom",
-      "website": "https://example.com/solar-bloom",
-      "behance": "https://www.behance.net/username",
+      github: "https://github.com/username/solar-bloom",
+      website: "https://example.com/solar-bloom",
+      behance: "https://www.behance.net/username",
     },
-
   },
-]
+  {
+    id: 2,
+    title: "Dope Sushi",
+    image: "/assets/images/dopeSushi.webp",
+    description:
+      "DopeShuchi réinvente l’expérience sushi avec une touche audacieuse et créative.Des recettes inspirées du Japon, twistées avec des saveurs urbaines et tendances.",
+    links: {
+      github: "https://github.com/username/chromatic-loopscape",
+      website: "https://dived0611.github.io/O2/",
+      behance: "https://www.behance.net/username",
+    },
+  },
+];
