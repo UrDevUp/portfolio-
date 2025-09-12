@@ -40,9 +40,9 @@ export const projects = [
     description:
       "Carluxe est une plateforme de location de voitures haut de gamme conçue pour les clients exigeants. Elle propose une sélection raffinée de véhicules de luxe, disponibles à la demande.",
     links: {
-      github: "https://github.com/username/solar-bloom",
-      website: "https://example.com/solar-bloom",
-      behance: "https://www.behance.net/username",
+      github: "",
+      website: "",
+      behance: "",
     },
   },
   {
@@ -52,9 +52,45 @@ export const projects = [
     description:
       "DopeShuchi réinvente l’expérience sushi avec une touche audacieuse et créative.Des recettes inspirées du Japon, twistées avec des saveurs urbaines et tendances.",
     links: {
-      github: "https://github.com/username/chromatic-loopscape",
+      github: "",
       website: "https://dived0611.github.io/O2/",
-      behance: "https://www.behance.net/username",
+      behance: "",
+    },
+  },
+  {
+    id: 3,
+    title: "Cabinet Dentaire",
+    image: "/assets/images/dentiste.webp",
+    description:
+      "Cabinet Dentaire est une landing page moderne et accueillante pour un cabinet dentaire. Elle met en avant les services, l'équipe professionnelle et les témoignages de patients satisfaits.",
+    links: {
+      github: "",
+      website: "",
+      behance: "",
+    },
+  },
+  {
+    id: 4,
+    title: "SEGMA",
+    image: "/assets/images/sigma.webp",
+    description:
+      "Segma est un site web pour les montres de luxury qui allie élégance et fonctionnalité. Il présente une collection exclusive de montres, avec des descriptions détaillées et des options d'achat en ligne.",
+    links: {
+      github: "",
+      website: "",
+      behance: "",
+    },
+  },
+  {
+    id: 5,
+    title: "ROYAL CRAFT",
+    image: "/assets/images/royalCraft.webp",
+    description:
+      "Royal Craft est une platforme de e-commerce dédiée aux produits artisanaux de luxe. Elle offre une expérience d'achat raffinée, mettant en avant des articles uniques et faits main.",
+    links: {
+      github: "",
+      website: "",
+      behance: "",
     },
   },
 ];

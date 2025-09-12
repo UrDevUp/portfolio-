@@ -21,14 +21,14 @@ const LogosClients = () => {
       <Suspense fallback={<Loading />}>
         <RollingGallery
           images={[
-            "./assets/images/dope.webp",
             "./assets/images/beauty.webp",
             "./assets/images/carLuxe.webp",
             "./assets/images/sigma.webp",
             "./assets/images/dope.webp",
             "./assets/images/beauty.webp",
             "./assets/images/carLuxe.webp",
-            "./assets/images/sigma.webp",
+            "./assets/images/royalCraft.webp",
+            "./assets/images/dentiste.webp",
           ]}
           autoplay={true}
         />

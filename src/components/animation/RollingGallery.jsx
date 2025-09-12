@@ -45,7 +45,8 @@ const RollingGallery = ({
 
   const cylinderWidth = isScreenSizeSm ? 1100 : 1800;
   const faceCount = images.length;
-  const faceWidth = (cylinderWidth / faceCount) * 1.5;
+  const minFaceWidth = 150; // Minimum width for each card
+  const faceWidth = Math.max((cylinderWidth / faceCount) * 1.5, minFaceWidth);
   const radius = cylinderWidth / (2 * Math.PI);
 
   const dragFactor = 0.05;
@@ -141,7 +142,7 @@ const RollingGallery = ({
           {images.map((url, i) => (
             <div
               key={i}
-              className="group absolute  flex h-fit items-center justify-center p-[8%] [backface-visibility:hidden] md:p-[6%]"
+              className="group absolute flex h-fit items-center justify-center p-[8%] [backface-visibility:hidden] md:p-[6%]"
               style={{
                 width: `${faceWidth}px`,
                 transform: `rotateY(${
@@ -151,7 +152,7 @@ const RollingGallery = ({
               <img
                 src={url}
                 alt="gallery"
-                className="pointer-events-none h-[120px] w-[300px] rounded-[15px] object-cover
+                className="pointer-events-none  shrink-0  h-[120px] w-[300px] rounded-[15px] object-cover
                            transition-all duration-300 ease-out group-hover:scale-105 group-hover:shadow-2xl
                            sm:h-[160px] sm:w-[220px]
                            bg-gradient-to-br from-white/10 to-white/5
