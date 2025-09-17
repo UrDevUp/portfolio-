@@ -12,7 +12,7 @@ const App = () => {
   return (
     <ThemeProvider>
       <Router>
-        <Suspense fallback={<div className="flex items-center justify-center min-h-screen bg-black"><Loading /></div>}>
+        <Suspense fallback={<div className="flex items-center justify-center min-h-screen dark:bg-black"><Loading /></div>}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />

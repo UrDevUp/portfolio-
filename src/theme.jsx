@@ -57,9 +57,9 @@ const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
   const [theme, setTheme] = useState(() => {
-    // Check localStorage first, fallback to dark mode
+    // Check localStorage first, fallback to light mode
     const savedTheme = localStorage.getItem("theme");
-    return savedTheme || "dark";
+    return savedTheme || "light";
   });
 
   // Set Tailwind dark mode class on <html> for global theme
