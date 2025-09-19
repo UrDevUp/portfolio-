@@ -60,7 +60,7 @@ export const projects = [
   {
     id: 3,
     title: "Cabinet Dentaire",
-    image: "/assets/images/dentiste.webp",
+    image: "/assets/images/dentaire.webp",
     description:
       "Cabinet Dentaire est une landing page moderne et accueillante pour un cabinet dentaire. Elle met en avant les services, l'équipe professionnelle et les témoignages de patients satisfaits.",
     links: {
@@ -72,7 +72,7 @@ export const projects = [
   {
     id: 4,
     title: "SEGMA",
-    image: "/assets/images/sigma.webp",
+    image: "/assets/images/segma.webp",
     description:
       "Segma est un site web pour les montres de luxury qui allie élégance et fonctionnalité. Il présente une collection exclusive de montres, avec des descriptions détaillées et des options d'achat en ligne.",
     links: {
