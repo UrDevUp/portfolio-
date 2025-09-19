@@ -11,7 +11,7 @@ export default function Team() {
     {
       name: "Abd ellah IKKOU",
       role: "Full Stack Developer & Testing Specialist",
-      image: "/assets/images/Samurai.webp",
+      image: "/assets/images/kio.png",
       bio: "2 years in digital development with a passion for user-centered experiences.",
       instagram: "https://instagram.com/abdellahikkou",
       linkedin: "https://linkedin.com/in/abd-ellah-ikkou-44a3482b3",
@@ -32,7 +32,7 @@ export default function Team() {
     {
       name: "Ibtissam BDM",
       role: "UX Designer & FullStack Developer, Project Manager",
-      image: "/assets/images/betty2.png",
+      image: "/assets/images/betty2.webp",
       bio: "Creative UX designer and full-stack developer with a knack for project management.",
       instagram: "https://instagram.com/bassma_b01",
       linkedin: "https://www.linkedin.com/in/ebtessam-bassma-3543b6331",

@@ -84,9 +84,21 @@ export const projects = [
   {
     id: 5,
     title: "ROYAL CRAFT",
-    image: "/assets/images/royalCraft.webp",
+    image: "/assets/images/royal.webp",
     description:
       "Royal Craft est une platforme de e-commerce dédiée aux produits artisanaux de luxe. Elle offre une expérience d'achat raffinée, mettant en avant des articles uniques et faits main.",
+    links: {
+      github: "",
+      website: "",
+      behance: "",
+    },
+  },
+  {
+    id: 6,
+    title: "Beauty Salon",
+    image: "/assets/images/spa.webp",
+    description:
+      "Beauty Salon est une landing page élégante pour un salon de beauté. Elle présente les services offerts, les produits utilisés et les témoignages de clients satisfaits.",
     links: {
       github: "",
       website: "",
