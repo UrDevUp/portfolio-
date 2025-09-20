@@ -11,7 +11,7 @@ export default function Team() {
     {
       name: "Abd ellah IKKOU",
       role: "Full Stack Developer & Testing Specialist",
-      image: "/assets/images/kio2.webp",
+      image: "/assets/images/kio.webp",
       bio: "2 years in digital development with a passion for user-centered experiences.",
       instagram: "https://instagram.com/abdellahikkou",
       linkedin: "https://linkedin.com/in/abd-ellah-ikkou-44a3482b3",
@@ -32,10 +32,10 @@ export default function Team() {
     {
       name: "Ibtissam BDM",
       role: "UX Designer & FullStack Developer, Project Manager",
-      image: "/assets/images/betty2.webp",
+      image: "/assets/images/betty.webp",
       bio: "Creative UX designer and full-stack developer with a knack for project management.",
       instagram: "https://instagram.com/bassma_b01",
-      linkedin: "https://www.linkedin.com/in/ebtessam-bassma-3543b6331",
+      linkedin: "https://www.linkedin.com/in/ibtissam-bdm-3543b6331",
       experience: "2 years - UX, UI, Project Management",
       skills: [
         "UX Research",
@@ -48,7 +48,7 @@ export default function Team() {
       ],
       bgGradient:
         "radial-gradient(circle at 60% 40%, #a78bfa 60%, #7c3aed 100%)", // violet
-      github: "https://github.com/ibtissamD",
+      github: "https://github.com/ibtissamBDM",
     },
   ];
 
