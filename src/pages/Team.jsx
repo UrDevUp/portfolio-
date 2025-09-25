@@ -32,9 +32,9 @@ export default function Team() {
     {
       name: "Ibtissam BDM",
       role: "UX Designer & FullStack Developer, Project Manager",
-      image: "/assets/images/betty2.webp",
+      image: "/assets/images/betty2.jpg",
       bio: "Creative UX designer and full-stack developer with a knack for project management.",
-      instagram: "https://instagram.com/bassma_b01",
+      instagram: "https://instagram.com/eb.te11",
       linkedin: "https://www.linkedin.com/in/ebtessam-bassma-3543b6331",
       experience: "2 years - UX, UI, Project Management",
       skills: [
