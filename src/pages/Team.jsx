@@ -11,7 +11,7 @@ export default function Team() {
     {
       name: "Abd ellah IKKOU",
       role: "Full Stack Developer & Testing Specialist",
-      image: "/assets/images/kio.png",
+      image: "/assets/images/kio.webp",
       bio: "2 years in digital development with a passion for user-centered experiences.",
       instagram: "https://instagram.com/abdellahikkou",
       linkedin: "https://linkedin.com/in/abd-ellah-ikkou-44a3482b3",
@@ -48,7 +48,7 @@ export default function Team() {
       ],
       bgGradient:
         "radial-gradient(circle at 60% 40%, #a78bfa 60%, #7c3aed 100%)", // violet
-      github: "https://github.com/ibtissamD",
+      github: "https://github.com/ibtissamBDM",
     },
   ];
 
