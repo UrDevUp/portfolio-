@@ -35,7 +35,7 @@ export default function Team() {
       image: "/assets/images/betty2.webp",
       bio: "Creative UX designer and full-stack developer with a knack for project management.",
       instagram: "https://instagram.com/eb.te11",
-      linkedin: "https://www.linkedin.com/in/ebtessam-bassma-3543b6331",
+      linkedin: "https://www.linkedin.com/in/ibtissam-bdm-3543b6331/",
       experience: "2 years - UX, UI, Project Management",
       skills: [
         "UX Research",

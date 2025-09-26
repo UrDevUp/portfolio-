@@ -59,7 +59,7 @@ export default function Footer() {
               </a>
               <a
                 title="LinkedIn_link"
-                href="https://www.linkedin.com/in/astrodevs/"
+                href="https://www.linkedin.com/in/luxydev-digital-a45b9a378"
                 className="text-black/60 hover:text-black dark:text-white/60 dark:hover:text-white transition-colors">
                 <Linkedin size={20} />
               </a>
