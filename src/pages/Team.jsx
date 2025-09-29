@@ -4,6 +4,8 @@ import { FastAverageColor } from "fast-average-color";
 import { motion } from "framer-motion";
 import { AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmarkCircle } from "@fortawesome/free-regular-svg-icons";
 
 export default function Team() {
   const { t } = useTranslation();
@@ -221,7 +223,7 @@ export default function Team() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}>
             <motion.div
-              className="bg-neutral-900/95 backdrop-blur-xl shadow-2xl max-w-2xl w-full p-8 relative border border-purple-500/20 rounded-2xl"
+              className="bg-neutral-900/95 backdrop-blur-xl shadow-2xl max-w-2xl w-full p-8 relative border border-[#d5c15cd7] rounded-2xl"
               variants={modalVariants}
               initial="hidden"
               animate="visible"
@@ -232,7 +234,7 @@ export default function Team() {
                 aria-label="Close"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}>
-                ×
+                <FontAwesomeIcon icon={faXmarkCircle} />
               </motion.button>
               <motion.div
                 className="flex flex-col items-center gap-3"
@@ -304,7 +306,7 @@ export default function Team() {
                         selectedMember.skills.map((skill, idx) => (
                           <motion.span
                             key={idx}
-                            className="bg-[#47412B]/40 text-[#D5C05C] px-2 py-0.5 rounded-full text-xs font-medium border border-[#D5C05C] shadow-sm"
+                            className="bg-[#47412B]/40 text-[#D5C05C] cursor-default px-2 py-0.5 rounded-full text-xs font-medium border border-[#D5C05C] shadow-sm"
                             initial={{ scale: 0 }}
                             animate={{ scale: 1 }}
                             transition={{
