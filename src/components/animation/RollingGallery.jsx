@@ -119,9 +119,6 @@ const RollingGallery = ({
 
   return (
     <div className="relative h-[500px] w-full overflow-hidden">
-      <div className="absolute top-0 left-0 h-full w-[48px] z-10 bg-gradient-to-l from-transparent to-white dark:to-[#060010]" />
-      <div className="absolute top-0 right-0 h-full w-[48px] z-10 bg-gradient-to-r from-transparent to-white dark:to-[#060010]" />
-
       <div className="flex h-full items-center justify-center [perspective:1000px] [transform-style:preserve-3d]">
         <motion.div
           drag="x"
