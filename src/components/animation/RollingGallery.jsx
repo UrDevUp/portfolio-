@@ -43,10 +43,10 @@ const RollingGallery = ({
     return () => window.removeEventListener("resize", throttledResize);
   }, []);
 
-  const cylinderWidth = isScreenSizeSm ? 1100 : 1300;
+  const cylinderWidth = isScreenSizeSm ? 1000 : 1300;
   const faceCount = images.length;
   const minFaceWidth = 150; // Minimum width for each card
-  const faceWidth = Math.max((cylinderWidth / faceCount) * 1.5, minFaceWidth);
+  const faceWidth = Math.max((cylinderWidth / faceCount) * 0.5, minFaceWidth);
   const radius = cylinderWidth / (2 * Math.PI);
 
   const dragFactor = 0.05;
@@ -152,7 +152,7 @@ const RollingGallery = ({
               <img
                 src={url}
                 alt="gallery"
-                className="pointer-events-none  shrink-0  h-[120px] w-[300px] rounded-[15px] object-cover
+                className="pointer-events-none  shrink-0  h-[120px] w-[120px] rounded-[15px] object-cover
                            transition-all duration-300 ease-out group-hover:scale-105 group-hover:shadow-2xl
                            sm:h-[120px] sm:w-[120px]
                            bg-gradient-to-br from-white/10 to-white/5
