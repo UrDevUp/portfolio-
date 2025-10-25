@@ -1212,10 +1212,10 @@ export default function InfiniteMenu({ items = [] }) {
           absolute
           text-black
           dark:text-white
-          max-w-[20ch]
+          max-w-[52ch]
           text-[1rem]
           top-1/2
-          right-[1%]
+          -right-[28%]
           transition-all
           ease-&lsqb;cubic-bezier(0.25_0.1_0.25_1.0)&rsqb;
           ${
