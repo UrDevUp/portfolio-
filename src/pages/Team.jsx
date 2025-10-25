@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmarkCircle } from "@fortawesome/free-regular-svg-icons";
+import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
 
 export default function Team() {
   const { t } = useTranslation();
@@ -234,7 +234,7 @@ export default function Team() {
                 aria-label="Close"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}>
-                <FontAwesomeIcon icon={faXmarkCircle} />
+                <FontAwesomeIcon icon={faCircleXmark} className="text-[#d5c05c]" />
               </motion.button>
               <motion.div
                 className="flex flex-col items-center gap-3"
