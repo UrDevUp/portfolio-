@@ -1181,12 +1181,13 @@ export default function InfiniteMenu({ items = [] }) {
           lg:[font-size:2.5rem]
           left-1/2
           top-[5%]
-          md:left-[1.6em]
-          md:top-1/2
+          lg:left-[1.6em]
+          lg:top-[5%]
+          xl:top-1/2
           transform
           -translate-x-1/2
-          md:translate-x-[20%]
-          md:-translate-y-1/2
+          lg:translate-x-[20%]
+          lg:-translate-y-1/2
           text-center
           md:text-left
           w-full
@@ -1212,10 +1213,15 @@ export default function InfiniteMenu({ items = [] }) {
           absolute
           text-black
           dark:text-white
-          max-w-[52ch]
+          lg:max-w-[52ch]
+          max-w-[72ch]
           text-[1rem]
-          top-1/2
-          -right-[28%]
+          top-[90%]
+          lg:top-1/2
+          lg:-right-[28%]
+          -right-[65%]
+          text-center
+          lg:text-left
           transition-all
           ease-&lsqb;cubic-bezier(0.25_0.1_0.25_1.0)&rsqb;
           ${

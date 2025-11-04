@@ -105,4 +105,16 @@ export const projects = [
       behance: "",
     },
   },
+  {
+    id: 7,
+    title: "Appartment",
+    image: "/assets/images/hero_apartment.jpg",
+    description:
+      "Appartment est une landing page élégante pour un appartement. Elle présente les caractéristiques de l'appartement, les commodités à proximité et les témoignages de clients satisfaits.",
+    links: {
+      github: "",
+      website: "https://luxydevdigital.github.io/appartment/",
+      behance: "",
+    },
+  },
 ];
