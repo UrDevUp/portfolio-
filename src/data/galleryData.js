@@ -71,30 +71,6 @@ export const projects = [
   },
   {
     id: 4,
-    title: "SEGMA",
-    image: "/assets/images/segma.webp",
-    description:
-      "Segma est un site web pour les montres de luxury qui allie élégance et fonctionnalité. Il présente une collection exclusive de montres, avec des descriptions détaillées et des options d'achat en ligne.",
-    links: {
-      github: "",
-      website: "",
-      behance: "",
-    },
-  },
-  {
-    id: 5,
-    title: "ROYAL CRAFT",
-    image: "/assets/images/royal.webp",
-    description:
-      "Royal Craft est une platforme de e-commerce dédiée aux produits artisanaux de luxe. Elle offre une expérience d'achat raffinée, mettant en avant des articles uniques et faits main.",
-    links: {
-      github: "",
-      website: "",
-      behance: "",
-    },
-  },
-  {
-    id: 6,
     title: "Beauty Salon",
     image: "/assets/images/spa.webp",
     description:
@@ -106,7 +82,7 @@ export const projects = [
     },
   },
   {
-    id: 7,
+    id: 5,
     title: "Appartment",
     image: "/assets/images/hero_apartment.jpg",
     description:
