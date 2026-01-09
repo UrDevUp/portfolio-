@@ -38,8 +38,9 @@ export default function Footer() {
                 <span>
                   <img
                     src="assets/images/logo_luxy.webp"
-                    alt=""
+                    alt="LuxyDev logo"
                     loading="lazy"
+                    decoding="async"
                   />
                 </span>
               </div>
@@ -53,19 +54,25 @@ export default function Footer() {
             <div className="flex space-x-4">
               <a
                 title="GitHub_link"
-                href="#"
+                href="https://github.com/LuxyDevDigital/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-black/60 hover:text-black dark:text-white/60 dark:hover:text-white transition-colors">
                 <Github size={20} />
               </a>
               <a
                 title="LinkedIn_link"
                 href="https://www.linkedin.com/in/luxydev-digital-a45b9a378"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-black/60 hover:text-black dark:text-white/60 dark:hover:text-white transition-colors">
                 <Linkedin size={20} />
               </a>
               <a
                 title="Instagram_link"
-                href="https://www.instagram.com/luxydev1/"
+                href="https://www.instagram.com/luxydev.ma/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-black/60 hover:text-black dark:text-white/60 dark:hover:text-white transition-colors">
                 <Instagram size={20} />
               </a>

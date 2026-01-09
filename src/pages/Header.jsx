@@ -141,10 +141,17 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center gap-2 space-x-2">
+          <div
+            className="flex items-center gap-2 space-x-2"
+            aria-label="LuxyDev logo">
             <div className="w-5 h-5 rounded-full flex items-center justify-center">
               <span>
-                <img src="assets/images/logo_luxy.webp" alt="" loading="lazy" />
+                <img
+                  src="assets/images/logo_luxy.webp"
+                  alt="LuxyDev logo"
+                  loading="lazy"
+                  decoding="async"
+                />
               </span>
             </div>
             <span className="text-xl font-bold bg-gradient-to-r from-[#D5C05C] to-[#47412B] bg-clip-text text-transparent">
@@ -153,7 +160,9 @@ export default function Header() {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav
+            className="hidden md:flex items-center space-x-8"
+            aria-label="Primary">
             <ThemeToggleButton />
             <div className="relative" style={{ minWidth: 110, maxWidth: 130 }}>
               <LanguageSelector />
@@ -176,7 +185,7 @@ export default function Header() {
             <button
               onClick={() => scrollToSection("logos")}
               className="text-black/80 dark:text-white/80 hover:text-black dark:hover:text-white transition-colors">
-              Logos
+              {t("logos")}
             </button>
             <button
               onClick={() => scrollToSection("projects")}
@@ -194,14 +203,24 @@ export default function Header() {
           {/* Mobile Menu Button */}
           <button
             onClick={toggleMenu}
-            className="md:hidden text-black dark:text-white">
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            className="md:hidden text-black dark:text-white"
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-menu"
+            aria-label={isMenuOpen ? t("closeMenu") : t("openMenu")}>
+            {isMenuOpen ? (
+              <X size={24} aria-hidden="true" />
+            ) : (
+              <Menu size={24} aria-hidden="true" />
+            )}
           </button>
         </div>
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <nav className="md:hidden mt-4 pb-4 border-t border-white/10 pt-4">
+          <nav
+            id="mobile-menu"
+            className="md:hidden mt-4 pb-4 border-t border-white/10 pt-4"
+            aria-label="Mobile navigation">
             <div className="flex items-center gap-4 mb-4 justify-between">
               <ThemeToggleButton />
               <div
@@ -229,7 +248,7 @@ export default function Header() {
               <button
                 onClick={() => scrollToSection("logos")}
                 className="text-black dark:text-white hover:text-black dark:hover:text-white transition-colors text-left">
-                Logos
+                {t("logos")}
               </button>
               <button
                 onClick={() => scrollToSection("projects")}
