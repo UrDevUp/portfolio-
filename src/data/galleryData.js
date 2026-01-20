@@ -1,4 +1,16 @@
 export const projects = [
+  {
+    id: 0,
+    title: "Restaurent",
+    image: "/assets/images/restaurent_logo.webp",
+    description:
+      "Un site vitrine élégant pour un restaurant haut de gamme : accueil immersif avec visuels et slogans, menu interactif par catégories avec photos et prix, galerie photo animée plein écran, formulaire de réservation en ligne, page À propos avec vidéo et un panier simple pour préparer la commande. Navigation fluide sur mobile et desktop, avec header clair et footer incluant l’inscription newsletter",
+    links: {
+      github: "",
+      website: "https://LuxyDevDigital.github.io/restaurent",
+      behance: "",
+    },
+  },
   // {
   //   id: 1,
   //   title: "CarLux",

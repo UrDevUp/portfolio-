@@ -27,6 +27,7 @@ const LogosClients = () => {
             "./assets/images/beauty.webp",
             "./assets/images/carLuxe.webp",
             "./assets/images/dentiste.webp",
+            "./assets/images/restaurent_logo.webp",
           ]}
           autoplay={true}
         />
