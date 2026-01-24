@@ -8,27 +8,7 @@ import { useTranslation } from "react-i18next";
 export default function Team() {
   const { t } = useTranslation();
   const team = [
-    {
-      name: "Abd ellah IKKOU",
-      role: "Full Stack Developer & Testing Specialist",
-      image: "/assets/images/kio.webp",
-      bio: "2 years in digital development with a passion for user-centered experiences.",
-      instagram: "https://instagram.com/abdellahikkou",
-      linkedin: "https://linkedin.com/in/abd-ellah-ikkou-44a3482b3",
-      experience: "2 years - Backend, Testing, Node.js, API design",
-      skills: [
-        "Node.js",
-        "Express",
-        "Python",
-        "Laravel",
-        "PHP",
-        "API",
-        "MongoDB",
-      ],
-      bgGradient:
-        "radial-gradient(circle at 60% 40%, #ffe066 60%, #ffd60a 100%)", // jaune
-      github: "https://github.com/Devkioto",
-    },
+
     {
       name: "Ibtissam BDM",
       role: "UX Designer & FullStack Developer, Project Manager",
