@@ -2,6 +2,7 @@
   "home": "Home",
   "about": "About",
   "team": "Team",
+  "logos": "Logos",
   "projects": "Projects",
   "contact": "Contact",
   "heroDescriptionBase": "We build innovative websites and powerful applications that blend stunning design with ",
@@ -53,5 +54,7 @@
   "termsOfService": "Terms of Service",
   "allRightsReserved": "All rights reserved.",
   "sharedTrust": "Shared trust,",
-  "measurableResults": "Measurable results."
+  "measurableResults": "Measurable results.",
+  "openMenu": "Open navigation menu",
+  "closeMenu": "Close navigation menu"
 }

@@ -1181,12 +1181,14 @@ export default function InfiniteMenu({ items = [] }) {
           lg:[font-size:2.5rem]
           left-1/2
           top-[5%]
-          md:left-[1.6em]
-          md:top-1/2
-          transform
+          lg:left-[50%]
+          xl:left-[1.6em]
+          lg:top-[5%]
+          xl:top-1/2
           -translate-x-1/2
-          md:translate-x-[20%]
-          md:-translate-y-1/2
+          lg:-translate-x-[50%]
+          xl:-translate-x-[2%]
+          lg:-translate-y-1/2
           text-center
           md:text-left
           w-full
@@ -1212,10 +1214,20 @@ export default function InfiniteMenu({ items = [] }) {
           absolute
           text-black
           dark:text-white
-          max-w-[20ch]
+          lg:max-w-[52ch]
+          max-w-full
           text-[1rem]
-          top-1/2
-          right-[1%]
+          top-[90%]
+          xl:top-1/2
+          lg:top-[95%]
+          lg:left-[50%]
+          lg:-translate-x-[50%]
+          xl:-translate-x-[-50%]
+          xl:mr-[900px]
+          md:-translate-x-[50%]
+          -right-[50%]
+          text-center
+          xl:text-center
           transition-all
           ease-&lsqb;cubic-bezier(0.25_0.1_0.25_1.0)&rsqb;
           ${
@@ -1231,6 +1243,8 @@ export default function InfiniteMenu({ items = [] }) {
             className={`
                       absolute
                       left-1/2
+                      md:-bottom-16
+                      xl:bottom-0
                       z-10
                       flex
                       gap-2

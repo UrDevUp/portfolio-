@@ -30,7 +30,7 @@ const Projets = () => {
       <div className="h-[80vh] sm:h-[70vh]">
         <Suspense fallback={<Loading />}>
           <InfiniteMenu
-            items={projects}
+            items={projects != []  ? projects : [{ id: 0, title: "No Project available", image: "/assets/images/luxydev.webp", description: "we are updating our projects, please check back later.", links: {} }]}
             bend={3}
             textColor="#ffffff"
             borderRadius={0.05}

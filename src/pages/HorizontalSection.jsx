@@ -10,14 +10,14 @@ function HorizontalSection() {
   if (isMdUp) {
     // Render horizontal section only on md and up
     return (
-      <section id="horizontal" className="section flex bg-white dark:bg-black">
-        <div className="content z-10">
+      <section id="horizontal" className="bg-white dark:bg-black">
+        <div className="content bg-white dark:bg-black z-10">
           {/* section 1 */}
           <Suspense fallback={<Loading />}>
             <About />
           </Suspense>
         </div>
-        <div className="content">
+        <div className="content bg-white dark:bg-black z-10">
           {/* section 2 */}
           <Suspense fallback={<Loading />}>
             <Team />

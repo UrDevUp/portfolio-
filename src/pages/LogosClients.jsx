@@ -23,12 +23,11 @@ const LogosClients = () => {
           images={[
             "./assets/images/beauty.webp",
             "./assets/images/carLuxe.webp",
-            "./assets/images/sigma.webp",
             "./assets/images/dope.webp",
             "./assets/images/beauty.webp",
             "./assets/images/carLuxe.webp",
-            "./assets/images/royalCraft.webp",
             "./assets/images/dentiste.webp",
+            "./assets/images/restaurent_logo.webp",
           ]}
           autoplay={true}
         />

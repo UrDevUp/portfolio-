@@ -43,10 +43,10 @@ const RollingGallery = ({
     return () => window.removeEventListener("resize", throttledResize);
   }, []);
 
-  const cylinderWidth = isScreenSizeSm ? 1100 : 1300;
+  const cylinderWidth = isScreenSizeSm ? 1000 : 1300;
   const faceCount = images.length;
   const minFaceWidth = 150; // Minimum width for each card
-  const faceWidth = Math.max((cylinderWidth / faceCount) * 1.5, minFaceWidth);
+  const faceWidth = Math.max((cylinderWidth / faceCount) * 0.5, minFaceWidth);
   const radius = cylinderWidth / (2 * Math.PI);
 
   const dragFactor = 0.05;
@@ -119,9 +119,6 @@ const RollingGallery = ({
 
   return (
     <div className="relative h-[500px] w-full overflow-hidden">
-      <div className="absolute top-0 left-0 h-full w-[48px] z-10 bg-gradient-to-l from-transparent to-white dark:to-[#060010]" />
-      <div className="absolute top-0 right-0 h-full w-[48px] z-10 bg-gradient-to-r from-transparent to-white dark:to-[#060010]" />
-
       <div className="flex h-full items-center justify-center [perspective:1000px] [transform-style:preserve-3d]">
         <motion.div
           drag="x"
@@ -152,7 +149,7 @@ const RollingGallery = ({
               <img
                 src={url}
                 alt="gallery"
-                className="pointer-events-none  shrink-0  h-[120px] w-[300px] rounded-[15px] object-cover
+                className="pointer-events-none  shrink-0  h-[120px] w-[120px] rounded-[15px] object-cover
                            transition-all duration-300 ease-out group-hover:scale-105 group-hover:shadow-2xl
                            sm:h-[120px] sm:w-[120px]
                            bg-gradient-to-br from-white/10 to-white/5
