@@ -13,6 +13,7 @@ import "../styles/homestyle.css";
 import { lazy, Suspense } from "react";
 import Loading from "@/layouts/Loading";
 import { useTheme } from "@/theme";
+import Meet from "./Meet";
 const LogosClients = lazy(() => import("@/pages/LogosClients"));
 const Projets = lazy(() => import("@/pages/Projets"));
 const Contact = lazy(() => import("@/pages/Contact"));
@@ -73,12 +74,7 @@ export default function Home() {
       <Suspense fallback={<Loading />}>
         <Projets />
       </Suspense>
-      <iframe
-        src="https://cal.com/luxydev-wobxgk/30min"
-        width="100%"
-        height="700"
-      ></iframe>
-
+      <Meet />
       <Suspense fallback={<Loading />}>
         <Contact />
       </Suspense>
