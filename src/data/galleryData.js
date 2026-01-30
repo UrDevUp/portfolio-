@@ -4,8 +4,9 @@ export const projects = [
     title: "Restaurent",
     image: "/assets/images/restaurent_logo.webp",
     description:
-      "Un site vitrine élégant pour un restaurant haut de gamme : accueil immersif avec visuels et slogans, menu interactif par catégories avec photos et prix, galerie photo animée plein écran, formulaire de réservation en ligne, page À propos avec vidéo et un panier simple pour préparer la commande. Navigation fluide sur mobile et desktop, avec header clair et footer incluant l’inscription newsletter",
+      "Un site vitrine élégant pour un restaurant haut de gamme ",
     links: {
+      date: "2023",
       github: "",
       website: "https://LuxyDevDigital.github.io/restaurent",
       behance: "",
