@@ -8,7 +8,7 @@ export const projects = [
     links: {
       date: "2023",
       github: "",
-      website: "https://LuxyDevDigital.github.io/restaurent",
+      website: "https://restaurent-m3qh.vercel.app",
       behance: "",
     },
   },
