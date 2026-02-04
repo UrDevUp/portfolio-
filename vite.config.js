@@ -7,6 +7,7 @@ const enableAnalyzer = process.env.ANALYZE === "true";
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: "/luxydev/",
   plugins: [react(), enableAnalyzer && visualizer({ open: true })].filter(
     Boolean
   ),
