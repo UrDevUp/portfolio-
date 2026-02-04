@@ -11,7 +11,7 @@ import Loading from "./layouts/Loading";
 const App = () => {
   return (
     <ThemeProvider>
-      <Router basename="/luxydev">
+      <Router>
         <Suspense fallback={<div className="flex items-center justify-center min-h-screen dark:bg-black"><Loading /></div>}>
           <Routes>
             <Route path="/" element={<Home />} />

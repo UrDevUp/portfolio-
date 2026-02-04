@@ -63,7 +63,7 @@ export default function Hero() {
           pauseOnHover={false}>
           <Card>
             <video
-              src="Web.mp4"
+              src="/Web.mp4"
               autoPlay
               preload="auto"
               will-change="transform"
@@ -77,7 +77,7 @@ export default function Hero() {
 
           <Card>
             <video
-              src="Hotel.mp4"
+              src="/Hotel.mp4"
               autoPlay
               preload="metadata"
               will-change="transform"
@@ -91,7 +91,7 @@ export default function Hero() {
 
           <Card>
             <video
-              src="Immediate.mp4"
+              src="/Immediate.mp4"
               autoPlay
               preload="metadata"
               will-change="transform"
@@ -104,7 +104,7 @@ export default function Hero() {
           </Card>
           <Card>
             <video
-              src="Pallet.mp4"
+              src="/Pallet.mp4"
               autoPlay
               preload="metadata"
               will-change="transform"
@@ -117,7 +117,7 @@ export default function Hero() {
           </Card>
           <Card>
             <video
-              src="Elyse.mp4"
+              src="/Elyse.mp4"
               autoPlay
               preload="metadata"
               will-change="transform"

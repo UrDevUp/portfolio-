@@ -2,7 +2,7 @@ export const projects = [
   {
     id: 0,
     title: "Restaurent",
-    image: "assets/images/restaurent_logo.webp",
+    image: "/assets/images/restaurent_logo.webp",
     description:
       "Un site vitrine élégant pour un restaurant haut de gamme ",
     links: {

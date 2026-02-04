@@ -7,9 +7,9 @@ const enableAnalyzer = process.env.ANALYZE === "true";
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: "/luxydev/",
+  base: "/",
   plugins: [react(), enableAnalyzer && visualizer({ open: true })].filter(
-    Boolean
+    Boolean,
   ),
   server: {
     port: 3000,
