@@ -13,7 +13,7 @@ export default function Team() {
     {
       name: "Ibtissam BDM",
       role: "UX Designer & FullStack Developer, Project Manager",
-      image: "/assets/images/betty2.webp",
+      image: "assets/images/betty2.webp",
       bio: "Creative UX designer and full-stack developer with a knack for project management.",
       instagram: "https://instagram.com/eb.te11",
       linkedin: "https://www.linkedin.com/in/ibtissam-bdm-3543b6331/",
@@ -169,7 +169,7 @@ export default function Team() {
                   />
                   <motion.img
                     ref={imgRef}
-                    src={member.image || "/placeholder.svg"}
+                    src={member.image || "placeholder.svg"}
                     alt={member.name}
                     crossOrigin="anonymous"
                     className="relative z-10 w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover border-4 border-white/90 shadow-lg transition-all duration-300 group-hover:border-[#47412B] group-hover:scale-110"
@@ -235,7 +235,7 @@ export default function Team() {
                 transition={{ delay: 0.2 }}
               >
                 <motion.img
-                  src={selectedMember.image || "/placeholder.svg"}
+                  src={selectedMember.image || "placeholder.svg"}
                   alt={selectedMember.name}
                   className="w-28 h-28 rounded-full object-cover border-4 border-[#D5C05C] shadow-lg mb-2"
                   initial={{ scale: 0.8 }}
