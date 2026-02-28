@@ -17,7 +17,8 @@ export default function Footer() {
   return (
     <footer
       id="footer"
-      className="relative py-20 px-6 bg-white dark:bg-black border-t border-gray-200 dark:border-white/10 overflow-hidden">
+      className="relative py-20 px-6 bg-white dark:bg-black border-t border-gray-200 dark:border-white/10 overflow-hidden"
+    >
       {/* Aurora animation at the bottom */}
       <div className="absolute left-0 right-0 bottom-0 h-1/2 z-0 pointer-events-none hidden dark:block">
         <Aurora
@@ -34,18 +35,18 @@ export default function Footer() {
           {/* Company Info */}
           <div>
             <div className="flex items-center gap-2 space-x-2 mb-6">
-              <div className="w-5 h-5 rounded-full flex items-center justify-center">
+              <div className="w-12 h-12 rounded-full flex items-center justify-center">
                 <span>
                   <img
-                    src="assets/images/logo_luxy.webp"
-                    alt="LuxyDev logo"
+                    src="assets/images/logo_dev.webp"
+                    alt="UrDevUp logo"
                     loading="lazy"
                     decoding="async"
                   />
                 </span>
               </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-[#D5C05C] to-[#47412B] bg-clip-text text-transparent">
-                LuxyDev
+              <span className="text-xl font-bold bg-gradient-to-r from-[#000000] to-[#000000] bg-clip-text text-transparent">
+                UrDevUp
               </span>
             </div>
             <p className="text-black/70 dark:text-white/70 mb-6">
@@ -54,26 +55,29 @@ export default function Footer() {
             <div className="flex space-x-4">
               <a
                 title="GitHub_link"
-                href="https://github.com/LuxyDevDigital/"
+                href="https://github.com/UrDevUpDigital/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-black/60 hover:text-black dark:text-white/60 dark:hover:text-white transition-colors">
+                className="text-black/60 hover:text-black dark:text-white/60 dark:hover:text-white transition-colors"
+              >
                 <Github size={20} />
               </a>
               <a
                 title="LinkedIn_link"
-                href="https://www.linkedin.com/in/luxydev-digital-a45b9a378"
+                href="https://www.linkedin.com/in/urdevup-digital-a45b9a378"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-black/60 hover:text-black dark:text-white/60 dark:hover:text-white transition-colors">
+                className="text-black/60 hover:text-black dark:text-white/60 dark:hover:text-white transition-colors"
+              >
                 <Linkedin size={20} />
               </a>
               <a
                 title="Instagram_link"
-                href="https://www.instagram.com/luxydev.ma/"
+                href="https://www.instagram.com/urdevup.ma/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-black/60 hover:text-black dark:text-white/60 dark:hover:text-white transition-colors">
+                className="text-black/60 hover:text-black dark:text-white/60 dark:hover:text-white transition-colors"
+              >
                 <Instagram size={20} />
               </a>
             </div>
@@ -88,35 +92,40 @@ export default function Footer() {
               <li>
                 <a
                   href="#team"
-                  className="text-black/70 hover:text-black dark:text-white/70 dark:hover:text-white transition-colors">
+                  className="text-black/70 hover:text-black dark:text-white/70 dark:hover:text-white transition-colors"
+                >
                   {t("seoOptimization")}
                 </a>
               </li>
               <li>
                 <a
                   href="#team"
-                  className="text-black/70 hover:text-black dark:text-white/70 dark:hover:text-white transition-colors">
+                  className="text-black/70 hover:text-black dark:text-white/70 dark:hover:text-white transition-colors"
+                >
                   {t("customWebsiteDevelopment")}
                 </a>
               </li>
               <li>
                 <a
                   href="#team"
-                  className="text-black/70 hover:text-black dark:text-white/70 dark:hover:text-white transition-colors">
+                  className="text-black/70 hover:text-black dark:text-white/70 dark:hover:text-white transition-colors"
+                >
                   {t("uxuiDesign")}
                 </a>
               </li>
               <li>
                 <a
                   href="#team"
-                  className="text-black/70 hover:text-black dark:text-white/70 dark:hover:text-white transition-colors">
+                  className="text-black/70 hover:text-black dark:text-white/70 dark:hover:text-white transition-colors"
+                >
                   {t("branding")}
                 </a>
               </li>
               <li>
                 <a
                   href="#team"
-                  className="text-black/70 hover:text-black dark:text-white/70 dark:hover:text-white transition-colors">
+                  className="text-black/70 hover:text-black dark:text-white/70 dark:hover:text-white transition-colors"
+                >
                   {t("consulting")}
                 </a>
               </li>
@@ -132,35 +141,40 @@ export default function Footer() {
               <li>
                 <a
                   href="#about"
-                  className="text-black/70 hover:text-black dark:text-white/70 dark:hover:text-white transition-colors">
+                  className="text-black/70 hover:text-black dark:text-white/70 dark:hover:text-white transition-colors"
+                >
                   {t("about")}
                 </a>
               </li>
               <li>
                 <a
                   href="#team"
-                  className="text-black/70 hover:text-black dark:text-white/70 dark:hover:text-white transition-colors">
+                  className="text-black/70 hover:text-black dark:text-white/70 dark:hover:text-white transition-colors"
+                >
                   {t("team")}
                 </a>
               </li>
               <li>
                 <a
                   href="#projects"
-                  className="text-black/70 hover:text-black dark:text-white/70 dark:hover:text-white transition-colors">
+                  className="text-black/70 hover:text-black dark:text-white/70 dark:hover:text-white transition-colors"
+                >
                   {t("projects")}
                 </a>
               </li>
               <li>
                 <a
                   href="#"
-                  className="text-black/70 hover:text-black dark:text-white/70 dark:hover:text-white transition-colors">
+                  className="text-black/70 hover:text-black dark:text-white/70 dark:hover:text-white transition-colors"
+                >
                   {t("careers")}
                 </a>
               </li>
               <li>
                 <a
                   href="#"
-                  className="text-black/70 hover:text-black dark:text-white/70 dark:hover:text-white transition-colors">
+                  className="text-black/70 hover:text-black dark:text-white/70 dark:hover:text-white transition-colors"
+                >
                   {t("blog")}
                 </a>
               </li>
@@ -176,16 +190,18 @@ export default function Footer() {
               <div className="flex items-center space-x-3">
                 <Mail size={16} className="text-black/60 dark:text-white/60" />
                 <a
-                  href="mailto:luxydevdigital@gmail.com"
-                  className="text-black/70 hover:text-black dark:text-white/70 dark:hover:text-white transition-colors">
-                  luxydevdigital@gmail.com
+                  href="mailto:urdevupdigital@gmail.com"
+                  className="text-black/70 hover:text-black dark:text-white/70 dark:hover:text-white transition-colors"
+                >
+                  urdevup@gmail.com
                 </a>
               </div>
               <div className="flex items-center space-x-3">
                 <Phone size={16} className="text-black/60 dark:text-white/60" />
                 <a
                   href="tel:+212638686444"
-                  className="text-black/70 hover:text-black dark:text-white/70 dark:hover:text-white transition-colors">
+                  className="text-black/70 hover:text-black dark:text-white/70 dark:hover:text-white transition-colors"
+                >
                   +212 638-686-444
                 </a>
               </div>
@@ -204,17 +220,19 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-gray-200 dark:border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-black/60 dark:text-white/60 text-sm mb-4 md:mb-0">
-            © {currentYear} LuxyDev. {t("allRightsReserved")}
+            © {currentYear} UrDevUp. {t("allRightsReserved")}
           </p>
           <div className="flex space-x-6">
             <Link
               to="/PrivacyPolicy"
-              className="text-black/60 hover:text-black dark:text-white/60 dark:hover:text-white transition-colors text-sm">
+              className="text-black/60 hover:text-black dark:text-white/60 dark:hover:text-white transition-colors text-sm"
+            >
               {t("privacyPolicy")}
             </Link>
             <Link
               to="/terms"
-              className="text-black/60 hover:text-black dark:text-white/60 dark:hover:text-white transition-colors text-sm">
+              className="text-black/60 hover:text-black dark:text-white/60 dark:hover:text-white transition-colors text-sm"
+            >
               {t("termsOfService")}
             </Link>
           </div>

@@ -56,33 +56,25 @@ const themes = {
 const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState(() => {
-    // Check localStorage first, fallback to light mode
-    const savedTheme = localStorage.getItem("theme");
-    return savedTheme || "light";
-  });
+  const theme = "light";
 
-  // Set Tailwind dark mode class on <html> for global theme
+  // Force light mode only
   React.useEffect(() => {
     const html = document.documentElement;
-    if (theme === "dark") {
-      html.classList.add("dark");
-    } else {
-      html.classList.remove("dark");
-    }
-    // Save theme preference to localStorage
-    localStorage.setItem("theme", theme);
-  }, [theme]);
+    html.classList.remove("dark");
+    localStorage.setItem("theme", "light");
+  }, []);
 
   const toggleTheme = () => {
-    setTheme((prev) => (prev === "light" ? "dark" : "light"));
+    // No-op: light theme only
   };
 
-  const currentTheme = themes[theme];
+  const currentTheme = themes.light;
 
   return (
     <ThemeContext.Provider
-      value={{ theme: currentTheme, themeName: theme, toggleTheme }}>
+      value={{ theme: currentTheme, themeName: theme, toggleTheme }}
+    >
       {children}
     </ThemeContext.Provider>
   );

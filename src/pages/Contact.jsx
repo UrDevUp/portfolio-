@@ -40,7 +40,7 @@ export default function Contact() {
         "service_v1quwbk",
         "template_ezmpra9",
         formRef.current,
-        "avXs7VXEgLNiq87CR"
+        "avXs7VXEgLNiq87CR",
       )
       .then(
         (result) => {
@@ -49,7 +49,7 @@ export default function Contact() {
         },
         (error) => {
           showPopup("error", "Something went wrong!");
-        }
+        },
       )
       .finally(() => {
         setLoading(false);
@@ -69,7 +69,8 @@ export default function Contact() {
       </Suspense>
       <section
         id="contact"
-        className="relative bg-[#f5f5f5] dark:bg-black min-h-screen">
+        className="relative bg-[#f5f5f5] dark:bg-black min-h-screen"
+      >
         <div className="absolute inset-0 overflow-hidden">
           <Suspense fallback={null}>
             <LightRays
@@ -88,7 +89,7 @@ export default function Contact() {
         </div>
         <div className="max-w-4xl mx-auto relative z-10 py-20 px-6">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4 text-black dark:text-white">
+            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r dark:from-white dark:via-[#000000] dark:to-[#000000] from-black  bg-clip-text text-transparent">
               {t("getInTouch")}
             </h2>
             <p className="text-gray-600 dark:text-gray-400 text-lg">
@@ -107,7 +108,7 @@ export default function Contact() {
                     {t("email")}
                   </h4>
                   <p className="text-gray-600 dark:text-gray-400">
-                    luxydevdigital@gmail.com
+                    urdevup@gmail.com
                   </p>
                 </div>
                 <div>
@@ -140,11 +141,13 @@ export default function Contact() {
                 <form
                   ref={formRef}
                   onSubmit={handleSubmit}
-                  className="space-y-6">
+                  className="space-y-6"
+                >
                   <div>
                     <label
                       htmlFor="name"
-                      className="block text-sm font-medium mb-2 text-black dark:text-white">
+                      className="block text-sm font-medium mb-2 text-black dark:text-white"
+                    >
                       {t("name")}
                     </label>
                     <input
@@ -162,7 +165,8 @@ export default function Contact() {
                   <div>
                     <label
                       htmlFor="email"
-                      className="block text-sm font-medium mb-2 text-black dark:text-white">
+                      className="block text-sm font-medium mb-2 text-black dark:text-white"
+                    >
                       {t("email")}
                     </label>
                     <input
@@ -180,7 +184,8 @@ export default function Contact() {
                   <div>
                     <label
                       htmlFor="message"
-                      className="block text-sm font-medium mb-2 text-black dark:text-white">
+                      className="block text-sm font-medium mb-2 text-black dark:text-white"
+                    >
                       {t("message")}
                     </label>
                     <textarea
@@ -197,7 +202,8 @@ export default function Contact() {
 
                   <button
                     type="submit"
-                    className="w-full bg-black bg-gradient-to-r from-[#D5C05C] to-[#47412B] hover:bg-black/90 bg-[linear-gradient(135deg,_#D5C05C,_#47412B)] text-white font-medium py-3 px-6 rounded-lg transition-colors">
+                    className="w-full bg-black bg-gradient-to-r from-[#000000] to-[#6b6b6b]  hover:bg-black/90 bg-[linear-gradient(135deg,_#D5C05C,_#47412B)] text-white font-medium py-3 px-6 rounded-lg transition-colors"
+                  >
                     {t("sendMessage")}
                   </button>
                 </form>

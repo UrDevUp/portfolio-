@@ -3,8 +3,7 @@ export const projects = [
     id: 0,
     title: "Restaurent",
     image: "/assets/images/restaurent_logo.webp",
-    description:
-      "Un site vitrine élégant pour un restaurant haut de gamme ",
+    description: "Un site vitrine élégant pour un restaurant haut de gamme ",
     links: {
       date: "2023",
       github: "",
@@ -20,7 +19,7 @@ export const projects = [
   //     "Carluxe est une plateforme de location de voitures haut de gamme conçue pour les clients exigeants. Elle propose une sélection raffinée de véhicules de luxe, disponibles à la demande.",
   //   links: {
   //     github: "",
-  //     website: "https://luxydevdigital.github.io/rentCar/",
+  //     website: "https://urdevupdigital.github.io/rentCar/",
   //     behance: "",
   //   },
   // },
@@ -44,7 +43,7 @@ export const projects = [
   //     "Cabinet Dentaire est une landing page moderne et accueillante pour un cabinet dentaire. Elle met en avant les services, l'équipe professionnelle et les témoignages de patients satisfaits.",
   //   links: {
   //     github: "",
-  //     website: "https://luxydevdigital.github.io/dentiste/",
+  //     website: "https://urdevupdigital.github.io/dentiste/",
   //     behance: "",
   //   },
   // },
@@ -68,7 +67,7 @@ export const projects = [
   //     "Appartment est une landing page élégante pour un appartement. Elle présente les caractéristiques de l'appartement, les commodités à proximité et les témoignages de clients satisfaits.",
   //   links: {
   //     github: "",
-  //     website: "https://luxydevdigital.github.io/appartment/",
+  //     website: "https://urdevupdigital.github.io/appartment/",
   //     behance: "",
   //   },
   // },

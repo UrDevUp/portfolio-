@@ -6,7 +6,9 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
   @apply bg-transparent text-black dark:text-white;
 }
 
@@ -128,4 +130,89 @@ body {
 html.dark ::selection {
   background: #ffffff;
   color: #000000;
+}
+
+.star-border-button {
+  --star-color: #d8b4fe;
+  --star-speed: 6s;
+  --star-thickness: 2px;
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in srgb, var(--star-color) 22%, transparent);
+  background: transparent;
+  color: inherit;
+  box-shadow: 0 0 20px color-mix(in srgb, var(--star-color) 18%, transparent);
+  transition:
+    box-shadow 0.25s ease,
+    background-color 0.25s ease;
+}
+
+.star-border-button__content {
+  position: relative;
+  z-index: 2;
+}
+
+.star-border-button::before {
+  content: "";
+  position: absolute;
+  inset: -170%;
+  z-index: 0;
+  background: conic-gradient(
+    from 0turn,
+    transparent 0turn,
+    transparent 0.78turn,
+    color-mix(in srgb, var(--star-color) 100%, white 8%) 0.9turn,
+    transparent 1turn
+  );
+  animation: star-border-spin var(--star-speed) linear infinite;
+}
+
+.star-border-button--double::before {
+  background: conic-gradient(
+    from 0turn,
+    transparent 0turn,
+    transparent 0.2turn,
+    color-mix(in srgb, var(--star-color) 100%, white 10%) 0.26turn,
+    transparent 0.34turn,
+    transparent 0.72turn,
+    color-mix(in srgb, var(--star-color) 100%, white 10%) 0.82turn,
+    transparent 0.9turn,
+    transparent 1turn
+  );
+}
+
+.star-border-button::after {
+  content: "";
+  position: absolute;
+  inset: var(--star-thickness);
+  border-radius: inherit;
+  z-index: 1;
+  background: hsl(var(--background));
+  pointer-events: none;
+}
+
+.star-border-button:hover {
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--star-color) 45%, transparent),
+    0 0 24px color-mix(in srgb, var(--star-color) 35%, transparent),
+    0 0 42px color-mix(in srgb, var(--star-color) 22%, transparent);
+}
+
+.star-border-button:hover::after {
+  background: color-mix(
+    in srgb,
+    hsl(var(--background)) 95%,
+    var(--star-color) 5%
+  );
+}
+
+@keyframes star-border-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }

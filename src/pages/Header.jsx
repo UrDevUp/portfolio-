@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from "react";
 import Menu from "lucide-react/dist/esm/icons/menu";
 import X from "lucide-react/dist/esm/icons/x";
-import ThemeToggleButton from "@/components/ui/ThemeToggleButton";
 import LanguageSelector from "@/components/ui/LanguageSelector";
 import { useTranslation } from "react-i18next";
 
@@ -87,7 +86,7 @@ export default function Header() {
     }
 
     const element = document.getElementById(
-      sectionId === "team" ? "about" : sectionId
+      sectionId === "team" ? "about" : sectionId,
     );
     if (element) {
       // Calculate the position with offset
@@ -137,65 +136,74 @@ export default function Header() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-black/80 backdrop-blur-md border-b border-black/10 dark:border-white/10 transition-transform duration-300 ${
         showNavbar ? "translate-y-0" : "-translate-y-full"
-      }`}>
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div
             className="flex items-center gap-2 space-x-2"
-            aria-label="LuxyDev logo">
-            <div className="w-5 h-5 rounded-full flex items-center justify-center">
+            aria-label="UrDevUp logo"
+          >
+            <div className="w-12 h-12 rounded-full flex items-center justify-center">
               <span>
                 <img
-                  src="assets/images/logo_luxy.webp"
-                  alt="LuxyDev logo"
+                  src="assets/images/logo_dev.webp"
+                  alt="UrDevUp logo"
                   loading="lazy"
                   decoding="async"
                 />
               </span>
             </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-[#D5C05C] to-[#47412B] bg-clip-text text-transparent">
-              LuxyDev
+            {/* <span className="text-xl font-bold bg-gradient-to-r from-[#D5C05C] to-[#47412B] bg-clip-text text-transparent"> */}
+            <span className="text-xl font-bold bg-gradient-to-r from-[#000000] to-[#000000] bg-clip-text text-transparent">
+              UrDevUp
             </span>
           </div>
 
           {/* Desktop Navigation */}
           <nav
             className="hidden md:flex items-center space-x-8"
-            aria-label="Primary">
-            <ThemeToggleButton />
+            aria-label="Primary"
+          >
             <div className="relative" style={{ minWidth: 110, maxWidth: 130 }}>
               <LanguageSelector />
             </div>
             <button
               onClick={() => scrollToSection("hero")}
-              className="text-black/80 dark:text-white/80 hover:text-black dark:hover:text-white transition-colors">
+              className="text-black/80 dark:text-white/80 hover:text-black dark:hover:text-white transition-colors"
+            >
               {t("home")}
             </button>
             <button
               onClick={() => scrollToSection("about")}
-              className="text-black/80 dark:text-white/80 hover:text-black dark:hover:text-white transition-colors">
+              className="text-black/80 dark:text-white/80 hover:text-black dark:hover:text-white transition-colors"
+            >
               {t("about")}
             </button>
             <button
               onClick={() => scrollToSection("team")}
-              className="text-black/80 dark:text-white/80 hover:text-black dark:hover:text-white transition-colors">
+              className="text-black/80 dark:text-white/80 hover:text-black dark:hover:text-white transition-colors"
+            >
               {t("team")}
             </button>
             <button
               onClick={() => scrollToSection("logos")}
-              className="text-black/80 dark:text-white/80 hover:text-black dark:hover:text-white transition-colors">
+              className="text-black/80 dark:text-white/80 hover:text-black dark:hover:text-white transition-colors"
+            >
               {t("logos")}
             </button>
             <button
               onClick={() => scrollToSection("projects")}
-              className="text-black/80 dark:text-white/80 hover:text-black dark:hover:text-white transition-colors">
+              className="text-black/80 dark:text-white/80 hover:text-black dark:hover:text-white transition-colors"
+            >
               {t("projects")}
             </button>
 
             <button
               onClick={() => scrollToSection("contact")}
-              className="bg-black text-white px-6 py-2 rounded-full hover:bg-black/90 dark:bg-white dark:text-black dark:hover:bg-white/90 transition-colors">
+              className="bg-black text-white px-6 py-2 rounded-full hover:bg-black/90 dark:bg-white dark:text-black dark:hover:bg-white/90 transition-colors"
+            >
               {t("contact")}
             </button>
           </nav>
@@ -206,7 +214,8 @@ export default function Header() {
             className="md:hidden text-black dark:text-white"
             aria-expanded={isMenuOpen}
             aria-controls="mobile-menu"
-            aria-label={isMenuOpen ? t("closeMenu") : t("openMenu")}>
+            aria-label={isMenuOpen ? t("closeMenu") : t("openMenu")}
+          >
             {isMenuOpen ? (
               <X size={24} aria-hidden="true" />
             ) : (
@@ -220,44 +229,51 @@ export default function Header() {
           <nav
             id="mobile-menu"
             className="md:hidden mt-4 pb-4 border-t border-white/10 pt-4"
-            aria-label="Mobile navigation">
+            aria-label="Mobile navigation"
+          >
             <div className="flex items-center gap-4 mb-4 justify-between">
-              <ThemeToggleButton />
               <div
                 className="relative"
-                style={{ minWidth: 110, maxWidth: 130 }}>
+                style={{ minWidth: 110, maxWidth: 130 }}
+              >
                 <LanguageSelector />
               </div>
             </div>
             <div className="flex flex-col space-y-4">
               <button
                 onClick={() => scrollToSection("hero")}
-                className="text-black dark:text-white hover:text-black dark:hover:text-white transition-colors text-left">
+                className="text-black dark:text-white hover:text-black dark:hover:text-white transition-colors text-left"
+              >
                 {t("home")}
               </button>
               <button
                 onClick={() => scrollToSection("about")}
-                className="text-black dark:text-white hover:text-black dark:hover:text-white transition-colors text-left">
+                className="text-black dark:text-white hover:text-black dark:hover:text-white transition-colors text-left"
+              >
                 {t("about")}
               </button>
               <button
                 onClick={() => scrollToSection("team")}
-                className="text-black dark:text-white hover:text-black dark:hover:text-white transition-colors text-left">
+                className="text-black dark:text-white hover:text-black dark:hover:text-white transition-colors text-left"
+              >
                 {t("team")}
               </button>
               <button
                 onClick={() => scrollToSection("logos")}
-                className="text-black dark:text-white hover:text-black dark:hover:text-white transition-colors text-left">
+                className="text-black dark:text-white hover:text-black dark:hover:text-white transition-colors text-left"
+              >
                 {t("logos")}
               </button>
               <button
                 onClick={() => scrollToSection("projects")}
-                className="text-black dark:text-white hover:text-black dark:hover:text-white transition-colors text-left">
+                className="text-black dark:text-white hover:text-black dark:hover:text-white transition-colors text-left"
+              >
                 {t("projects")}
               </button>
               <button
                 onClick={() => scrollToSection("contact")}
-                className="bg-white text-black dark:bg-black dark:text-white px-6 py-2 rounded-full hover:bg-white/90 dark:hover:bg-black/90 transition-colors text-center">
+                className="bg-white text-black dark:bg-black dark:text-white px-6 py-2 rounded-full hover:bg-white/90 dark:hover:bg-black/90 transition-colors text-center"
+              >
                 {t("contact")}
               </button>
             </div>

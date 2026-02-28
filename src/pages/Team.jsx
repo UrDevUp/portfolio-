@@ -12,7 +12,7 @@ export default function Team() {
   const team = [
     {
       name: "Ibtissam BDM",
-      role: "UX Designer & FullStack Developer, Project Manager",
+      role: " Founder of UrDevUp ,UX Designer & FullStack Developer",
       image: "/assets/images/betty2.webp",
       bio: "Creative UX designer and full-stack developer with a knack for project management.",
       instagram: "https://instagram.com/eb.te11",
@@ -97,7 +97,7 @@ export default function Team() {
           variants={titleVariants}
           className="text-center mb-10 sm:mb-16"
         >
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-[#D5C05C] to-[#47412B] bg-clip-text text-transparent">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6 bg-gradient-to-r dark:from-white dark:via-[#000000] dark:to-[#000000] from-black  bg-clip-text text-transparent ">
             {t("meetOurTeam")}
           </h2>
           <motion.p
@@ -159,12 +159,10 @@ export default function Team() {
                 className="group cursor-pointer"
                 onClick={() => setSelectedMember(member)}
               >
-                <div className="relative flex items-center justify-center h-40 sm:h-48 mb-4">
+                <div className="relative flex items-center justify-center h-35 sm:h-48 mb-4">
                   <motion.div
                     className="absolute inset-0 rounded-xl shadow-lg scale-90 group-hover:scale-100 transition-all duration-300 opacity-75 group-hover:opacity-100"
-                    style={{
-                      background: `radial-gradient(circle at 60% 40%, ${bgColor} 60%, #000 100%)`,
-                    }}
+                
                     whileHover={{ scale: 1.05 }}
                   />
                   <motion.img
@@ -198,7 +196,7 @@ export default function Team() {
       <AnimatePresence>
         {selectedMember && (
           <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-white backdrop-blur-sm"
             onClick={(e) => {
               if (e.target === e.currentTarget) {
                 setSelectedMember(null);

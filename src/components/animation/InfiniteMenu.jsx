@@ -172,7 +172,7 @@ class Geometry {
 
   get vertexData() {
     return new Float32Array(
-      this.vertices.flatMap((v) => Array.from(v.position))
+      this.vertices.flatMap((v) => Array.from(v.position)),
     );
   }
 
@@ -200,7 +200,7 @@ class Geometry {
     this.addVertex(
       (a[0] + b[0]) * 0.5,
       (a[1] + b[1]) * 0.5,
-      (a[2] + b[2]) * 0.5
+      (a[2] + b[2]) * 0.5,
     );
     return ndx;
   }
@@ -246,7 +246,7 @@ class IcosahedronGeometry extends Geometry {
       -1,
       -t,
       0,
-      1
+      1,
     ).addFace(
       0,
       11,
@@ -307,7 +307,7 @@ class IcosahedronGeometry extends Geometry {
       7,
       9,
       8,
-      1
+      1,
     );
   }
 }
@@ -357,7 +357,7 @@ function createProgram(
   gl,
   shaderSources,
   transformFeedbackVaryings,
-  attribLocations
+  attribLocations,
 ) {
   const program = gl.createProgram();
 
@@ -370,7 +370,7 @@ function createProgram(
     gl.transformFeedbackVaryings(
       program,
       transformFeedbackVaryings,
-      gl.SEPARATE_ATTRIBS
+      gl.SEPARATE_ATTRIBS,
     );
   }
 
@@ -409,7 +409,7 @@ function makeVertexArray(gl, bufLocNumElmPairs, indices) {
     gl.bufferData(
       gl.ELEMENT_ARRAY_BUFFER,
       new Uint16Array(indices),
-      gl.STATIC_DRAW
+      gl.STATIC_DRAW,
     );
   }
 
@@ -513,7 +513,7 @@ class ArcballControl {
       const midPointerPos = vec2.sub(
         vec2.create(),
         this.pointerPos,
-        this.previousPointerPos
+        this.previousPointerPos,
       );
       vec2.scale(midPointerPos, midPointerPos, INTENSITY);
 
@@ -535,7 +535,7 @@ class ArcballControl {
           this.pointerRotation,
           this.pointerRotation,
           this.IDENTITY_QUAT,
-          INTENSITY
+          INTENSITY,
         );
       }
     } else {
@@ -544,7 +544,7 @@ class ArcballControl {
         this.pointerRotation,
         this.pointerRotation,
         this.IDENTITY_QUAT,
-        INTENSITY
+        INTENSITY,
       );
 
       if (this.snapTargetDirection) {
@@ -561,12 +561,12 @@ class ArcballControl {
     const combinedQuat = quat.multiply(
       quat.create(),
       snapRotation,
-      this.pointerRotation
+      this.pointerRotation,
     );
     this.orientation = quat.multiply(
       quat.create(),
       combinedQuat,
-      this.orientation
+      this.orientation,
     );
     quat.normalize(this.orientation, this.orientation);
 
@@ -575,7 +575,7 @@ class ArcballControl {
       this._combinedQuat,
       this._combinedQuat,
       combinedQuat,
-      RA_INTENSITY
+      RA_INTENSITY,
     );
     quat.normalize(this._combinedQuat, this._combinedQuat);
 
@@ -660,7 +660,7 @@ class InfiniteGridMenu {
     items,
     onActiveItemChange,
     onMovementChange,
-    onInit = null
+    onInit = null,
   ) {
     this.canvas = canvas;
     this.items = items || [];
@@ -673,7 +673,7 @@ class InfiniteGridMenu {
     this.viewportSize = vec2.set(
       this.viewportSize || vec2.create(),
       this.canvas.clientWidth,
-      this.canvas.clientHeight
+      this.canvas.clientHeight,
     );
 
     const gl = this.gl;
@@ -723,7 +723,7 @@ class InfiniteGridMenu {
     gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
     this.viewportSize = vec2.fromValues(
       this.canvas.clientWidth,
-      this.canvas.clientHeight
+      this.canvas.clientHeight,
     );
     this.drawBufferSize = vec2.clone(this.viewportSize);
 
@@ -736,7 +736,7 @@ class InfiniteGridMenu {
         aModelNormal: 1,
         aModelUvs: 2,
         aInstanceMatrix: 3,
-      }
+      },
     );
 
     this.discLocations = {
@@ -744,22 +744,22 @@ class InfiniteGridMenu {
       aModelUvs: gl.getAttribLocation(this.discProgram, "aModelUvs"),
       aInstanceMatrix: gl.getAttribLocation(
         this.discProgram,
-        "aInstanceMatrix"
+        "aInstanceMatrix",
       ),
       uWorldMatrix: gl.getUniformLocation(this.discProgram, "uWorldMatrix"),
       uViewMatrix: gl.getUniformLocation(this.discProgram, "uViewMatrix"),
       uProjectionMatrix: gl.getUniformLocation(
         this.discProgram,
-        "uProjectionMatrix"
+        "uProjectionMatrix",
       ),
       uCameraPosition: gl.getUniformLocation(
         this.discProgram,
-        "uCameraPosition"
+        "uCameraPosition",
       ),
       uScaleFactor: gl.getUniformLocation(this.discProgram, "uScaleFactor"),
       uRotationAxisVelocity: gl.getUniformLocation(
         this.discProgram,
-        "uRotationAxisVelocity"
+        "uRotationAxisVelocity",
       ),
       uTex: gl.getUniformLocation(this.discProgram, "uTex"),
       uFrames: gl.getUniformLocation(this.discProgram, "uFrames"),
@@ -783,7 +783,7 @@ class InfiniteGridMenu {
           2,
         ],
       ],
-      this.discBuffers.indices
+      this.discBuffers.indices,
     );
 
     this.icoGeo = new IcosahedronGeometry();
@@ -796,7 +796,7 @@ class InfiniteGridMenu {
     this.#initTexture();
 
     this.control = new ArcballControl(this.canvas, (deltaTime) =>
-      this.#onControlUpdate(deltaTime)
+      this.#onControlUpdate(deltaTime),
     );
 
     this.#updateCameraMatrix();
@@ -813,7 +813,7 @@ class InfiniteGridMenu {
       gl.LINEAR,
       gl.LINEAR,
       gl.CLAMP_TO_EDGE,
-      gl.CLAMP_TO_EDGE
+      gl.CLAMP_TO_EDGE,
     );
 
     const itemCount = Math.max(1, this.items.length);
@@ -833,8 +833,8 @@ class InfiniteGridMenu {
             img.crossOrigin = "anonymous";
             img.onload = () => resolve(img);
             img.src = item.image;
-          })
-      )
+          }),
+      ),
     ).then((images) => {
       images.forEach((img, i) => {
         const x = (i % this.atlasSize) * cellSize;
@@ -849,7 +849,7 @@ class InfiniteGridMenu {
         gl.RGBA,
         gl.RGBA,
         gl.UNSIGNED_BYTE,
-        canvas
+        canvas,
       );
       gl.generateMipmap(gl.TEXTURE_2D);
     });
@@ -866,7 +866,7 @@ class InfiniteGridMenu {
       const instanceMatrixArray = new Float32Array(
         this.discInstances.matricesArray.buffer,
         i * 16 * 4,
-        16
+        16,
       );
       instanceMatrixArray.set(mat4.create());
       this.discInstances.matrices.push(instanceMatrixArray);
@@ -876,7 +876,7 @@ class InfiniteGridMenu {
     gl.bufferData(
       gl.ARRAY_BUFFER,
       this.discInstances.matricesArray.byteLength,
-      gl.DYNAMIC_DRAW
+      gl.DYNAMIC_DRAW,
     );
     const mat4AttribSlotCount = 4;
     const bytesPerMatrix = 16 * 4;
@@ -889,7 +889,7 @@ class InfiniteGridMenu {
         gl.FLOAT,
         false,
         bytesPerMatrix,
-        j * 4 * 4
+        j * 4 * 4,
       );
       gl.vertexAttribDivisor(loc, 1);
     }
@@ -902,7 +902,7 @@ class InfiniteGridMenu {
     this.control.update(deltaTime, this.TARGET_FRAME_DURATION);
 
     let positions = this.instancePositions.map((p) =>
-      vec3.transformQuat(vec3.create(), p, this.control.orientation)
+      vec3.transformQuat(vec3.create(), p, this.control.orientation),
     );
     const scale = 0.1;
     const SCALE_INTENSITY = 0.3;
@@ -915,22 +915,22 @@ class InfiniteGridMenu {
       mat4.multiply(
         matrix,
         matrix,
-        mat4.fromTranslation(mat4.create(), vec3.negate(vec3.create(), p))
+        mat4.fromTranslation(mat4.create(), vec3.negate(vec3.create(), p)),
       );
       mat4.multiply(
         matrix,
         matrix,
-        mat4.targetTo(mat4.create(), [0, 0, 0], p, [0, 1, 0])
+        mat4.targetTo(mat4.create(), [0, 0, 0], p, [0, 1, 0]),
       );
       mat4.multiply(
         matrix,
         matrix,
-        mat4.fromScaling(mat4.create(), [finalScale, finalScale, finalScale])
+        mat4.fromScaling(mat4.create(), [finalScale, finalScale, finalScale]),
       );
       mat4.multiply(
         matrix,
         matrix,
-        mat4.fromTranslation(mat4.create(), [0, 0, -this.SPHERE_RADIUS])
+        mat4.fromTranslation(mat4.create(), [0, 0, -this.SPHERE_RADIUS]),
       );
 
       mat4.copy(this.discInstances.matrices[ndx], matrix);
@@ -956,30 +956,30 @@ class InfiniteGridMenu {
     gl.uniformMatrix4fv(
       this.discLocations.uWorldMatrix,
       false,
-      this.worldMatrix
+      this.worldMatrix,
     );
     gl.uniformMatrix4fv(
       this.discLocations.uViewMatrix,
       false,
-      this.camera.matrices.view
+      this.camera.matrices.view,
     );
     gl.uniformMatrix4fv(
       this.discLocations.uProjectionMatrix,
       false,
-      this.camera.matrices.projection
+      this.camera.matrices.projection,
     );
     gl.uniform3f(
       this.discLocations.uCameraPosition,
       this.camera.position[0],
       this.camera.position[1],
-      this.camera.position[2]
+      this.camera.position[2],
     );
     gl.uniform4f(
       this.discLocations.uRotationAxisVelocity,
       this.control.rotationAxis[0],
       this.control.rotationAxis[1],
       this.control.rotationAxis[2],
-      this.smoothRotationVelocity * 1.1
+      this.smoothRotationVelocity * 1.1,
     );
 
     gl.uniform1i(this.discLocations.uItemCount, this.items.length);
@@ -997,7 +997,7 @@ class InfiniteGridMenu {
       this.discBuffers.indices.length,
       gl.UNSIGNED_SHORT,
       0,
-      this.DISC_INSTANCE_COUNT
+      this.DISC_INSTANCE_COUNT,
     );
   }
 
@@ -1006,7 +1006,7 @@ class InfiniteGridMenu {
       this.camera.matrix,
       this.camera.position,
       [0, 0, 0],
-      this.camera.up
+      this.camera.up,
     );
     mat4.invert(this.camera.matrices.view, this.camera.matrix);
   }
@@ -1025,11 +1025,11 @@ class InfiniteGridMenu {
       this.camera.fov,
       this.camera.aspect,
       this.camera.near,
-      this.camera.far
+      this.camera.far,
     );
     mat4.invert(
       this.camera.matrices.inversProjection,
-      this.camera.matrices.projection
+      this.camera.matrices.projection,
     );
   }
 
@@ -1053,7 +1053,7 @@ class InfiniteGridMenu {
       this.onActiveItemChange(itemIndex);
       const snapDirection = vec3.normalize(
         vec3.create(),
-        this.#getVertexWorldPosition(nearestVertexIndex)
+        this.#getVertexWorldPosition(nearestVertexIndex),
       );
       this.control.snapTargetDirection = snapDirection;
     } else {
@@ -1070,7 +1070,7 @@ class InfiniteGridMenu {
     const n = this.control.snapDirection;
     const inversOrientation = quat.conjugate(
       quat.create(),
-      this.control.orientation
+      this.control.orientation,
     );
     const nt = vec3.transformQuat(vec3.create(), n, inversOrientation);
 
@@ -1091,7 +1091,7 @@ class InfiniteGridMenu {
     return vec3.transformQuat(
       vec3.create(),
       nearestVertexPos,
-      this.control.orientation
+      this.control.orientation,
     );
   }
 }
@@ -1130,7 +1130,7 @@ export default function InfiniteMenu({ items = [] }) {
           items.length ? items : defaultItems,
           handleActiveItem,
           setIsMoving,
-          (sk) => sk.run()
+          (sk) => sk.run(),
         );
       }
 
@@ -1173,8 +1173,7 @@ export default function InfiniteMenu({ items = [] }) {
             className={`
           select-none
           absolute
-          text-black
-          dark:text-white
+          bg-gradient-to-r dark:from-white dark:via-[#000000] dark:to-[#000000] from-black  bg-clip-text 
           font-black
           text-2xl
           md:text-4xl
@@ -1202,7 +1201,8 @@ export default function InfiniteMenu({ items = [] }) {
               ? "opacity-0 pointer-events-none duration-100"
               : "opacity-100 pointer-events-auto duration-500"
           }
-        `}>
+        `}
+          >
             <SplitText key={activeItem.title} text={activeItem.title} />
           </h2>
 
@@ -1235,7 +1235,8 @@ export default function InfiniteMenu({ items = [] }) {
               ? "opacity-0 pointer-events-none duration-100 translate-x-[-60%] -translate-y-1/2"
               : "opacity-100 pointer-events-auto duration-500 translate-x-[-90%] -translate-y-1/2"
           }
-        `}>
+        `}
+          >
             {activeItem.description}
           </p>
 
@@ -1256,7 +1257,8 @@ export default function InfiniteMenu({ items = [] }) {
               ? "bottom-[-80px] opacity-0 pointer-events-none duration-100 -translate-x-1/2"
               : "-bottom-[2%] opacity-100 pointer-events-auto duration-500 -translate-x-1/2"
           }
-        `}>
+        `}
+          >
             {activeItem?.links?.github && (
               <div
                 onClick={() => window.open(activeItem.links.github, "_blank")}

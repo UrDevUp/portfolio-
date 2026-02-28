@@ -16,18 +16,13 @@ export default function Meet() {
         }}
       >
         <h1
-          style={{
-            color: themeName === "dark" ? "#ffffff" : "#000000",
-            fontSize: "2rem",
-            fontWeight: 700,
-            textAlign: "center",
-            marginBottom: "16px",
-          }}
+          className="text-center mb-4 bg-gradient-to-r dark:from-white dark:via-[#000000] dark:to-[#000000] from-black bg-clip-text text-transparent"
+          style={{ fontSize: "2.5rem", fontWeight: 700 }}
         >
           {t("meetTitle")}
         </h1>
         <iframe
-          src="https://cal.com/luxydev-wobxgk/30min"
+          src="https://cal.com/urdevup-0sxvr1/30min"
           width="100%"
           height="700"
           style={{

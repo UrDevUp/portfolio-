@@ -73,7 +73,7 @@ export default function About() {
           variants={containerVariants}>
           <motion.div variants={itemVariants}>
             <motion.h2
-              className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-center md:text-left bg-gradient-to-r from-[#D5C05C] to-[#47412B] bg-clip-text text-transparent"
+              className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-center md:text-left bg-gradient-to-r dark:from-white dark:via-[#000000] dark:to-[#000000] from-black  bg-clip-text text-transparent "
               initial={{ opacity: 0, y: -20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -94,9 +94,9 @@ export default function About() {
               whileInView="visible"
               viewport={{ once: true }}>
               <motion.div variants={itemVariants}>
-                <h3 className="text-xl sm:text-2xl font-bold text-[#92834e] dark:text-[#D5C05C] mb-2">
+                <h3 className="text-xl sm:text-2xl font-bold bg-gradient-to-r dark:from-white dark:via-[#D5C05C] dark:to-[#47412B] from-[#D5C05C] to-[#47412B] bg-clip-text text-transparent transition-colors mb-2">
                   <Suspense fallback={null}>
-                    <CountUp to={10} duration={2} />
+                    <CountUp to={5} duration={2} />
                   </Suspense>
                 </h3>
                 <p className="text-black/80 dark:text-white/80 text-sm sm:text-base">
@@ -105,7 +105,7 @@ export default function About() {
               </motion.div>
 
               <motion.div variants={itemVariants}>
-                <h3 className="text-xl sm:text-2xl font-bold text-[#92834e] dark:text-[#D5C05C] mb-2">
+                <h3 className="text-xl sm:text-2xl font-bold bg-gradient-to-r dark:from-white dark:via-[#D5C05C] dark:to-[#47412B] from-[#D5C05C] to-[#47412B] bg-clip-text text-transparent transition-colors mb-2">
                   <Suspense fallback={null}>
                     <CountUp to={100} duration={2} />%
                   </Suspense>

@@ -5,22 +5,24 @@ import { useTranslation } from "react-i18next";
 import React from "react";
 
 import TextType from "./TextType";
+import StarBorderButton from "../components/ui/StarBorderButton";
 export default function Hero() {
   const { t } = useTranslation();
 
   return (
     <div
       id="hero"
-      className="dark:bg-black bg-white min-h-dvh flex flex-col-reverse md:flex-row items-center justify-center gap-32 md:gap-0 px-4 py-8 md:py-0">
+      className="dark:bg-black bg-white min-h-dvh flex flex-col-reverse md:flex-row items-center justify-center gap-32 md:gap-0 px-4 py-8 md:py-0"
+    >
       <div className="w-full md:w-1/2 md:pl-20">
-        <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6 dark:text-white text-black text-center md:text-left">
+        <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6 bg-gradient-to-r dark:from-white dark:via-[#000000] dark:to-[#000000] from-black  bg-clip-text text-transparent text-center md:text-left">
           Creative
-          <span className="block sm:inline sm:ml-3 bg-gradient-to-r from-[#D5C05C] to-[#47412B] bg-clip-text text-transparent">
-            LuxyDev
+          <span className="block sm:inline sm:ml-3 bg-gradient-to-r from-[#000000] to-[#000000] bg-clip-text text-transparent">
+            UrDevUp
           </span>
         </h1>
 
-        <div className="text-base sm:text-lg md:text-xl dark:text-white/80 text-black/80 mb-8 sm:mb-12 leading-relaxed text-center md:text-left">
+        <div className="text-base sm:text-lg md:text-xl text-black/70 mb-8 sm:mb-12 leading-relaxed text-center md:text-left">
           {t("heroDescriptionBase")}
           <TextType
             text={t("heroTypeWords", { returnObjects: true })}
@@ -28,7 +30,7 @@ export default function Hero() {
             pauseDuration={1500}
             showCursor={true}
             cursorCharacter="|"
-            textColors={["#D5C05C"]}
+            textColors={["#000000"]}
             className="font-semibold"
           />
         </div>
@@ -40,18 +42,23 @@ export default function Hero() {
                 .getElementById("projects")
                 ?.scrollIntoView({ behavior: "smooth" })
             }
-            className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-black dark:bg-white text-white dark:text-black rounded-full hover:bg-black/90 dark:hover:bg-white/90 transition-all transform hover:scale-105 font-medium text-sm sm:text-base">
+            className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-black dark:bg-white text-white dark:text-black rounded-full hover:bg-black/90 dark:hover:bg-white/90 transition-all transform hover:scale-105 font-medium text-sm sm:text-base"
+          >
             {t("viewWork")}
           </button>
-          <button
+          <StarBorderButton
             onClick={() =>
               document
                 .getElementById("contact")
                 ?.scrollIntoView({ behavior: "smooth" })
             }
-            className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 border-2 dark:border-white border-black dark:text-white text-black rounded-full dark:hover:bg-white/10 hover:bg-black/10 transition-all font-medium text-sm sm:text-base">
+            color="#d4af37"
+            speed="6s"
+            thickness={1}
+            className="star-border-button--double w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 !text-black dark:!text-black transition-all font-medium text-sm sm:text-base"
+          >
             {t("getInTouch")}
-          </button>
+          </StarBorderButton>
         </div>
       </div>
 
@@ -60,7 +67,8 @@ export default function Hero() {
           cardDistance={40}
           verticalDistance={50}
           delay={5000}
-          pauseOnHover={false}>
+          pauseOnHover={false}
+        >
           <Card>
             <video
               src="/Web.mp4"
@@ -72,7 +80,8 @@ export default function Hero() {
               playsInline
               width="1280"
               height="720"
-              className="w-full h-full object-cover"></video>
+              className="w-full h-full object-cover"
+            ></video>
           </Card>
 
           <Card>
@@ -86,7 +95,8 @@ export default function Hero() {
               playsInline
               width="1280"
               height="720"
-              className="w-full h-full object-cover"></video>
+              className="w-full h-full object-cover"
+            ></video>
           </Card>
 
           <Card>
@@ -100,7 +110,8 @@ export default function Hero() {
               playsInline
               width="1280"
               height="720"
-              className="w-full h-full object-cover"></video>
+              className="w-full h-full object-cover"
+            ></video>
           </Card>
           <Card>
             <video
@@ -113,7 +124,8 @@ export default function Hero() {
               playsInline
               width="1280"
               height="720"
-              className="w-full h-full object-cover"></video>
+              className="w-full h-full object-cover"
+            ></video>
           </Card>
           <Card>
             <video
@@ -126,7 +138,8 @@ export default function Hero() {
               playsInline
               width="1280"
               height="720"
-              className="w-full h-full object-cover"></video>
+              className="w-full h-full object-cover"
+            ></video>
           </Card>
         </CardSwap>
       </div>
