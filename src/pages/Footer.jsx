@@ -55,7 +55,7 @@ export default function Footer() {
             <div className="flex space-x-4">
               <a
                 title="GitHub_link"
-                href="https://github.com/UrDevUpDigital/"
+                href="https://github.com/UrDevUp"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-black/60 hover:text-black dark:text-white/60 dark:hover:text-white transition-colors"
@@ -64,7 +64,7 @@ export default function Footer() {
               </a>
               <a
                 title="LinkedIn_link"
-                href="https://www.linkedin.com/in/urdevup-digital-a45b9a378"
+                href="https://www.linkedin.com/in/urdevup-studio-3090493b0"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-black/60 hover:text-black dark:text-white/60 dark:hover:text-white transition-colors"
@@ -190,7 +190,7 @@ export default function Footer() {
               <div className="flex items-center space-x-3">
                 <Mail size={16} className="text-black/60 dark:text-white/60" />
                 <a
-                  href="mailto:urdevupdigital@gmail.com"
+                  href="mailto:urdevup@gmail.com"
                   className="text-black/70 hover:text-black dark:text-white/70 dark:hover:text-white transition-colors"
                 >
                   urdevup@gmail.com

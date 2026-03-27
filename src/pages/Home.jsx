@@ -15,6 +15,7 @@ import Loading from "@/layouts/Loading";
 import { useTheme } from "@/theme";
 import Meet from "./Meet";
 const LogosClients = lazy(() => import("@/pages/LogosClients"));
+const Branding = lazy(() => import("@/pages/Branding"));
 const Projets = lazy(() => import("@/pages/Projets"));
 const Contact = lazy(() => import("@/pages/Contact"));
 
@@ -69,6 +70,10 @@ export default function Home() {
       </div>
       <Suspense fallback={<Loading />}>
         <LogosClients />
+      </Suspense>
+
+      <Suspense fallback={<Loading />}>
+        <Branding />
       </Suspense>
 
       <Suspense fallback={<Loading />}>

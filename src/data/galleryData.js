@@ -2,7 +2,7 @@ export const projects = [
   {
     id: 0,
     title: "Restaurent",
-    image: "/assets/images/restaurent_logo.webp",
+    image: "/assets/images/r1.webp",
     description: "Un site vitrine élégant pour un restaurant haut de gamme ",
     links: {
       date: "2023",
@@ -11,18 +11,18 @@ export const projects = [
       behance: "",
     },
   },
-  // {
-  //   id: 1,
-  //   title: "CarLux",
-  //   image: "/assets/images/carlux.webp",
-  //   description:
-  //     "Carluxe est une plateforme de location de voitures haut de gamme conçue pour les clients exigeants. Elle propose une sélection raffinée de véhicules de luxe, disponibles à la demande.",
-  //   links: {
-  //     github: "",
-  //     website: "https://urdevupdigital.github.io/rentCar/",
-  //     behance: "",
-  //   },
-  // },
+  {
+    id: 1,
+    title: "IPTV",
+    image: "/assets/images/i1.webp",
+    description:
+      "Une plateforme IPTV moderne proposant un large choix de chaînes de télévision et de contenus en streaming de haute qualité, accessible sur tous vos appareils.",
+    links: {
+      github: "",
+      website: "https://iptv-tv.vercel.app",
+      behance: "",
+    },
+  },
   // {
   //   id: 2,
   //   title: "Dope Sushi",

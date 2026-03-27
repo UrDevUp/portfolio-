@@ -159,10 +159,9 @@ export default function Team() {
                 className="group cursor-pointer"
                 onClick={() => setSelectedMember(member)}
               >
-                <div className="relative flex items-center justify-center h-35 sm:h-48 mb-4">
+                <div className="relative h-36 sm:h-48 w-[240px] sm:w-[280px] mb-4 mx-auto">
                   <motion.div
-                    className="absolute inset-0 rounded-xl shadow-lg scale-90 group-hover:scale-100 transition-all duration-300 opacity-75 group-hover:opacity-100"
-                
+                    className="absolute inset-0 rounded-xl bg-white shadow-lg scale-90 group-hover:scale-100 transition-all duration-300 opacity-75 group-hover:opacity-100"
                     whileHover={{ scale: 1.05 }}
                   />
                   <motion.img
@@ -170,7 +169,8 @@ export default function Team() {
                     src={member.image || "/placeholder.svg"}
                     alt={member.name}
                     crossOrigin="anonymous"
-                    className="relative z-10 w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover border-4 border-white/90 shadow-lg transition-all duration-300 group-hover:border-[#47412B] group-hover:scale-110"
+                    className="absolute z-10 left-1/2 top-1/2 w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover border-4 border-white/90 shadow-lg transition-all duration-300 group-hover:border-[#47412B] group-hover:scale-110"
+                    style={{ translateX: "-50%", translateY: "-50%" }}
                     whileHover={{ rotate: 5, transition: { duration: 0.3 } }}
                   />
                 </div>

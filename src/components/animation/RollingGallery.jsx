@@ -23,11 +23,13 @@ const RollingGallery = ({
   autoplay = false,
   pauseOnHover = false,
   images = [],
+  grayscale = false,
+  logoOnly = false,
 }) => {
   images = images.length > 0 ? images : IMGS;
 
   const [isScreenSizeSm, setIsScreenSizeSm] = useState(
-    window.innerWidth <= 640
+    window.innerWidth <= 640,
   );
   useEffect(() => {
     let lastResizeCall = 0;
@@ -55,7 +57,7 @@ const RollingGallery = ({
 
   const transform = useTransform(
     rotation,
-    (val) => `rotate3d(0,1,0,${val}deg)`
+    (val) => `rotate3d(0,1,0,${val}deg)`,
   );
 
   const startInfiniteSpin = (startAngle) => {
@@ -135,7 +137,8 @@ const RollingGallery = ({
             width: cylinderWidth,
             transformStyle: "preserve-3d",
           }}
-          className="flex min-h-[200px] cursor-grab items-center justify-center [transform-style:preserve-3d]">
+          className="flex min-h-[200px] cursor-grab items-center justify-center [transform-style:preserve-3d]"
+        >
           {images.map((url, i) => (
             <div
               key={i}
@@ -145,19 +148,16 @@ const RollingGallery = ({
                 transform: `rotateY(${
                   (360 / faceCount) * i
                 }deg) translateZ(${radius}px)`,
-              }}>
+              }}
+            >
               <img
                 src={url}
                 alt="gallery"
-                className="pointer-events-none  shrink-0  h-[120px] w-[120px] rounded-[15px] object-cover
-                           transition-all duration-300 ease-out group-hover:scale-105 group-hover:shadow-2xl
-                           sm:h-[120px] sm:w-[120px]
-                           bg-gradient-to-br from-white/10 to-white/5
-                           dark:from-white/10 dark:to-transparent
-                           backdrop-blur-md
-                           border border-white/20 dark:border-white/10
-                           shadow-lg
-                           hover:border-white/30 dark:hover:border-white/20"
+                className={`pointer-events-none shrink-0 h-[120px] w-[120px] transition-all duration-300 ease-out sm:h-[120px] sm:w-[120px] ${
+                  logoOnly
+                    ? "object-contain group-hover:scale-105"
+                    : "rounded-[15px] object-cover group-hover:scale-105 group-hover:shadow-2xl bg-gradient-to-br from-white/10 to-white/5 dark:from-white/10 dark:to-transparent backdrop-blur-md border border-white/20 dark:border-white/10 shadow-lg hover:border-white/30 dark:hover:border-white/20"
+                } ${grayscale ? "grayscale" : ""}`}
               />
             </div>
           ))}

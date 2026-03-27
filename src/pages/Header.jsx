@@ -181,12 +181,7 @@ export default function Header() {
             >
               {t("about")}
             </button>
-            <button
-              onClick={() => scrollToSection("team")}
-              className="text-black/80 dark:text-white/80 hover:text-black dark:hover:text-white transition-colors"
-            >
-              {t("team")}
-            </button>
+
             <button
               onClick={() => scrollToSection("logos")}
               className="text-black/80 dark:text-white/80 hover:text-black dark:hover:text-white transition-colors"
@@ -252,12 +247,7 @@ export default function Header() {
               >
                 {t("about")}
               </button>
-              <button
-                onClick={() => scrollToSection("team")}
-                className="text-black dark:text-white hover:text-black dark:hover:text-white transition-colors text-left"
-              >
-                {t("team")}
-              </button>
+
               <button
                 onClick={() => scrollToSection("logos")}
                 className="text-black dark:text-white hover:text-black dark:hover:text-white transition-colors text-left"

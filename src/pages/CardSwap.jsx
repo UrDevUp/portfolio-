@@ -14,7 +14,7 @@ export const Card = forwardRef(({ customClass, ...rest }, ref) => (
   <div
     ref={ref}
     {...rest}
-    className={`absolute top-1/2 left-1/2 rounded-xl border border-white bg-black [transform-style:preserve-3d] [will-change:transform] [backface-visibility:hidden] ${
+    className={`absolute top-1/2 left-1/2 overflow-hidden rounded-3xl border border-white bg-black [transform-style:preserve-3d] [will-change:transform] [backface-visibility:hidden] ${
       customClass ?? ""
     } ${rest.className ?? ""}`.trim()}
   />
@@ -78,11 +78,11 @@ const CardSwap = ({
   // Memoize children and refs for performance
   const childArr = useMemo(
     () => (children ? Children.toArray(children) : []),
-    [children]
+    [children],
   );
   const refs = useMemo(
     () => childArr.map(() => React.createRef()),
-    [childArr.length]
+    [childArr.length],
   );
 
   // Use useRef for order to match usages
@@ -144,7 +144,7 @@ const CardSwap = ({
             duration: config.durMove,
             ease: config.ease,
           },
-          `promote+=${i * 0.15}`
+          `promote+=${i * 0.15}`,
         );
       });
 
@@ -159,7 +159,7 @@ const CardSwap = ({
             refs.length - 1,
             cardDistance,
             verticalDistance,
-            refs.length
+            refs.length,
           );
 
       tl.addLabel("return", `promote+=${config.durMove * config.returnDelay}`);
@@ -168,7 +168,7 @@ const CardSwap = ({
           gsap.set(elFront, { zIndex: backSlot.zIndex });
         },
         undefined,
-        "return"
+        "return",
       );
       tl.set(elFront, { x: backSlot.x, z: backSlot.z }, "return");
       tl.to(
@@ -178,7 +178,7 @@ const CardSwap = ({
           duration: config.durReturn,
           ease: config.ease,
         },
-        "return"
+        "return",
       );
 
       tl.call(() => {
@@ -230,14 +230,15 @@ const CardSwap = ({
             onCardClick?.(i);
           },
         })
-      : child
+      : child,
   );
 
   return (
     <div
       ref={container}
       className="relative md:-bottom-24 transform left-1/2 translate-x-[-50%] translate-y-[25%] origin-bottom sm:left-auto sm:right-0 sm:translate-x-[-5%] sm:translate-y-[10%] sm:origin-bottom-left perspective-[900px] overflow-visible max-[480px]:scale-[0.55]"
-      style={{ width, height }}>
+      style={{ width, height }}
+    >
       {rendered}
     </div>
   );

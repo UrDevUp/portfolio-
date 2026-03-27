@@ -57,7 +57,7 @@ export default function Hero() {
             thickness={1}
             className="star-border-button--double w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 !text-black dark:!text-black transition-all font-medium text-sm sm:text-base"
           >
-            {t("getInTouch")}
+            {t("viewCatalog")}
           </StarBorderButton>
         </div>
       </div>
