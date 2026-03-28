@@ -203,20 +203,25 @@ export default function Header() {
             </button>
           </nav>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={toggleMenu}
-            className="md:hidden text-black dark:text-white"
-            aria-expanded={isMenuOpen}
-            aria-controls="mobile-menu"
-            aria-label={isMenuOpen ? t("closeMenu") : t("openMenu")}
-          >
-            {isMenuOpen ? (
-              <X size={24} aria-hidden="true" />
-            ) : (
-              <Menu size={24} aria-hidden="true" />
-            )}
-          </button>
+          {/* Mobile Controls */}
+          <div className="md:hidden flex items-center gap-3">
+            <div className="relative" style={{ minWidth: 96, maxWidth: 110 }}>
+              <LanguageSelector />
+            </div>
+            <button
+              onClick={toggleMenu}
+              className="text-black dark:text-white"
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-menu"
+              aria-label={isMenuOpen ? t("closeMenu") : t("openMenu")}
+            >
+              {isMenuOpen ? (
+                <X size={24} aria-hidden="true" />
+              ) : (
+                <Menu size={24} aria-hidden="true" />
+              )}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Navigation */}
@@ -226,14 +231,6 @@ export default function Header() {
             className="md:hidden mt-4 pb-4 border-t border-white/10 pt-4"
             aria-label="Mobile navigation"
           >
-            <div className="flex items-center gap-4 mb-4 justify-between">
-              <div
-                className="relative"
-                style={{ minWidth: 110, maxWidth: 130 }}
-              >
-                <LanguageSelector />
-              </div>
-            </div>
             <div className="flex flex-col space-y-4">
               <button
                 onClick={() => scrollToSection("hero")}

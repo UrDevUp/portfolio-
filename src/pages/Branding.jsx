@@ -3,6 +3,7 @@ import ScrollStack, {
   ScrollStackItem,
 } from "@/components/animation/ScrollStack";
 import { useTranslation } from "react-i18next";
+import Loading from "@/layouts/Loading";
 
 const brandingItems = [
   {
@@ -67,16 +68,19 @@ const Branding = () => {
   const { t } = useTranslation();
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [previewIndex, setPreviewIndex] = useState(0);
+  const [isPreviewLoading, setIsPreviewLoading] = useState(false);
   const activeGalleryItems =
     selectedIndex === null ? [] : brandingItems[selectedIndex].galleryItems;
 
   const openGallery = (index) => {
     setSelectedIndex(index);
     setPreviewIndex(0);
+    setIsPreviewLoading(true);
   };
   const closeGallery = () => {
     setSelectedIndex(null);
     setPreviewIndex(0);
+    setIsPreviewLoading(false);
   };
 
   const goToPrevious = () => {
@@ -107,6 +111,12 @@ const Branding = () => {
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [selectedIndex, activeGalleryItems.length]);
+
+  useEffect(() => {
+    if (selectedIndex !== null) {
+      setIsPreviewLoading(true);
+    }
+  }, [previewIndex, selectedIndex]);
 
   return (
     <section
@@ -166,11 +176,19 @@ const Branding = () => {
             className="w-full max-w-5xl"
             onClick={(event) => event.stopPropagation()}
           >
-            <div className="relative overflow-hidden rounded-2xl border border-white/20 bg-black shadow-[0_30px_80px_rgba(0,0,0,0.45)]">
+            <div className="relative overflow-hidden rounded-2xl border border-white/20 bg-white shadow-[0_30px_80px_rgba(0,0,0,0.45)]">
+              {isPreviewLoading ? (
+                <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/90">
+                  <Loading />
+                </div>
+              ) : null}
+
               <img
                 src={activeGalleryItems[previewIndex].src}
                 alt={activeGalleryItems[previewIndex].alt}
                 className="h-[52vh] w-full object-contain sm:h-[62vh]"
+                onLoad={() => setIsPreviewLoading(false)}
+                onError={() => setIsPreviewLoading(false)}
               />
               <button
                 type="button"

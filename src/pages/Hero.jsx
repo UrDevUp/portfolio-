@@ -6,6 +6,7 @@ import React from "react";
 
 import TextType from "./TextType";
 import StarBorderButton from "../components/ui/StarBorderButton";
+
 export default function Hero() {
   const { t } = useTranslation();
 

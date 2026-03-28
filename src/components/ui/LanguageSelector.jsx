@@ -2,14 +2,8 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { FR, GB, US } from "country-flag-icons/react/3x2";
-import i18next from "i18next";
-import LanguageDetector from "i18next-browser-languagedetector";
 
-// Set English as default language
-i18next.use(LanguageDetector).init({
-  fallbackLng: "en",
-  // ...other i18next config
-});
+const flagMap = { FR, GB, US };
 
 const languages = [
   { code: "fr", label: "Français", flagCode: "FR" },
@@ -19,6 +13,13 @@ const languages = [
 export default function LanguageSelector() {
   const { i18n } = useTranslation();
   const [openLang, setOpenLang] = useState(false);
+
+  const currentCode = (i18n.resolvedLanguage || i18n.language || "en")
+    .split("-")[0]
+    .toLowerCase();
+  const currentLang =
+    languages.find((lang) => lang.code === currentCode) || languages[1];
+  const CurrentFlag = flagMap[currentLang.flagCode];
 
   useEffect(() => {
     document.documentElement.dir = i18n.language === "ar" ? "rtl" : "ltr";
@@ -43,22 +44,23 @@ export default function LanguageSelector() {
       <button
         aria-label="language dropdown menu"
         onClick={() => setOpenLang(!openLang)}
-        className="flex items-center bg-white/80 dark:bg-black/80 border-2 border-black dark:border-[#D5C05C] rounded-full px-2 py-1 text-sm font-semibold shadow focus:outline-none focus:ring-2 focus:ring-[#D5C05C] transition-all duration-200">
+        className="flex items-center bg-white/80 dark:bg-black/80 border-2 border-black dark:border-[#D5C05C] rounded-full px-2 py-1 text-sm font-semibold shadow focus:outline-none focus:ring-2 focus:ring-[#D5C05C] transition-all duration-200"
+      >
         <span className="w-6 h-4">
-          {(() => {
-            const currentLang = languages.find((l) => l.code === i18n.language);
-            const flagMap = { FR, GB, US };
-            const FlagComponent = flagMap[currentLang?.flagCode];
-            return FlagComponent ? (
-              <FlagComponent title={currentLang.label} />
-            ) : null;
-          })()}
+          {CurrentFlag ? (
+            <CurrentFlag className="w-full h-full" title={currentLang.label} />
+          ) : (
+            <span className="inline-flex h-full w-full items-center justify-center text-xs leading-none">
+              🌐
+            </span>
+          )}
         </span>
         <svg
           className="w-4 h-4 ml-1 text-black dark:text-white"
           fill="none"
           stroke="currentColor"
-          viewBox="0 0 24 24">
+          viewBox="0 0 24 24"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -70,7 +72,6 @@ export default function LanguageSelector() {
       {openLang && (
         <div className="absolute right-0 mt-2 w-44 bg-white dark:bg-black rounded-xl shadow-lg border-[0.5px] border-[#D5C05C] z-50">
           {languages.map((lang) => {
-            const flagMap = { FR, GB, US };
             const FlagComponent = flagMap[lang.flagCode];
             return (
               <button
@@ -81,10 +82,16 @@ export default function LanguageSelector() {
                 }}
                 className={`flex items-center gap-2 w-full px-4 py-2 text-left hover:bg-[#D5C05C]/10 transition
             text-black dark:text-white
-            ${i18n.language === lang.code ? "font-bold text-[#D5C05C]" : ""}
-          `}>
+            ${currentCode === lang.code ? "font-bold text-[#D5C05C]" : ""}
+          `}
+              >
                 <span className="w-6 h-4">
-                  {FlagComponent && <FlagComponent title={lang.label} />}
+                  {FlagComponent && (
+                    <FlagComponent
+                      className="w-full h-full"
+                      title={lang.label}
+                    />
+                  )}
                 </span>
                 <span>{lang.label}</span>
               </button>
