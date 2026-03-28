@@ -2,13 +2,26 @@
 import CardSwap, { Card } from "./CardSwap";
 import { useTranslation } from "react-i18next";
 
-import React from "react";
+import React, { useState } from "react";
 
 import TextType from "./TextType";
 import StarBorderButton from "../components/ui/StarBorderButton";
 
+const CARD_SWAP_VIDEOS = [
+  "/Web.mp4",
+  "/Hotel.mp4",
+  "/Immediate.mp4",
+  "/Pallet.mp4",
+  "/Elyse.mp4",
+];
+
 export default function Hero() {
   const { t } = useTranslation();
+  const [readyVideos, setReadyVideos] = useState({});
+
+  const markReady = (index) => {
+    setReadyVideos((prev) => (prev[index] ? prev : { ...prev, [index]: true }));
+  };
 
   return (
     <div
@@ -70,78 +83,37 @@ export default function Hero() {
           delay={5000}
           pauseOnHover={false}
         >
-          <Card>
-            <video
-              src="/Web.mp4"
-              autoPlay
-              preload="auto"
-              will-change="transform"
-              muted
-              loop
-              playsInline
-              width="1280"
-              height="720"
-              className="w-full h-full object-cover"
-            ></video>
-          </Card>
+          {CARD_SWAP_VIDEOS.map((src, index) => (
+            <Card key={`${src}-${index}`}>
+              <div className="relative h-full w-full bg-white dark:bg-zinc-900">
+                {!readyVideos[index] ? (
+                  <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/92 dark:bg-zinc-800/90">
+                    <div className="h-10 w-10 animate-spin rounded-full border-4 border-[#D5C05C]/35 border-t-[#D5C05C]" />
+                  </div>
+                ) : null}
 
-          <Card>
-            <video
-              src="/Hotel.mp4"
-              autoPlay
-              preload="metadata"
-              will-change="transform"
-              muted
-              loop
-              playsInline
-              width="1280"
-              height="720"
-              className="w-full h-full object-cover"
-            ></video>
-          </Card>
-
-          <Card>
-            <video
-              src="/Immediate.mp4"
-              autoPlay
-              preload="metadata"
-              will-change="transform"
-              muted
-              loop
-              playsInline
-              width="1280"
-              height="720"
-              className="w-full h-full object-cover"
-            ></video>
-          </Card>
-          <Card>
-            <video
-              src="/Pallet.mp4"
-              autoPlay
-              preload="metadata"
-              will-change="transform"
-              muted
-              loop
-              playsInline
-              width="1280"
-              height="720"
-              className="w-full h-full object-cover"
-            ></video>
-          </Card>
-          <Card>
-            <video
-              src="/Elyse.mp4"
-              autoPlay
-              preload="metadata"
-              will-change="transform"
-              muted
-              loop
-              playsInline
-              width="1280"
-              height="720"
-              className="w-full h-full object-cover"
-            ></video>
-          </Card>
+                <video
+                  src={src}
+                  autoPlay
+                  preload={index === 0 ? "auto" : "metadata"}
+                  will-change="transform"
+                  muted
+                  loop
+                  playsInline
+                  width="1280"
+                  height="720"
+                  className={
+                    readyVideos[index]
+                      ? "h-full w-full object-cover opacity-100 transition-opacity duration-300"
+                      : "h-full w-full object-cover opacity-0"
+                  }
+                  onLoadedData={() => markReady(index)}
+                  onCanPlay={() => markReady(index)}
+                  onError={() => markReady(index)}
+                ></video>
+              </div>
+            </Card>
+          ))}
         </CardSwap>
       </div>
     </div>
