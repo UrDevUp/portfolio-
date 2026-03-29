@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "./theme";
 import { lazy, Suspense } from "react";
+import SeoHead from "@/components/seo/SeoHead";
 const Home = lazy(() => import("./pages/Home"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const TermsOfService = lazy(() => import("./pages/TermsOfService.jsx"));
@@ -12,6 +13,7 @@ const App = () => {
   return (
     <ThemeProvider>
       <Router>
+        <SeoHead />
         <Suspense
           fallback={
             <div className="flex items-center justify-center min-h-screen dark:bg-black">

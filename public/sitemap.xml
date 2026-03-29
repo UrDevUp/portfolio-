@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://www.urdevup.com/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.urdevup.com/?lang=en" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.urdevup.com/?lang=fr" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.urdevup.com/?lang=en" />
+  </url>
+  <url>
+    <loc>https://www.urdevup.com/PrivacyPolicy</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.urdevup.com/PrivacyPolicy?lang=en" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.urdevup.com/PrivacyPolicy?lang=fr" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.urdevup.com/PrivacyPolicy?lang=en" />
+  </url>
+  <url>
+    <loc>https://www.urdevup.com/terms</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.urdevup.com/terms?lang=en" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.urdevup.com/terms?lang=fr" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.urdevup.com/terms?lang=en" />
+  </url>
+</urlset>

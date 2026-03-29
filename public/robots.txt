@@ -5,4 +5,4 @@ Disallow:
 # Allow all crawlers to access everything
 # Add specific rules below if needed
 
-Sitemap: https://urdevup.com/sitemap.xml
+Sitemap: https://www.urdevup.com/sitemap.xml
