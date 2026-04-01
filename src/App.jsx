@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "./theme";
 import { lazy, Suspense } from "react";
 import SeoHead from "@/components/seo/SeoHead";
+import WhatsAppFloatingButton from "@/components/ui/WhatsAppFloatingButton";
 const Home = lazy(() => import("./pages/Home"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const TermsOfService = lazy(() => import("./pages/TermsOfService.jsx"));
@@ -28,6 +29,7 @@ const App = () => {
             {/* Ajoutez d'autres routes ici */}
           </Routes>
         </Suspense>
+        <WhatsAppFloatingButton />
       </Router>
     </ThemeProvider>
   );
