@@ -3,7 +3,7 @@ import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 
 const WHATSAPP_NUMBER = "212638686444";
 const DEFAULT_MESSAGE =
-  "Hello UrDevUp, I would like to discuss my project requirements.";
+  "Bonjour 👋\nJe viens de visiter votre site UrDevUp et je suis intéressé(e) par la création d’un site web.\nPouvez-vous me donner plus d’informations ?";
 
 export default function WhatsAppFloatingButton() {
   const href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(DEFAULT_MESSAGE)}`;
