@@ -17,18 +17,11 @@ export default function Footer() {
   return (
     <footer
       id="footer"
-      className="relative py-20 px-6 bg-white dark:bg-black border-t border-gray-200 dark:border-white/10 overflow-hidden"
+      className="relative py-20 px-6 bg-white dark:bg-[#131313] border-t border-gray-200 dark:border-white/10 overflow-hidden"
     >
       {/* Aurora animation at the bottom */}
       <div className="absolute left-0 right-0 bottom-0 h-1/2 z-0 pointer-events-none hidden dark:block">
-        <Aurora
-          colorStops={["#FFF1B1", "#D5C05C", "#D5C05C", "#47412B"]}
-          blend={0.3}
-          amplitude={0.5}
-          speed={0.3}
-          direction="bottom"
-          className="w-full h-full"
-        />
+
       </div>
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
@@ -40,13 +33,14 @@ export default function Footer() {
                   <img
                     src="assets/images/logo_dev.webp"
                     alt="UrDevUp logo"
+                    className="dark:brightness-0 dark:invert"
                     loading="lazy"
                     decoding="async"
                   />
                 </span>
               </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-[#000000] to-[#000000] bg-clip-text text-transparent">
-                UrDevUp
+              <span className="font-brand text-2xl font-semibold tracking-[-0.04em] text-white">
+                UrDevUp.
               </span>
             </div>
             <p className="text-black/70 dark:text-white/70 mb-6">

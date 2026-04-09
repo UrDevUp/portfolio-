@@ -11,7 +11,41 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [showNavbar, setShowNavbar] = useState(true);
+  const [activeSection, setActiveSection] = useState("hero");
   const timeoutRef = useRef(null);
+
+  const updateActiveSection = () => {
+    const sectionIds = [
+      "hero",
+      "about",
+      "branding",
+      "logos",
+      "projects",
+      "contact",
+    ];
+    const activationLine = 180;
+
+    if (window.scrollY < 120) {
+      setActiveSection("hero");
+      return;
+    }
+
+    let currentSection = "hero";
+
+    for (const sectionId of sectionIds) {
+      const element = document.getElementById(sectionId);
+      if (!element) {
+        continue;
+      }
+
+      const rect = element.getBoundingClientRect();
+      if (rect.top <= activationLine) {
+        currentSection = sectionId;
+      }
+    }
+
+    setActiveSection(currentSection);
+  };
 
   useEffect(() => {
     let idleCallbackId;
@@ -46,6 +80,7 @@ export default function Header() {
         }
 
         setLastScrollY(currentScrollY);
+        updateActiveSection();
       };
 
       window.addEventListener("scroll", handleScroll, { passive: true });
@@ -75,6 +110,14 @@ export default function Header() {
       }
     };
   }, [lastScrollY]);
+
+  useEffect(() => {
+    updateActiveSection();
+    window.addEventListener("resize", updateActiveSection);
+
+    return () => window.removeEventListener("resize", updateActiveSection);
+  }, []);
+
   const scrollToSection = (sectionId) => {
     if (sectionId === "hero") {
       window.scrollTo({
@@ -93,6 +136,9 @@ export default function Header() {
       let offset = 50;
       if (sectionId === "about") {
         offset = -50;
+      }
+      if (sectionId === "branding") {
+        offset = -30;
       }
 
       const elementPosition =
@@ -118,6 +164,18 @@ export default function Header() {
     }
   };
 
+  const getNavLinkClass = (sectionId, isMobile = false) => {
+    const isActive = activeSection === sectionId;
+    const baseClass = isMobile
+      ? "text-left"
+      : "text-[17px] font-medium tracking-[-0.01em]";
+    const stateClass = isActive
+      ? "text-white underline decoration-white decoration-2 underline-offset-[10px]"
+      : "text-white/70 hover:text-white";
+
+    return `${baseClass} ${stateClass} transition-colors`;
+  };
+
   // Show navbar when menu is opened (mobile)
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -134,78 +192,92 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-black/80 backdrop-blur-md border-b border-black/10 dark:border-white/10 transition-transform duration-300 ${
+      className={`fixed top-4 left-1/2 z-50 w-[calc(100%-1.5rem)] -translate-x-1/2 rounded-[2rem] border border-white/10 bg-[#131313]/90 backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.35)] transition-transform duration-300 md:w-[calc(100%-6rem)] ${
         showNavbar ? "translate-y-0" : "-translate-y-full"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-5 py-4 md:px-6">
+        <div className="flex items-center justify-between md:relative">
           {/* Logo */}
           <div
             className="flex items-center gap-2 space-x-2"
             aria-label="UrDevUp logo"
           >
-            <div className="w-12 h-12 rounded-full flex items-center justify-center">
+            <div className="w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center">
               <span>
                 <img
                   src="assets/images/logo_dev.webp"
                   alt="UrDevUp logo"
+                  className="dark:brightness-0 dark:invert"
                   loading="lazy"
                   decoding="async"
                 />
               </span>
             </div>
             {/* <span className="text-xl font-bold bg-gradient-to-r from-[#D5C05C] to-[#47412B] bg-clip-text text-transparent"> */}
-            <span className="text-xl font-bold bg-gradient-to-r from-[#000000] to-[#000000] bg-clip-text text-transparent">
-              UrDevUp
+            <span className="font-brand text-[1.35rem] md:text-2xl font-semibold tracking-[-0.04em] text-white">
+              UrDevUp.
             </span>
           </div>
 
           {/* Desktop Navigation */}
           <nav
-            className="hidden md:flex items-center space-x-8"
+            className="hidden md:flex items-center space-x-10 xl:space-x-12 md:absolute md:left-1/2 md:-translate-x-1/2"
             aria-label="Primary"
           >
-            <div className="relative" style={{ minWidth: 110, maxWidth: 130 }}>
-              <LanguageSelector />
-            </div>
             <button
               onClick={() => scrollToSection("hero")}
-              className="text-black/80 dark:text-white/80 hover:text-black dark:hover:text-white transition-colors"
+              className={getNavLinkClass("hero")}
             >
               {t("home")}
             </button>
             <button
               onClick={() => scrollToSection("about")}
-              className="text-black/80 dark:text-white/80 hover:text-black dark:hover:text-white transition-colors"
+              className={getNavLinkClass("about")}
             >
               {t("about")}
             </button>
 
             <button
+              onClick={() => scrollToSection("branding")}
+              className={getNavLinkClass("branding")}
+            >
+              {t("branding")}
+            </button>
+
+            <button
               onClick={() => scrollToSection("logos")}
-              className="text-black/80 dark:text-white/80 hover:text-black dark:hover:text-white transition-colors"
+              className={getNavLinkClass("logos")}
             >
               {t("logos")}
             </button>
             <button
               onClick={() => scrollToSection("projects")}
-              className="text-black/80 dark:text-white/80 hover:text-black dark:hover:text-white transition-colors"
+              className={getNavLinkClass("projects")}
             >
               {t("projects")}
             </button>
+          </nav>
+
+          <div className="hidden md:flex items-center gap-6">
+            <div className="relative" style={{ minWidth: 110, maxWidth: 130 }}>
+              <LanguageSelector />
+            </div>
 
             <button
               onClick={() => scrollToSection("contact")}
-              className="bg-black text-white px-6 py-2 rounded-full hover:bg-black/90 dark:bg-white dark:text-black dark:hover:bg-white/90 transition-colors"
+              className="bg-[#131313] text-white px-6 py-2 rounded-full hover:bg-[#151515] dark:bg-white dark:text-black dark:hover:bg-white/90 transition-colors"
             >
               {t("contact")}
             </button>
-          </nav>
+          </div>
 
           {/* Mobile Controls */}
-          <div className="md:hidden flex items-center gap-3">
-            <div className="relative" style={{ minWidth: 96, maxWidth: 110 }}>
+          <div className="md:hidden flex items-center gap-2">
+            <div
+              className="relative mr-0"
+              style={{ minWidth: 84, maxWidth: 96 }}
+            >
               <LanguageSelector />
             </div>
             <button
@@ -234,32 +306,39 @@ export default function Header() {
             <div className="flex flex-col space-y-4">
               <button
                 onClick={() => scrollToSection("hero")}
-                className="text-black dark:text-white hover:text-black dark:hover:text-white transition-colors text-left"
+                className={getNavLinkClass("hero", true)}
               >
                 {t("home")}
               </button>
               <button
                 onClick={() => scrollToSection("about")}
-                className="text-black dark:text-white hover:text-black dark:hover:text-white transition-colors text-left"
+                className={getNavLinkClass("about", true)}
               >
                 {t("about")}
               </button>
 
               <button
+                onClick={() => scrollToSection("branding")}
+                className={getNavLinkClass("branding", true)}
+              >
+                {t("branding")}
+              </button>
+
+              <button
                 onClick={() => scrollToSection("logos")}
-                className="text-black dark:text-white hover:text-black dark:hover:text-white transition-colors text-left"
+                className={getNavLinkClass("logos", true)}
               >
                 {t("logos")}
               </button>
               <button
                 onClick={() => scrollToSection("projects")}
-                className="text-black dark:text-white hover:text-black dark:hover:text-white transition-colors text-left"
+                className={getNavLinkClass("projects", true)}
               >
                 {t("projects")}
               </button>
               <button
                 onClick={() => scrollToSection("contact")}
-                className="bg-white text-black dark:bg-black dark:text-white px-6 py-2 rounded-full hover:bg-white/90 dark:hover:bg-black/90 transition-colors text-center"
+                className="bg-white text-black dark:bg-[#131313] dark:text-white px-6 py-2 rounded-full hover:bg-white/90 dark:hover:bg-[#151515] transition-colors text-center"
               >
                 {t("contact")}
               </button>

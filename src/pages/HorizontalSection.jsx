@@ -1,4 +1,4 @@
-import React , {Suspense} from "react";
+import React, { Suspense } from "react";
 import { useIsMdUp } from "@/hooks/useIsMdUp";
 import Loading from "@/layouts/Loading";
 const About = React.lazy(() => import("@/pages/About"));
@@ -10,14 +10,14 @@ function HorizontalSection() {
   if (isMdUp) {
     // Render horizontal section only on md and up
     return (
-      <section id="horizontal" className="bg-white dark:bg-black">
-        <div className="content bg-white dark:bg-black z-10">
+      <section id="horizontal" className="bg-white dark:bg-[#131313]">
+        <div className="content bg-white dark:bg-[#131313] z-10">
           {/* section 1 */}
           <Suspense fallback={<Loading />}>
             <About />
           </Suspense>
         </div>
-        <div className="content bg-white dark:bg-black z-10">
+        <div className="content bg-white dark:bg-[#131313] z-10">
           {/* section 2 */}
           <Suspense fallback={<Loading />}>
             <Team />

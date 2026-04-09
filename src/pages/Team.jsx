@@ -87,7 +87,7 @@ export default function Team() {
   return (
     <section
       id="team"
-      className="min-h-screen flex items-center justify-center py-12 px-2 sm:py-10 sm:px-6 bg-[#f5f5f5] dark:bg-[#1a1a1a] w-full overflow-hidden"
+      className="min-h-screen flex items-center justify-center py-12 px-2 sm:py-10 sm:px-6 bg-white dark:bg-[#131313] w-full overflow-hidden"
     >
       <div className="w-full max-w-full sm:max-w-6xl mx-auto flex flex-col items-center justify-center">
         <motion.div
@@ -97,7 +97,7 @@ export default function Team() {
           variants={titleVariants}
           className="text-center mb-10 sm:mb-16"
         >
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6 bg-gradient-to-r dark:from-white dark:via-[#000000] dark:to-[#000000] from-black  bg-clip-text text-transparent ">
+          <h2 className="bg-gradient-to-r from-black via-black/80 to-black/60 dark:from-white/20 dark:via-white/80 dark:to-white text-4xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6 bg-clip-text text-transparent">
             {t("meetOurTeam")}
           </h2>
           <motion.p
@@ -161,7 +161,7 @@ export default function Team() {
               >
                 <div className="relative h-36 sm:h-48 w-[240px] sm:w-[280px] mb-4 mx-auto">
                   <motion.div
-                    className="absolute inset-0 rounded-xl bg-white shadow-lg scale-90 group-hover:scale-100 transition-all duration-300 opacity-75 group-hover:opacity-100"
+                    className="absolute inset-0 rounded-2xl border border-black/10 bg-white/45 backdrop-blur-xl shadow-[0_12px_40px_rgba(0,0,0,0.18)] dark:border-white/15 dark:bg-white/10 dark:shadow-[0_16px_46px_rgba(0,0,0,0.42)] scale-90 group-hover:scale-100 transition-all duration-300 opacity-90 group-hover:opacity-100"
                     whileHover={{ scale: 1.05 }}
                   />
                   <motion.img
@@ -169,19 +169,19 @@ export default function Team() {
                     src={member.image || "/placeholder.svg"}
                     alt={member.name}
                     crossOrigin="anonymous"
-                    className="absolute z-10 left-1/2 top-1/2 w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover border-4 border-white/90 shadow-lg transition-all duration-300 group-hover:border-[#47412B] group-hover:scale-110"
+                    className="absolute z-10 left-1/2 top-1/2 w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover border-4 border-white/90 shadow-lg transition-all duration-300 group-hover:border-white/70 group-hover:scale-110"
                     style={{ translateX: "-50%", translateY: "-50%" }}
                     whileHover={{ rotate: 5, transition: { duration: 0.3 } }}
                   />
                 </div>
                 <motion.h3
-                  className="text-xl sm:text-2xl font-bold mb-2 text-center bg-gradient-to-r dark:from-white dark:via-[#D5C05C] dark:to-[#47412B] from-black via-[#D5C05C] to-[#47412B] bg-clip-text text-transparent transition-colors"
+                  className="text-xl sm:text-2xl font-bold mb-2 text-center bg-gradient-to-r from-black via-black/80 to-black/60 dark:from-white/20 dark:via-white/80 dark:to-white bg-clip-text text-transparent transition-colors"
                   whileHover={{ scale: 1.03 }}
                 >
                   {member.name}
                 </motion.h3>
                 <motion.p
-                  className="text-[#82743d] mb-3 sm:mb-4 text-sm sm:text-base text-center font-medium"
+                  className="mb-3 sm:mb-4 text-sm sm:text-base text-center font-medium bg-gradient-to-r from-black via-black/80 to-black/60 dark:from-white/20 dark:via-white/80 dark:to-white bg-clip-text text-transparent"
                   whileHover={{ scale: 1.03 }}
                 >
                   {member.role}
@@ -196,7 +196,7 @@ export default function Team() {
       <AnimatePresence>
         {selectedMember && (
           <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-white backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-[#131313]/80 backdrop-blur-sm"
             onClick={(e) => {
               if (e.target === e.currentTarget) {
                 setSelectedMember(null);
@@ -208,7 +208,7 @@ export default function Team() {
             transition={{ duration: 0.2 }}
           >
             <motion.div
-              className="bg-neutral-900/95 backdrop-blur-xl shadow-2xl max-w-2xl w-full p-8 relative border border-[#d5c15cd7] rounded-2xl"
+              className="bg-neutral-900/95 backdrop-blur-xl shadow-2xl max-w-2xl w-full p-8 relative border border-white/20 rounded-2xl"
               variants={modalVariants}
               initial="hidden"
               animate="visible"
@@ -223,7 +223,7 @@ export default function Team() {
               >
                 <FontAwesomeIcon
                   icon={faCircleXmark}
-                  className="text-[#d5c05c]"
+                  className="text-white/80"
                 />
               </motion.button>
               <motion.div
@@ -235,7 +235,7 @@ export default function Team() {
                 <motion.img
                   src={selectedMember.image || "/placeholder.svg"}
                   alt={selectedMember.name}
-                  className="w-28 h-28 rounded-full object-cover border-4 border-[#D5C05C] shadow-lg mb-2"
+                  className="w-28 h-28 rounded-full object-cover border-4 border-white/70 shadow-lg mb-2"
                   initial={{ scale: 0.8 }}
                   animate={{ scale: 1 }}
                   transition={{ type: "spring", stiffness: 200 }}
@@ -248,7 +248,7 @@ export default function Team() {
                   {selectedMember.name}
                 </motion.h3>
                 <motion.p
-                  className="text-[#D5C05C] text-base font-medium text-center mb-1"
+                  className="text-base font-medium text-center mb-1 bg-gradient-to-r from-black via-black/80 to-black/60 dark:from-white/20 dark:via-white/80 dark:to-white bg-clip-text text-transparent"
                   initial={{ y: 10 }}
                   animate={{ y: 0 }}
                 >
@@ -302,7 +302,7 @@ export default function Team() {
                         selectedMember.skills.map((skill, idx) => (
                           <motion.span
                             key={idx}
-                            className="bg-[#47412B]/40 text-[#D5C05C] cursor-default px-2 py-0.5 rounded-full text-xs font-medium border border-[#D5C05C] shadow-sm"
+                            className="bg-white/5 text-white/80 cursor-default px-2 py-0.5 rounded-full text-xs font-medium border border-white/25 shadow-sm"
                             initial={{ scale: 0 }}
                             animate={{ scale: 1 }}
                             transition={{

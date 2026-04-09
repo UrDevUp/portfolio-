@@ -12,9 +12,9 @@ const LogosClients = () => {
   return (
     <section
       id="logos"
-      className="flex flex-col items-center pt-20 pb-32 bg-[#f5f5f5] dark:bg-black relative h-[80dvh] md:h-screen w-full"
+      className="flex flex-col items-center pt-20 pb-32 bg-white dark:bg-[#131313] relative h-[80dvh] md:h-screen w-full"
     >
-      <h2 className="text-center text-3xl sm:text-4xl md:text-5xl font-bold mb-8 sm:mb-10 bg-gradient-to-r dark:from-white dark:via-[#000000] dark:to-[#000000] from-black bg-clip-text text-transparent">
+      <h2 className="bg-gradient-to-r from-black via-black/80 to-black/60 dark:from-white/20 dark:via-white/80 dark:to-white text-center text-3xl sm:text-4xl md:text-5xl font-bold mb-8 sm:mb-10 bg-clip-text text-transparent">
         {t("sharedTrust")}
         <br />
         {t("measurableResults")}

@@ -3,10 +3,12 @@ import CardSwap, { Card } from "./CardSwap";
 import { useIsMdUp } from "@/hooks/useIsMdUp";
 import { useTranslation } from "react-i18next";
 
-import React, { useState } from "react";
+import React, { lazy, useState, Suspense } from "react";
 
 import TextType from "./TextType";
 import StarBorderButton from "../components/ui/StarBorderButton";
+
+const LightRays = lazy(() => import("@/components/animation/LightRays"));
 
 const CARD_SWAP_VIDEOS = [
   "/Web.mp4",
@@ -21,8 +23,6 @@ export default function Hero() {
   const isMdUp = useIsMdUp();
   const [readyVideos, setReadyVideos] = useState({});
   const heroWords = t("heroTypeWords", { returnObjects: true });
-  const loadedVideosCount = Object.keys(readyVideos).length;
-  const isCardSwapLoading = loadedVideosCount < CARD_SWAP_VIDEOS.length;
 
   const markReady = (index) => {
     setReadyVideos((prev) => (prev[index] ? prev : { ...prev, [index]: true }));
@@ -31,17 +31,33 @@ export default function Hero() {
   return (
     <div
       id="hero"
-      className="dark:bg-black bg-white min-h-dvh flex flex-col-reverse md:flex-row items-center justify-center gap-32 md:gap-0 px-4 py-8 md:py-0"
+      className="relative overflow-hidden dark:bg-[#131313] bg-white min-h-dvh flex flex-col md:flex-row items-center justify-start md:justify-center gap-2 sm:gap-8 md:gap-0 px-4 pt-36 pb-10 md:py-0"
     >
-      <div className="w-full md:w-1/2 md:pl-20">
-        <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6 bg-gradient-to-r dark:from-white dark:via-[#000000] dark:to-[#000000] from-black  bg-clip-text text-transparent text-center md:text-left">
+      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+        <Suspense fallback={null}>
+          <LightRays
+            raysOrigin="top-center"
+            raysColor="#ffffff"
+            raysSpeed={1.5}
+            lightSpread={0.8}
+            rayLength={1.5}
+            followMouse={true}
+            mouseInfluence={0.1}
+            noiseAmount={0.1}
+            distortion={0.05}
+            className="h-full w-full opacity-100 transition-opacity duration-300 md:opacity-100"
+          />
+        </Suspense>
+      </div>
+      <div className="relative z-10 w-full md:w-1/2 md:pl-20 max-w-[620px] md:max-w-none">
+        <h1 className="bg-gradient-to-r from-black via-black/80 to-black/60 dark:from-white/20 dark:via-white/80 dark:to-white text-4xl sm:text-5xl md:text-6xl font-bold leading-none mb-4 sm:mb-6 text-center md:text-left bg-clip-text text-transparent">
           Creative
-          <span className="block sm:inline sm:ml-3 bg-gradient-to-r from-[#000000] to-[#000000] bg-clip-text text-transparent">
+          <span className="font-brand block sm:inline sm:ml-3 bg-gradient-to-r from-black via-black/80 to-black/60 dark:from-white/20 dark:via-white/80 dark:to-white bg-clip-text text-transparent">
             UrDevUp
           </span>
         </h1>
 
-        <div className="text-base sm:text-lg md:text-xl text-black/70 mb-8 sm:mb-12 leading-relaxed text-center md:text-left">
+        <div className="text-base sm:text-lg md:text-xl text-white/75 dark:text-white/75 mb-8 sm:mb-12 leading-relaxed text-center md:text-left">
           {t("heroDescriptionBase")}
           <TextType
             text={heroWords}
@@ -49,7 +65,7 @@ export default function Hero() {
             pauseDuration={1500}
             showCursor={true}
             cursorCharacter="|"
-            textColors={["#000000"]}
+            textColors={["#ffffff"]}
             className="font-semibold"
           />
         </div>
@@ -61,7 +77,7 @@ export default function Hero() {
                 .getElementById("projects")
                 ?.scrollIntoView({ behavior: "smooth" })
             }
-            className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-black dark:bg-white text-white dark:text-black rounded-full hover:bg-black/90 dark:hover:bg-white/90 transition-all transform hover:scale-105 font-medium text-sm sm:text-base"
+            className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-[#151515] dark:bg-white text-white dark:text-black rounded-full hover:bg-[#131313] dark:hover:bg-white/90 transition-all transform hover:scale-105 font-medium text-sm sm:text-base"
           >
             {t("viewWork")}
           </button>
@@ -71,34 +87,23 @@ export default function Hero() {
                 .getElementById("contact")
                 ?.scrollIntoView({ behavior: "smooth" })
             }
-            color="#d4af37"
+            color="#ffffff"
             speed="6s"
             thickness={1}
-            className="star-border-button--double w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 !text-black dark:!text-black transition-all font-medium text-sm sm:text-base"
+            className="star-border-button--double star-border-button--glass w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 !text-white transition-all font-medium text-sm sm:text-base"
           >
             {t("viewCatalog")}
           </StarBorderButton>
         </div>
       </div>
 
-      <div className="w-full md:w-1/2 flex justify-center items-center">
+      <div className="relative z-10 w-full md:w-1/2 flex justify-center items-center">
         <div className="relative">
-          {isCardSwapLoading ? (
-            <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center">
-              <div className="flex items-center gap-3 rounded-full border border-black/10 bg-white/85 px-5 py-3 shadow-lg backdrop-blur-md dark:border-white/10 dark:bg-black/75">
-                <div className="h-5 w-5 animate-spin rounded-full border-2 border-black/20 border-t-black dark:border-white/20 dark:border-t-white" />
-                <span className="text-sm font-medium text-black dark:text-white">
-                  Loading videos
-                </span>
-              </div>
-            </div>
-          ) : null}
-
           <CardSwap
-            width={isMdUp ? 500 : 320}
-            height={isMdUp ? 400 : 260}
-            cardDistance={isMdUp ? 40 : 28}
-            verticalDistance={isMdUp ? 50 : 34}
+            width={isMdUp ? 500 : 360}
+            height={isMdUp ? 400 : 290}
+            cardDistance={isMdUp ? 40 : 26}
+            verticalDistance={isMdUp ? 50 : 30}
             delay={5000}
             pauseOnHover={false}
           >
@@ -108,7 +113,7 @@ export default function Hero() {
                   {!readyVideos[index] ? (
                     <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/90 dark:bg-zinc-800/90">
                       <div className="flex flex-col items-center gap-3">
-                        <div className="h-10 w-10 animate-spin rounded-full border-4 border-[#D5C05C]/35 border-t-[#D5C05C]" />
+                        <div className="h-10 w-10 animate-spin rounded-full border-4 border-[#D5C05C]/35 border-t-[#414141]" />
                         <span className="text-xs font-medium tracking-wide text-black/60 dark:text-white/60">
                           Loading
                         </span>

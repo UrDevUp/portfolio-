@@ -17,7 +17,7 @@ const App = () => {
         <SeoHead />
         <Suspense
           fallback={
-            <div className="flex items-center justify-center min-h-screen dark:bg-black">
+            <div className="flex items-center justify-center min-h-screen dark:bg-[#131313]">
               <Loading />
             </div>
           }

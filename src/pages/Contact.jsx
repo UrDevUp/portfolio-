@@ -3,8 +3,8 @@
 import emailjs from "@emailjs/browser";
 import { useRef, useState, lazy, Suspense } from "react";
 import { useTranslation } from "react-i18next";
+import StarBorderButton from "../components/ui/StarBorderButton";
 
-const LightRays = lazy(() => import("@/components/animation/LightRays"));
 const PopupMessage = lazy(() => import("@/components/ui/PopupMessage"));
 const Loading = lazy(() => import("@/layouts/Loading"));
 
@@ -69,27 +69,11 @@ export default function Contact() {
       </Suspense>
       <section
         id="contact"
-        className="relative bg-[#f5f5f5] dark:bg-black min-h-screen"
+        className="relative bg-white dark:bg-[#131313] min-h-screen"
       >
-        <div className="absolute inset-0 overflow-hidden">
-          <Suspense fallback={null}>
-            <LightRays
-              raysOrigin="top-center"
-              raysColor="#DDBB37"
-              raysSpeed={1.5}
-              lightSpread={0.8}
-              rayLength={1.5}
-              followMouse={true}
-              mouseInfluence={0.1}
-              noiseAmount={0.1}
-              distortion={0.05}
-              className="w-full h-full opacity-0 dark:opacity-100 transition-opacity duration-300"
-            />
-          </Suspense>
-        </div>
         <div className="max-w-4xl mx-auto relative z-10 py-20 px-6">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r dark:from-white dark:via-[#000000] dark:to-[#000000] from-black  bg-clip-text text-transparent">
+            <h2 className="bg-gradient-to-r from-black via-black/80 to-black/60 dark:from-white/20 dark:via-white/80 dark:to-white text-4xl font-bold mb-4 bg-clip-text text-transparent">
               {t("getInTouch")}
             </h2>
             <p className="text-gray-600 dark:text-gray-400 text-lg">
@@ -200,12 +184,15 @@ export default function Contact() {
                     />
                   </div>
 
-                  <button
+                  <StarBorderButton
                     type="submit"
-                    className="w-full bg-black bg-gradient-to-r from-[#000000] to-[#6b6b6b]  hover:bg-black/90 bg-[linear-gradient(135deg,_#D5C05C,_#47412B)] text-white font-medium py-3 px-6 rounded-lg transition-colors"
+                    color="#ffffff"
+                    speed="6s"
+                    thickness={1}
+                    className="star-border-button--double star-border-button--glass w-full px-6 py-3 !text-white font-medium"
                   >
                     {t("sendMessage")}
-                  </button>
+                  </StarBorderButton>
                 </form>
               )}
             </div>

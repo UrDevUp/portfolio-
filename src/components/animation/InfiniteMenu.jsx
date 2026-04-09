@@ -904,7 +904,7 @@ class InfiniteGridMenu {
     let positions = this.instancePositions.map((p) =>
       vec3.transformQuat(vec3.create(), p, this.control.orientation),
     );
-    const scale = 0.1;
+    const scale = 0.12;
     const SCALE_INTENSITY = 0.3;
     positions.forEach((p, ndx) => {
       const s =
@@ -1173,7 +1173,7 @@ export default function InfiniteMenu({ items = [] }) {
             className={`
           select-none
           absolute
-          bg-gradient-to-r dark:from-white dark:via-[#000000] dark:to-[#000000] from-black  bg-clip-text 
+          bg-gradient-to-r dark:from-white dark:via-white dark:to-white from-black  bg-clip-text 
           font-black
           text-2xl
           md:text-4xl
@@ -1262,21 +1262,21 @@ export default function InfiniteMenu({ items = [] }) {
             {activeItem?.links?.github && (
               <div
                 onClick={() => window.open(activeItem.links.github, "_blank")}
-                className="w-[40px] h-[40px] grid place-items-center bg-black/65 dark:bg-white/10 backdrop-blur-md border-[2px] border-white/20 rounded-full cursor-pointer hover:scale-110 hover:bg-black/75 dark:hover:bg-white/20 transition-all duration-300 shadow-lg"
+                className="w-[40px] h-[40px] grid place-items-center bg-[#151515]/65 dark:bg-white/10 backdrop-blur-md border-[2px] border-white/20 rounded-full cursor-pointer hover:scale-110 hover:bg-[#131313]/75 dark:hover:bg-white/20 transition-all duration-300 shadow-lg"
                 dangerouslySetInnerHTML={{ __html: icons.github }}
               />
             )}
             {activeItem?.links?.website && (
               <div
                 onClick={() => window.open(activeItem.links.website, "_blank")}
-                className="w-[40px] h-[40px] grid place-items-center bg-black/65 dark:bg-white/10 backdrop-blur-md border-[2px] border-white/20 rounded-full cursor-pointer hover:scale-110 hover:bg-black/75 dark:hover:bg-white/20 transition-all duration-300 shadow-lg"
+                className="w-[40px] h-[40px] grid place-items-center bg-[#151515]/65 dark:bg-white/10 backdrop-blur-md border-[2px] border-white/20 rounded-full cursor-pointer hover:scale-110 hover:bg-[#131313]/75 dark:hover:bg-white/20 transition-all duration-300 shadow-lg"
                 dangerouslySetInnerHTML={{ __html: icons.website }}
               />
             )}
             {activeItem?.links?.behance && (
               <div
                 onClick={() => window.open(activeItem.links.behance, "_blank")}
-                className="w-[40px] h-[40px] grid place-items-center bg-black/65 dark:bg-white/10 backdrop-blur-md border-[2px] border-white/20 rounded-full cursor-pointer hover:scale-110 hover:bg-black/75 dark:hover:bg-white/20 transition-all duration-300 shadow-lg"
+                className="w-[40px] h-[40px] grid place-items-center bg-[#151515]/65 dark:bg-white/10 backdrop-blur-md border-[2px] border-white/20 rounded-full cursor-pointer hover:scale-110 hover:bg-[#131313]/75 dark:hover:bg-white/20 transition-all duration-300 shadow-lg"
                 dangerouslySetInnerHTML={{ __html: icons.behance }}
               />
             )}

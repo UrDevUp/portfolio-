@@ -56,20 +56,21 @@ const themes = {
 const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
-  const theme = "light";
+  const theme = "dark";
 
-  // Force light mode only
+  // Force dark mode globally
   React.useEffect(() => {
     const html = document.documentElement;
-    html.classList.remove("dark");
-    localStorage.setItem("theme", "light");
+    html.classList.add("dark");
+    html.setAttribute("data-theme", "dark");
+    localStorage.setItem("theme", "dark");
   }, []);
 
   const toggleTheme = () => {
-    // No-op: light theme only
+    // No-op: dark theme only
   };
 
-  const currentTheme = themes.light;
+  const currentTheme = themes.dark;
 
   return (
     <ThemeContext.Provider

@@ -51,7 +51,7 @@ const Projets = () => {
   return (
     <section
       id="projects"
-      className="min-h-[120vh] sm:min-h-screen py-12 px-2 sm:py-20 sm:px-6  w-full z-10 overflow-hidden"
+      className="min-h-[120vh] sm:min-h-screen py-12 px-2 sm:py-20 sm:px-6 w-full z-10 overflow-hidden bg-white dark:bg-[#131313]"
     >
       <motion.div
         className="relative z-10 pt-12 sm:pt-20 pb-8 px-6"
@@ -66,7 +66,7 @@ const Projets = () => {
         >
           <motion.h2
             variants={headingItemVariant}
-            className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r dark:from-white dark:via-[#000000] dark:to-[#000000] from-black  bg-clip-text text-transparent  "
+            className="bg-gradient-to-r from-black via-black/80 to-black/60 dark:from-white/20 dark:via-white/80 dark:to-white text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent"
           >
             {t("ourProjects")}
           </motion.h2>

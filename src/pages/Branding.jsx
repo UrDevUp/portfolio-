@@ -121,11 +121,11 @@ const Branding = () => {
   return (
     <section
       id="branding"
-      className="relative w-full overflow-hidden bg-[#f5f5f5] px-4 pb-24 pt-14 text-black sm:px-6 md:px-10"
+      className="relative w-full overflow-hidden bg-white px-4 pb-24 pt-14 text-black dark:bg-[#131313] sm:px-6 md:px-10"
     >
       <div className="mx-auto w-full max-w-5xl">
         <div className="mb-10 flex items-center justify-center md:mb-14">
-          <h2 className="text-center text-4xl sm:text-5xl md:text-6xl font-bold mb-8 sm:mb-10 bg-gradient-to-r dark:from-white dark:via-[#000000] dark:to-[#000000] from-black bg-clip-text text-transparent">
+          <h2 className="bg-gradient-to-r from-black via-black/80 to-black/60 dark:from-white/20 dark:via-white/80 dark:to-white text-center text-4xl sm:text-5xl md:text-6xl font-bold mb-8 sm:mb-10 bg-clip-text text-transparent">
             {t("branding")}
           </h2>
         </div>
@@ -167,7 +167,7 @@ const Branding = () => {
 
       {selectedIndex !== null && activeGalleryItems.length > 0 ? (
         <div
-          className="fixed inset-0 z-[120] flex items-center justify-center bg-black/85 p-4"
+          className="fixed inset-0 z-[120] flex items-center justify-center bg-[#131313]/85 p-4"
           role="dialog"
           aria-modal="true"
           onClick={closeGallery}
@@ -176,9 +176,9 @@ const Branding = () => {
             className="w-full max-w-5xl"
             onClick={(event) => event.stopPropagation()}
           >
-            <div className="relative overflow-hidden rounded-2xl border border-white/20 bg-white shadow-[0_30px_80px_rgba(0,0,0,0.45)]">
+            <div className="relative overflow-hidden rounded-2xl border border-white/20 bg-[#151515] shadow-[0_30px_80px_rgba(0,0,0,0.45)]">
               {isPreviewLoading ? (
-                <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/90">
+                <div className="absolute inset-0 z-10 flex items-center justify-center bg-[#151515]/90">
                   <Loading />
                 </div>
               ) : null}

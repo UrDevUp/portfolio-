@@ -23,7 +23,7 @@ const FirstVisitIntro = ({ onComplete }) => {
 
   return (
     <div
-      className={`fixed inset-0 z-[200] flex items-center justify-center bg-black transition-all duration-700 ease-out ${
+      className={`fixed inset-0 z-[200] flex items-center justify-center bg-[#131313] transition-all duration-700 ease-out ${
         isExiting ? "-translate-y-full opacity-0" : "translate-y-0 opacity-100"
       }`}
       role="dialog"
@@ -38,7 +38,7 @@ const FirstVisitIntro = ({ onComplete }) => {
           className="first-visit-logo-enter h-20 w-20 sm:h-24 sm:w-24"
           draggable={false}
         />
-        <p className="first-visit-logo-enter text-2xl font-bold tracking-[0.35em] text-white sm:text-3xl">
+        <p className="font-brand first-visit-logo-enter text-2xl font-bold tracking-[0.35em] text-white sm:text-3xl">
           URDEVUP
         </p>
       </div>

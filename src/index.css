@@ -16,6 +16,10 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+
+  .font-brand {
+    font-family: "MuseoModerno", sans-serif;
+  }
 }
 
 @layer base {
@@ -55,24 +59,24 @@ body {
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
   .dark {
-    --background: 0 0% 3.9%;
+    --background: 0 0% 7.5%;
     --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
+    --card: 0 0% 9%;
     --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
+    --popover: 0 0% 9%;
     --popover-foreground: 0 0% 98%;
     --primary: 0 0% 98%;
     --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
+    --secondary: 0 0% 9%;
     --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
+    --muted: 0 0% 9%;
     --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
+    --accent: 0 0% 9%;
     --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
+    --border: 0 0% 16%;
+    --input: 0 0% 16%;
     --ring: 0 0% 83.1%;
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
@@ -120,7 +124,7 @@ body {
 
 /* For dark mode support */
 [data-theme="dark"] {
-  --cursor-color: #000000;
+  --cursor-color: #ffffff;
 }
 
 ::selection {
@@ -211,8 +215,47 @@ html.dark ::selection {
   );
 }
 
+.star-border-button--glass {
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 10px 30px rgba(0, 0, 0, 0.18);
+}
+
+.star-border-button--glass::after {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.star-border-button--glass:hover::after {
+  background: rgba(255, 255, 255, 0.14);
+}
+
 @keyframes star-border-spin {
   to {
     transform: rotate(360deg);
   }
+}
+
+/* Ensure text remains white in global dark theme, even when legacy light classes are present */
+html.dark .text-black,
+html.dark .\!text-black,
+html.dark .text-gray-800,
+html.dark .text-gray-700,
+html.dark .text-gray-600,
+html.dark .text-neutral-700 {
+  color: #ffffff !important;
+}
+
+html.dark .text-black\/80 {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+html.dark .text-black\/70 {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+html.dark .text-black\/60 {
+  color: rgba(255, 255, 255, 0.6) !important;
 }

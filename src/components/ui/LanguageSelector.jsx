@@ -44,7 +44,7 @@ export default function LanguageSelector() {
       <button
         aria-label="language dropdown menu"
         onClick={() => setOpenLang(!openLang)}
-        className="flex items-center bg-white/80 dark:bg-black/80 border-2 border-black dark:border-[#D5C05C] rounded-full px-2 py-1 text-sm font-semibold shadow focus:outline-none focus:ring-2 focus:ring-[#D5C05C] transition-all duration-200"
+        className="flex items-center bg-white/80 dark:bg-[#151515]/80 border-2 border-black dark:border-[#2d2d2d] rounded-full px-2 py-1 text-sm font-semibold shadow focus:outline-none focus:ring-2 focus:ring-[#282828] transition-all duration-200"
       >
         <span className="w-6 h-4">
           {CurrentFlag ? (
@@ -70,7 +70,7 @@ export default function LanguageSelector() {
         </svg>
       </button>
       {openLang && (
-        <div className="absolute right-0 mt-2 w-44 bg-white dark:bg-black rounded-xl shadow-lg border-[0.5px] border-[#D5C05C] z-50">
+        <div className="absolute right-0 mt-2 w-44 bg-white dark:bg-[#151515] rounded-xl shadow-lg border-[1px] border-[#323232] z-50">
           {languages.map((lang) => {
             const FlagComponent = flagMap[lang.flagCode];
             return (
@@ -82,7 +82,7 @@ export default function LanguageSelector() {
                 }}
                 className={`flex items-center gap-2 w-full px-4 py-2 text-left hover:bg-[#D5C05C]/10 transition
             text-black dark:text-white
-            ${currentCode === lang.code ? "font-bold text-[#D5C05C]" : ""}
+            ${currentCode === lang.code ? "font-bold text-[#303030]" : ""}
           `}
               >
                 <span className="w-6 h-4">

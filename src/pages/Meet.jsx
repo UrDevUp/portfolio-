@@ -39,7 +39,7 @@ export default function Meet() {
         }}
       >
         <h1
-          className="text-center mb-4 bg-gradient-to-r dark:from-white dark:via-[#000000] dark:to-[#000000] from-black bg-clip-text text-transparent"
+          className="bg-gradient-to-r from-black via-black/80 to-black/60 dark:from-white/20 dark:via-white/80 dark:to-white text-center mb-4 bg-clip-text text-transparent"
           style={{ fontSize: "2.5rem", fontWeight: 700 }}
         >
           {t("meetTitle")}
@@ -58,7 +58,7 @@ export default function Meet() {
             allow="camera; microphone; fullscreen"
           ></iframe>
         ) : (
-          <div className="mx-auto flex min-h-[700px] w-full max-w-5xl items-center justify-center rounded-xl border border-black/10 bg-black/5 p-8 text-center text-black dark:border-white/10 dark:bg-white/5 dark:text-white">
+          <div className="mx-auto flex min-h-[700px] w-full max-w-5xl items-center justify-center rounded-xl border border-black/10 bg-[#151515]/5 p-8 text-center text-black dark:border-white/10 dark:bg-[#151515]/70 dark:text-white">
             <div className="max-w-xl space-y-4">
               <p className="text-lg font-medium">
                 The booking widget will load when you reach this section.

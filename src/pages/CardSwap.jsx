@@ -14,7 +14,7 @@ export const Card = forwardRef(({ customClass, ...rest }, ref) => (
   <div
     ref={ref}
     {...rest}
-    className={`absolute top-1/2 left-1/2 overflow-hidden rounded-3xl border border-white bg-black [transform-style:preserve-3d] [will-change:transform] [backface-visibility:hidden] ${
+    className={`absolute top-1/2 left-1/2 overflow-hidden rounded-3xl border border-white bg-[#151515] [transform-style:preserve-3d] [will-change:transform] [backface-visibility:hidden] ${
       customClass ?? ""
     } ${rest.className ?? ""}`.trim()}
   />
