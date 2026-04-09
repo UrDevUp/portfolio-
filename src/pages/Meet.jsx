@@ -34,7 +34,7 @@ export default function Meet() {
     <div ref={containerRef} className="min-h-screen text-white">
       <div
         style={{
-          backgroundColor: themeName === "dark" ? "#000000" : "#ffffff",
+          backgroundColor: themeName === "dark" ? "#131313" : "#ffffff",
           padding: "20px",
         }}
       >
