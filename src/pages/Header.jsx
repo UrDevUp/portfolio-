@@ -9,10 +9,12 @@ import { useTranslation } from "react-i18next";
 export default function Header() {
   const { t } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [lastScrollY, setLastScrollY] = useState(0);
   const [showNavbar, setShowNavbar] = useState(true);
   const [activeSection, setActiveSection] = useState("hero");
   const timeoutRef = useRef(null);
+  const lastScrollYRef = useRef(0);
+  const tickingRef = useRef(false);
+  const rafIdRef = useRef(null);
 
   const updateActiveSection = () => {
     const sectionIds = [
@@ -48,68 +50,50 @@ export default function Header() {
   };
 
   useEffect(() => {
-    let idleCallbackId;
-    function setupScrollListener() {
-      const handleScroll = () => {
+    const handleScroll = () => {
+      if (tickingRef.current) return;
+
+      tickingRef.current = true;
+      rafIdRef.current = window.requestAnimationFrame(() => {
         const currentScrollY = window.scrollY;
 
-        // Clear any existing timeout
         if (timeoutRef.current) {
           clearTimeout(timeoutRef.current);
           timeoutRef.current = null;
         }
 
-        // Never hide navbar when at very top (scroll position 0)
         if (currentScrollY === 0) {
           setShowNavbar(true);
-          return;
+        } else {
+          timeoutRef.current = setTimeout(() => {
+            setShowNavbar(false);
+          }, 3000);
+
+          if (currentScrollY > lastScrollYRef.current && currentScrollY > 100) {
+            setShowNavbar(false);
+          } else if (currentScrollY < lastScrollYRef.current) {
+            setShowNavbar(true);
+          }
         }
 
-        // Set timeout to hide navbar after 3s when not at top
-        timeoutRef.current = setTimeout(() => {
-          setShowNavbar(false);
-        }, 3000);
-
-        // Handle scroll direction when not at top
-        if (currentScrollY > lastScrollY && currentScrollY > 100) {
-          // Scrolling down
-          setShowNavbar(false);
-        } else if (currentScrollY < lastScrollY) {
-          // Scrolling up
-          setShowNavbar(true);
-        }
-
-        setLastScrollY(currentScrollY);
+        lastScrollYRef.current = currentScrollY;
         updateActiveSection();
-      };
+        tickingRef.current = false;
+      });
+    };
 
-      window.addEventListener("scroll", handleScroll, { passive: true });
-
-      return () => {
-        window.removeEventListener("scroll", handleScroll);
-        if (timeoutRef.current) {
-          clearTimeout(timeoutRef.current);
-        }
-      };
-    }
-
-    if ("requestIdleCallback" in window) {
-      idleCallbackId = window.requestIdleCallback(setupScrollListener);
-    } else {
-      setTimeout(setupScrollListener, 0);
-    }
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
-      if ("cancelIdleCallback" in window && idleCallbackId) {
-        window.cancelIdleCallback(idleCallbackId);
+      window.removeEventListener("scroll", handleScroll);
+      if (rafIdRef.current) {
+        window.cancelAnimationFrame(rafIdRef.current);
       }
-      // Remove scroll listener if it was set
-      window.removeEventListener("scroll", setupScrollListener);
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
     };
-  }, [lastScrollY]);
+  }, []);
 
   useEffect(() => {
     updateActiveSection();

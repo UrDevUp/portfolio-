@@ -52,6 +52,7 @@ const CardSwap = ({
   delay = 5000,
   pauseOnHover = false,
   onCardClick,
+  onOrderChange,
   skewAmount = 6,
   easing = "elastic",
   children,
@@ -183,9 +184,11 @@ const CardSwap = ({
 
       tl.call(() => {
         order.current = [...rest, front];
+        onOrderChange?.(order.current);
       });
     };
 
+    onOrderChange?.(order.current);
     swap();
     intervalRef.current = window.setInterval(swap, delay);
 
@@ -214,6 +217,7 @@ const CardSwap = ({
     verticalDistance,
     delay,
     pauseOnHover,
+    onOrderChange,
     skewAmount,
     easing,
     refs.length,

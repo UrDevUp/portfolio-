@@ -24,39 +24,44 @@ export default function Home() {
   const { themeName } = useTheme();
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+    const initHorizontalScroll = () => {
+      gsap.registerPlugin(ScrollTrigger);
 
-    // Only run horizontal scroll logic on md and up
-    if (window.innerWidth >= 768) {
-      const contents = gsap.utils.toArray("#horizontal .content ");
-      const horizontal = document.getElementById("horizontal");
-      if (horizontal && contents.length > 0) {
-        horizontal.style.width = `${100 * contents.length}vw`;
-        gsap.to(contents, {
-          xPercent: -100 * (contents.length - 1),
-          ease: "none",
-          scrollTrigger: {
-            trigger: "#horizontal",
-            pin: true,
-            scrub: 0.3,
-            snap: 1 / (contents.length - 1),
-            start: "top top",
-            end: () => `+=${window.innerWidth * contents.length}`,
-          },
-        });
-      }
-    }
-
-    const disableMiddleClickScroll = (event) => {
-      if (event.button === 1) {
-        event.preventDefault();
+      // Only run horizontal scroll logic on md and up
+      if (window.innerWidth >= 768) {
+        const contents = gsap.utils.toArray("#horizontal .content ");
+        const horizontal = document.getElementById("horizontal");
+        if (horizontal && contents.length > 0) {
+          horizontal.style.width = `${100 * contents.length}vw`;
+          gsap.to(contents, {
+            xPercent: -100 * (contents.length - 1),
+            ease: "none",
+            scrollTrigger: {
+              trigger: "#horizontal",
+              pin: true,
+              scrub: 0.3,
+              snap: 1 / (contents.length - 1),
+              start: "top top",
+              end: () => `+=${window.innerWidth * contents.length}`,
+            },
+          });
+        }
       }
     };
 
-    window.addEventListener("mousedown", disableMiddleClickScroll);
+    let idleId;
+    if ("requestIdleCallback" in window) {
+      idleId = window.requestIdleCallback(initHorizontalScroll, {
+        timeout: 1200,
+      });
+    } else {
+      window.setTimeout(initHorizontalScroll, 0);
+    }
 
     return () => {
-      window.removeEventListener("mousedown", disableMiddleClickScroll);
+      if (idleId && "cancelIdleCallback" in window) {
+        window.cancelIdleCallback(idleId);
+      }
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, []);

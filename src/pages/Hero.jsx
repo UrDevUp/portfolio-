@@ -3,7 +3,7 @@ import CardSwap, { Card } from "./CardSwap";
 import { useIsMdUp } from "@/hooks/useIsMdUp";
 import { useTranslation } from "react-i18next";
 
-import React, { lazy, useState, Suspense } from "react";
+import React, { lazy, useMemo, useState, Suspense } from "react";
 
 import TextType from "./TextType";
 import StarBorderButton from "../components/ui/StarBorderButton";
@@ -22,7 +22,17 @@ export default function Hero() {
   const { t } = useTranslation();
   const isMdUp = useIsMdUp();
   const [readyVideos, setReadyVideos] = useState({});
+  const [activeVideoIndex, setActiveVideoIndex] = useState(0);
   const heroWords = t("heroTypeWords", { returnObjects: true });
+  const isLowPowerDevice = useMemo(() => {
+    if (typeof window === "undefined") return false;
+    const prefersReducedMotion = window.matchMedia?.(
+      "(prefers-reduced-motion: reduce)",
+    )?.matches;
+    const saveData = navigator.connection?.saveData;
+    const lowCpu = (navigator.hardwareConcurrency || 8) <= 4;
+    return !isMdUp || prefersReducedMotion || saveData || lowCpu;
+  }, [isMdUp]);
 
   const markReady = (index) => {
     setReadyVideos((prev) => (prev[index] ? prev : { ...prev, [index]: true }));
@@ -34,20 +44,22 @@ export default function Hero() {
       className="relative overflow-hidden dark:bg-[#131313] bg-white min-h-dvh flex flex-col md:flex-row items-center justify-start md:justify-center gap-2 sm:gap-8 md:gap-0 px-4 pt-36 pb-10 md:py-0"
     >
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-        <Suspense fallback={null}>
-          <LightRays
-            raysOrigin="top-center"
-            raysColor="#ffffff"
-            raysSpeed={1.5}
-            lightSpread={0.8}
-            rayLength={1.5}
-            followMouse={true}
-            mouseInfluence={0.1}
-            noiseAmount={0.1}
-            distortion={0.05}
-            className="h-full w-full opacity-100 transition-opacity duration-300 md:opacity-100"
-          />
-        </Suspense>
+        {!isLowPowerDevice ? (
+          <Suspense fallback={null}>
+            <LightRays
+              raysOrigin="top-center"
+              raysColor="#ffffff"
+              raysSpeed={1.5}
+              lightSpread={0.8}
+              rayLength={1.5}
+              followMouse={true}
+              mouseInfluence={0.1}
+              noiseAmount={0.1}
+              distortion={0.05}
+              className="h-full w-full opacity-100 transition-opacity duration-300 md:opacity-100"
+            />
+          </Suspense>
+        ) : null}
       </div>
       <div className="relative z-10 w-full md:w-1/2 md:pl-20 max-w-[620px] md:max-w-none">
         <h1 className="bg-gradient-to-r from-black via-black/80 to-black/60 dark:from-white/20 dark:via-white/80 dark:to-white text-4xl sm:text-5xl md:text-6xl font-bold leading-none mb-4 sm:mb-6 text-center md:text-left bg-clip-text text-transparent">
@@ -98,53 +110,86 @@ export default function Hero() {
       </div>
 
       <div className="relative z-10 w-full md:w-1/2 flex justify-center items-center">
-        <div className="relative">
-          <CardSwap
-            width={isMdUp ? 500 : 360}
-            height={isMdUp ? 400 : 290}
-            cardDistance={isMdUp ? 40 : 26}
-            verticalDistance={isMdUp ? 50 : 30}
-            delay={5000}
-            pauseOnHover={false}
-          >
-            {CARD_SWAP_VIDEOS.map((src, index) => (
-              <Card key={`${src}-${index}`}>
-                <div className="relative h-full w-full bg-white dark:bg-zinc-900">
-                  {!readyVideos[index] ? (
-                    <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/90 dark:bg-zinc-800/90">
-                      <div className="flex flex-col items-center gap-3">
-                        <div className="h-10 w-10 animate-spin rounded-full border-4 border-[#D5C05C]/35 border-t-[#414141]" />
-                        <span className="text-xs font-medium tracking-wide text-black/60 dark:text-white/60">
-                          Loading
-                        </span>
-                      </div>
-                    </div>
-                  ) : null}
-
-                  <video
-                    src={src}
-                    autoPlay
-                    preload={index === 0 ? "auto" : "metadata"}
-                    will-change="transform"
-                    muted
-                    loop
-                    playsInline
-                    width="1280"
-                    height="720"
-                    className={
-                      readyVideos[index]
-                        ? "h-full w-full object-cover opacity-100 transition-opacity duration-300"
-                        : "h-full w-full object-cover opacity-0"
-                    }
-                    onLoadedData={() => markReady(index)}
-                    onCanPlay={() => markReady(index)}
-                    onError={() => markReady(index)}
-                  ></video>
+        {isLowPowerDevice ? (
+          <div className="relative h-[290px] w-[360px] overflow-hidden rounded-3xl border border-white bg-[#151515]">
+            {!readyVideos[0] ? (
+              <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/90 dark:bg-zinc-800/90">
+                <div className="flex flex-col items-center gap-3">
+                  <div className="h-10 w-10 animate-spin rounded-full border-4 border-[#D5C05C]/35 border-t-[#414141]" />
+                  <span className="text-xs font-medium tracking-wide text-black/60 dark:text-white/60">
+                    Loading
+                  </span>
                 </div>
-              </Card>
-            ))}
-          </CardSwap>
-        </div>
+              </div>
+            ) : null}
+            <video
+              src={CARD_SWAP_VIDEOS[0]}
+              autoPlay
+              preload="metadata"
+              muted
+              loop
+              playsInline
+              width="1280"
+              height="720"
+              className={
+                readyVideos[0]
+                  ? "h-full w-full object-cover opacity-100 transition-opacity duration-300"
+                  : "h-full w-full object-cover opacity-0"
+              }
+              onLoadedData={() => markReady(0)}
+              onCanPlay={() => markReady(0)}
+              onError={() => markReady(0)}
+            />
+          </div>
+        ) : (
+          <div className="relative">
+            <CardSwap
+              width={isMdUp ? 500 : 360}
+              height={isMdUp ? 400 : 290}
+              cardDistance={isMdUp ? 40 : 26}
+              verticalDistance={isMdUp ? 50 : 30}
+              delay={5000}
+              pauseOnHover={false}
+              onOrderChange={(order) => setActiveVideoIndex(order[0] ?? 0)}
+            >
+              {CARD_SWAP_VIDEOS.map((src, index) => (
+                <Card key={`${src}-${index}`}>
+                  <div className="relative h-full w-full bg-white dark:bg-zinc-900">
+                    {!readyVideos[index] ? (
+                      <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/90 dark:bg-zinc-800/90">
+                        <div className="flex flex-col items-center gap-3">
+                          <div className="h-10 w-10 animate-spin rounded-full border-4 border-[#D5C05C]/35 border-t-[#414141]" />
+                          <span className="text-xs font-medium tracking-wide text-black/60 dark:text-white/60">
+                            Loading
+                          </span>
+                        </div>
+                      </div>
+                    ) : null}
+
+                    <video
+                      src={src}
+                      autoPlay={activeVideoIndex === index}
+                      preload={index === 0 ? "metadata" : "none"}
+                      muted
+                      loop={activeVideoIndex === index}
+                      playsInline
+                      width="1280"
+                      height="720"
+                      className={
+                        readyVideos[index]
+                          ? "h-full w-full object-cover opacity-100 transition-opacity duration-300"
+                          : "h-full w-full object-cover opacity-0"
+                      }
+                      onLoadedData={() => markReady(index)}
+                      onCanPlay={() => markReady(index)}
+                      onError={() => markReady(index)}
+                    ></video>
+                  </div>
+                </Card>
+              ))}
+            </CardSwap>
+          </div>
+        )}
       </div>
     </div>
   );
