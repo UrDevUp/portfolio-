@@ -30,22 +30,14 @@ export default defineConfig({
           if (id.includes("@fortawesome")) return "vendor_icons_fa";
           if (id.includes("framer-motion")) return "vendor_motion";
           if (id.includes("i18next")) return "vendor_i18n";
-          if (id.includes("react-router-dom")) return "vendor_router";
           if (id.includes("ogl") || id.includes("animejs")) return "vendor_fx";
           return "vendor";
         },
       },
     },
-    minify: "terser",
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-        passes: 2,
-      },
-      format: {
-        comments: false,
-      },
+    minify: "esbuild",
+    esbuild: {
+      drop: ["console", "debugger"],
     },
   },
 });
