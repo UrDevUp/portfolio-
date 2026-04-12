@@ -41,45 +41,23 @@
       name="apple-mobile-web-app-status-bar-style"
       content="black-translucent" />
     <title>UrDevUp</title>
-    <!-- Preload and async load Google Fonts -->
-    <link
-      rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=Italiana&family=Libertinus+Mono&display=swap" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Italiana&family=Libertinus+Mono&display=swap"
-      rel="stylesheet"
-      media="print"
-      onload="this.media='all'" />
-    <noscript>
-      <link
-        href="https://fonts.googleapis.com/css2?family=Italiana&family=Libertinus+Mono&display=swap"
-        rel="stylesheet" />
-    </noscript>
-    <!-- Preload and async load cdnfonts.com font as example -->
-    <link
-      rel="preload"
-      as="style"
-      href="https://www.cdnfonts.com/css/thegoodmonolith" />
-    <link
-      href="https://www.cdnfonts.com/css/thegoodmonolith"
-      rel="stylesheet"
-      media="print"
-      onload="this.media='all'" />
-    <noscript>
-      <link
-        href="https://www.cdnfonts.com/css/thegoodmonolith"
-        rel="stylesheet" />
-    </noscript>
-    <!-- Fonts for LOGOFOLIO title styling -->
+    <!-- Brand font loaded asynchronously to avoid render-blocking -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@400;500;600;700&display=swap"
-      rel="stylesheet" />
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@400;500;600;700&display=swap" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Anton&family=Jim+Nightshade&display=swap"
-      rel="stylesheet" />
+      href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'" />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+    </noscript>
   </head>
   <body>
     <div id="root"></div>

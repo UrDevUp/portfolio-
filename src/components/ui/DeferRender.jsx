@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 export default function DeferRender({
   children,
   placeholder = null,
-  rootMargin = "300px 0px",
+  rootMargin = "160px 0px",
 }) {
   const [isVisible, setIsVisible] = useState(false);
   const holderRef = useRef(null);

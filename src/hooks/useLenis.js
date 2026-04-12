@@ -4,7 +4,13 @@ import Lenis from "@studio-freight/lenis";
 
 export default function useLenis() {
   useEffect(() => {
-    if (window.innerWidth < 768) {
+    const prefersReducedMotion = window.matchMedia?.(
+      "(prefers-reduced-motion: reduce)",
+    )?.matches;
+    const saveData = navigator.connection?.saveData;
+    const lowCpu = (navigator.hardwareConcurrency || 8) <= 4;
+
+    if (window.innerWidth < 1024 || prefersReducedMotion || saveData || lowCpu) {
       return undefined;
     }
 
@@ -15,14 +21,31 @@ export default function useLenis() {
       smoothTouch: false,
     });
 
+    let rafId = null;
+
     function raf(time) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     }
 
-    requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
+
+    const handleVisibility = () => {
+      if (document.hidden && rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      } else if (!document.hidden && !rafId) {
+        rafId = requestAnimationFrame(raf);
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibility);
 
     return () => {
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+      }
+      document.removeEventListener("visibilitychange", handleVisibility);
       lenis.destroy();
     };
   }, []);

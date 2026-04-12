@@ -1,6 +1,5 @@
 "use client";
 
-import Aurora from "@/components/animation/Aurora";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import MapPin from "lucide-react/dist/esm/icons/map-pin";
@@ -19,25 +18,21 @@ export default function Footer() {
       id="footer"
       className="relative py-20 px-6 bg-white dark:bg-[#131313] border-t border-gray-200 dark:border-white/10 overflow-hidden"
     >
-      {/* Aurora animation at the bottom */}
-      <div className="absolute left-0 right-0 bottom-0 h-1/2 z-0 pointer-events-none hidden dark:block">
-
-      </div>
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* Company Info */}
           <div>
             <div className="flex items-center gap-2 space-x-2 mb-6">
               <div className="w-12 h-12 rounded-full flex items-center justify-center">
-                <span>
-                  <img
-                    src="assets/images/logo_dev.webp"
-                    alt="UrDevUp logo"
-                    className="dark:brightness-0 dark:invert"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </span>
+                <img
+                  src="assets/images/logo_dev.webp"
+                  alt="UrDevUp logo"
+                  width="48"
+                  height="48"
+                  className="h-full w-full object-contain dark:brightness-0 dark:invert"
+                  loading="lazy"
+                  decoding="async"
+                />
               </div>
               <span className="font-brand text-2xl font-semibold tracking-[-0.04em] text-white">
                 UrDevUp.

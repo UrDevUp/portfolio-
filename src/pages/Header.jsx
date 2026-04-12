@@ -159,15 +159,16 @@ export default function Header() {
             aria-label="UrDevUp logo"
           >
             <div className="w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center">
-              <span>
-                <img
-                  src="assets/images/logo_dev.webp"
-                  alt="UrDevUp logo"
-                  className="dark:brightness-0 dark:invert"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </span>
+              <img
+                src="assets/images/logo_dev.webp"
+                alt="UrDevUp logo"
+                width="48"
+                height="48"
+                className="h-full w-full object-contain dark:brightness-0 dark:invert"
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
+              />
             </div>
             {/* <span className="text-xl font-bold bg-gradient-to-r from-[#D5C05C] to-[#47412B] bg-clip-text text-transparent"> */}
             <span className="font-brand text-[1.35rem] md:text-2xl font-semibold tracking-[-0.04em] text-white">
