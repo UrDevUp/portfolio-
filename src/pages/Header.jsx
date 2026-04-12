@@ -11,43 +11,9 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showNavbar, setShowNavbar] = useState(true);
   const [activeSection, setActiveSection] = useState("hero");
-  const timeoutRef = useRef(null);
   const lastScrollYRef = useRef(0);
   const tickingRef = useRef(false);
   const rafIdRef = useRef(null);
-
-  const updateActiveSection = () => {
-    const sectionIds = [
-      "hero",
-      "about",
-      "branding",
-      "logos",
-      "projects",
-      "contact",
-    ];
-    const activationLine = 180;
-
-    if (window.scrollY < 120) {
-      setActiveSection("hero");
-      return;
-    }
-
-    let currentSection = "hero";
-
-    for (const sectionId of sectionIds) {
-      const element = document.getElementById(sectionId);
-      if (!element) {
-        continue;
-      }
-
-      const rect = element.getBoundingClientRect();
-      if (rect.top <= activationLine) {
-        currentSection = sectionId;
-      }
-    }
-
-    setActiveSection(currentSection);
-  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,28 +22,17 @@ export default function Header() {
       tickingRef.current = true;
       rafIdRef.current = window.requestAnimationFrame(() => {
         const currentScrollY = window.scrollY;
+        const delta = currentScrollY - lastScrollYRef.current;
 
-        if (timeoutRef.current) {
-          clearTimeout(timeoutRef.current);
-          timeoutRef.current = null;
-        }
-
-        if (currentScrollY === 0) {
+        if (currentScrollY < 40) {
           setShowNavbar(true);
-        } else {
-          timeoutRef.current = setTimeout(() => {
-            setShowNavbar(false);
-          }, 3000);
-
-          if (currentScrollY > lastScrollYRef.current && currentScrollY > 100) {
-            setShowNavbar(false);
-          } else if (currentScrollY < lastScrollYRef.current) {
-            setShowNavbar(true);
-          }
+        } else if (delta > 10 && currentScrollY > 120) {
+          setShowNavbar(false);
+        } else if (delta < -6) {
+          setShowNavbar(true);
         }
 
         lastScrollYRef.current = currentScrollY;
-        updateActiveSection();
         tickingRef.current = false;
       });
     };
@@ -89,17 +44,51 @@ export default function Header() {
       if (rafIdRef.current) {
         window.cancelAnimationFrame(rafIdRef.current);
       }
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
     };
   }, []);
 
   useEffect(() => {
-    updateActiveSection();
-    window.addEventListener("resize", updateActiveSection);
+    const sectionIds = ["hero", "about", "branding", "logos", "projects", "contact"];
+    const elements = sectionIds
+      .map((id) => ({ id, element: document.getElementById(id) }))
+      .filter((entry) => entry.element);
 
-    return () => window.removeEventListener("resize", updateActiveSection);
+    if (elements.length === 0) return;
+
+    const visibleRatios = new Map();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const id = entry.target.id;
+          visibleRatios.set(id, entry.isIntersecting ? entry.intersectionRatio : 0);
+        });
+
+        if (window.scrollY < 120) {
+          setActiveSection("hero");
+          return;
+        }
+
+        let current = "hero";
+        let maxRatio = 0;
+        visibleRatios.forEach((ratio, id) => {
+          if (ratio > maxRatio) {
+            maxRatio = ratio;
+            current = id;
+          }
+        });
+
+        setActiveSection(current);
+      },
+      {
+        root: null,
+        rootMargin: "-35% 0px -45% 0px",
+        threshold: [0, 0.2, 0.4, 0.6, 0.8, 1],
+      },
+    );
+
+    elements.forEach(({ element }) => observer.observe(element));
+
+    return () => observer.disconnect();
   }, []);
 
   const scrollToSection = (sectionId) => {
@@ -135,17 +124,7 @@ export default function Header() {
       });
     }
     setIsMenuOpen(false);
-
-    // Show navbar when clicking a nav item and reset timeout if not at top
     setShowNavbar(true);
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
-    if (window.scrollY > 0) {
-      timeoutRef.current = setTimeout(() => {
-        setShowNavbar(false);
-      }, 3000);
-    }
   };
 
   const getNavLinkClass = (sectionId, isMobile = false) => {
@@ -164,14 +143,6 @@ export default function Header() {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
     setShowNavbar(true);
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
-    if (window.scrollY > 0) {
-      timeoutRef.current = setTimeout(() => {
-        setShowNavbar(false);
-      }, 3000);
-    }
   };
 
   return (

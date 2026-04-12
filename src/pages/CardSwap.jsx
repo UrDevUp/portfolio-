@@ -90,6 +90,7 @@ const CardSwap = ({
   const order = useRef(Array.from({ length: childArr.length }, (_, i) => i));
   const tlRef = useRef(null);
   const intervalRef = useRef();
+  const startTimeoutRef = useRef();
   const container = useRef(null);
 
   useEffect(() => {
@@ -189,16 +190,24 @@ const CardSwap = ({
     };
 
     onOrderChange?.(order.current);
-    swap();
-    intervalRef.current = window.setInterval(swap, delay);
+    const shouldAnimate = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (shouldAnimate) {
+      startTimeoutRef.current = window.setTimeout(() => {
+        swap();
+        intervalRef.current = window.setInterval(swap, delay);
+      }, Math.min(1200, delay));
+    }
 
     if (pauseOnHover) {
       const node = container.current;
       const pause = () => {
         tlRef.current?.pause();
         clearInterval(intervalRef.current);
+        clearTimeout(startTimeoutRef.current);
       };
       const resume = () => {
+        if (!shouldAnimate) return;
         tlRef.current?.play();
         intervalRef.current = window.setInterval(swap, delay);
       };
@@ -208,10 +217,14 @@ const CardSwap = ({
         node.removeEventListener("mouseenter", pause);
         node.removeEventListener("mouseleave", resume);
         clearInterval(intervalRef.current);
+        clearTimeout(startTimeoutRef.current);
       };
     }
 
-    return () => clearInterval(intervalRef.current);
+    return () => {
+      clearInterval(intervalRef.current);
+      clearTimeout(startTimeoutRef.current);
+    };
   }, [
     cardDistance,
     verticalDistance,
@@ -240,7 +253,7 @@ const CardSwap = ({
   return (
     <div
       ref={container}
-      className="relative md:-bottom-24 transform left-1/2 translate-x-[-50%] translate-y-[25%] origin-bottom sm:left-auto sm:right-0 sm:translate-x-[-5%] sm:translate-y-[10%] sm:origin-bottom-left perspective-[900px] overflow-visible max-[480px]:scale-[0.55]"
+      className="relative md:-bottom-24 transform left-1/2 translate-x-[-50%] translate-y-[25%] origin-bottom sm:left-auto sm:right-0 sm:translate-x-[-5%] sm:translate-y-[10%] sm:origin-bottom-left perspective-[900px] overflow-visible max-[480px]:scale-[0.72]"
       style={{ width, height }}
     >
       {rendered}

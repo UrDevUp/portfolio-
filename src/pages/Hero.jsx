@@ -31,8 +31,8 @@ export default function Hero() {
     )?.matches;
     const saveData = navigator.connection?.saveData;
     const lowCpu = (navigator.hardwareConcurrency || 8) <= 4;
-    return !isMdUp || prefersReducedMotion || saveData || lowCpu;
-  }, [isMdUp]);
+    return prefersReducedMotion || saveData || lowCpu;
+  }, []);
 
   const markReady = (index) => {
     setReadyVideos((prev) => (prev[index] ? prev : { ...prev, [index]: true }));
@@ -112,42 +112,28 @@ export default function Hero() {
       <div className="relative z-10 w-full md:w-1/2 flex justify-center items-center">
         {isLowPowerDevice ? (
           <div className="relative h-[290px] w-[360px] overflow-hidden rounded-3xl border border-white bg-[#151515]">
-            {!readyVideos[0] ? (
-              <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/90 dark:bg-zinc-800/90">
-                <div className="flex flex-col items-center gap-3">
-                  <div className="h-10 w-10 animate-spin rounded-full border-4 border-[#D5C05C]/35 border-t-[#414141]" />
-                  <span className="text-xs font-medium tracking-wide text-black/60 dark:text-white/60">
-                    Loading
-                  </span>
-                </div>
-              </div>
-            ) : null}
-            <video
-              src={CARD_SWAP_VIDEOS[0]}
-              autoPlay
-              preload="metadata"
-              muted
-              loop
-              playsInline
-              width="1280"
+            <img
+              src="/assets/images/i1.webp"
+              alt="Project showcase"
+              width="1200"
               height="720"
-              className={
-                readyVideos[0]
-                  ? "h-full w-full object-cover opacity-100 transition-opacity duration-300"
-                  : "h-full w-full object-cover opacity-0"
-              }
-              onLoadedData={() => markReady(0)}
-              onCanPlay={() => markReady(0)}
-              onError={() => markReady(0)}
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+              className="h-full w-full object-cover opacity-85"
             />
+            <div className="absolute inset-0 bg-gradient-to-tr from-black/70 via-transparent to-black/30" />
+            <div className="absolute bottom-4 left-4 rounded-full border border-white/20 bg-black/45 px-4 py-2 text-xs font-medium uppercase tracking-[0.18em] text-white/80">
+              Portfolio Preview
+            </div>
           </div>
         ) : (
           <div className="relative">
             <CardSwap
-              width={isMdUp ? 500 : 360}
-              height={isMdUp ? 400 : 290}
-              cardDistance={isMdUp ? 40 : 26}
-              verticalDistance={isMdUp ? 50 : 30}
+              width={isMdUp ? 500 : 420}
+              height={isMdUp ? 400 : 330}
+              cardDistance={isMdUp ? 40 : 30}
+              verticalDistance={isMdUp ? 50 : 36}
               delay={5000}
               pauseOnHover={false}
               onOrderChange={(order) => setActiveVideoIndex(order[0] ?? 0)}

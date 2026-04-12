@@ -14,6 +14,7 @@ import { lazy, Suspense } from "react";
 import Loading from "@/layouts/Loading";
 import { useTheme } from "@/theme";
 import Meet from "./Meet";
+import DeferRender from "@/components/ui/DeferRender";
 const LogosClients = lazy(() => import("@/pages/LogosClients"));
 const Branding = lazy(() => import("@/pages/Branding"));
 const Projets = lazy(() => import("@/pages/Projets"));
@@ -70,25 +71,43 @@ export default function Home() {
     <div className="min-h-screen text-white overflow-x-hidden">
       <Header />
       <Hero />
-      <div id="container__horizontal">
-        <HorizontalSection />
-      </div>
-      <Suspense fallback={<Loading />}>
-        <LogosClients />
-      </Suspense>
+      <DeferRender placeholder={<div className="min-h-[260px]" />}>
+        <div id="container__horizontal">
+          <HorizontalSection />
+        </div>
+      </DeferRender>
 
-      <Suspense fallback={<Loading />}>
-        <Branding />
-      </Suspense>
+      <DeferRender placeholder={<div className="min-h-[220px]" />}>
+        <Suspense fallback={<Loading />}>
+          <LogosClients />
+        </Suspense>
+      </DeferRender>
 
-      <Suspense fallback={<Loading />}>
-        <Projets />
-      </Suspense>
-      <Meet />
-      <Suspense fallback={<Loading />}>
-        <Contact />
-      </Suspense>
-      <Footer />
+      <DeferRender placeholder={<div className="min-h-[320px]" />}>
+        <Suspense fallback={<Loading />}>
+          <Branding />
+        </Suspense>
+      </DeferRender>
+
+      <DeferRender placeholder={<div className="min-h-[320px]" />}>
+        <Suspense fallback={<Loading />}>
+          <Projets />
+        </Suspense>
+      </DeferRender>
+
+      <DeferRender placeholder={<div className="min-h-[220px]" />}>
+        <Meet />
+      </DeferRender>
+
+      <DeferRender placeholder={<div className="min-h-[260px]" />}>
+        <Suspense fallback={<Loading />}>
+          <Contact />
+        </Suspense>
+      </DeferRender>
+
+      <DeferRender placeholder={<div className="min-h-[180px]" />}>
+        <Footer />
+      </DeferRender>
     </div>
   );
 }
