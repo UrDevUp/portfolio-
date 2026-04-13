@@ -87,7 +87,7 @@ export default function Team() {
   return (
     <section
       id="team"
-      className="min-h-screen flex items-center justify-center py-12 px-2 sm:py-10 sm:px-6 bg-white dark:bg-[#131313] w-full overflow-hidden"
+      className="flex min-h-0 -mt-8 items-start justify-start pt-0 pb-6 px-2 sm:py-10 sm:px-6 md:mt-0 md:min-h-screen md:items-center md:justify-center bg-white dark:bg-[#131313] w-full overflow-hidden"
     >
       <div className="w-full max-w-full sm:max-w-6xl mx-auto flex flex-col items-center justify-center">
         <motion.div
@@ -95,7 +95,7 @@ export default function Team() {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={titleVariants}
-          className="text-center mb-10 sm:mb-16"
+          className="text-center mb-4 sm:mb-16"
         >
           <h2 className="bg-gradient-to-r from-black via-black/80 to-black/60 dark:from-white/20 dark:via-white/80 dark:to-white text-4xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6 bg-clip-text text-transparent">
             {t("meetOurTeam")}

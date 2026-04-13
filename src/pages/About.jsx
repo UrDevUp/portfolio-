@@ -162,7 +162,7 @@ export default function About() {
   return (
     <section
       id="about"
-      className="py-12 px-2 sm:py-20 sm:px-6 bg-white dark:bg-[#131313] w-full z-10 overflow-hidden"
+      className="pt-12 pb-0 px-2 sm:py-20 sm:px-6 bg-white dark:bg-[#131313] w-full z-10 overflow-hidden"
     >
       <svg
         className="absolute h-0 w-0 overflow-hidden"
@@ -195,7 +195,7 @@ export default function About() {
             variants={itemVariants}
             className="flex flex-col justify-center"
           >
-            <div className="mb-6 text-center md:text-left">
+            <div className="mb-3 text-center md:text-left">
               <h2 className="bg-gradient-to-r from-black via-black/80 to-black/60 dark:from-white/20 dark:via-white/80 dark:to-white bg-clip-text text-3xl font-bold leading-none text-transparent sm:text-4xl md:text-5xl">
                 {aboutTitle}
               </h2>
@@ -209,7 +209,7 @@ export default function About() {
             </motion.p>
 
             <motion.div
-              className="relative mx-auto md:mx-0 flex h-[145px] sm:h-[230px] w-full max-w-md items-center justify-center"
+              className="relative mx-auto md:mx-0 flex h-[120px] sm:h-[230px] w-full max-w-md items-center justify-center"
               variants={statsVariants}
               initial="hidden"
               whileInView="visible"
