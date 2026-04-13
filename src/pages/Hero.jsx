@@ -1,14 +1,22 @@
 "use client";
+import CardSwap, { Card } from "./CardSwap";
 import { useIsMdUp } from "@/hooks/useIsMdUp";
 import { useTranslation } from "react-i18next";
 
-import React, { lazy, useEffect, useMemo, useState, Suspense } from "react";
+import React, {
+  lazy,
+  useEffect,
+  useMemo,
+  useCallback,
+  useRef,
+  useState,
+  Suspense,
+} from "react";
 
 import TextType from "./TextType";
 import StarBorderButton from "../components/ui/StarBorderButton";
 
 const LightRays = lazy(() => import("@/components/animation/LightRays"));
-const CardSwap = lazy(() => import("./CardSwap"));
 
 const CARD_SWAP_VIDEOS = [
   "/Web.mp4",
@@ -18,35 +26,12 @@ const CARD_SWAP_VIDEOS = [
   "/Elyse.mp4",
 ];
 
-export default function Hero() {
+const HeroContent = () => {
   const { t } = useTranslation();
   const isMdUp = useIsMdUp();
-  const [readyVideos, setReadyVideos] = useState({});
   const [activeVideoIndex, setActiveVideoIndex] = useState(0);
-  const [enableHeavyHero, setEnableHeavyHero] = useState(false);
+  const videoRefs = useRef([]);
   const heroWords = t("heroTypeWords", { returnObjects: true });
-
-  useEffect(() => {
-    let timeoutId;
-    let idleId;
-
-    const enable = () => setEnableHeavyHero(true);
-
-    if (typeof window !== "undefined" && "requestIdleCallback" in window) {
-      idleId = window.requestIdleCallback(enable, { timeout: 1800 });
-    } else {
-      timeoutId = window.setTimeout(enable, 900);
-    }
-
-    return () => {
-      if (typeof window !== "undefined" && idleId && "cancelIdleCallback" in window) {
-        window.cancelIdleCallback(idleId);
-      }
-      if (timeoutId) {
-        window.clearTimeout(timeoutId);
-      }
-    };
-  }, []);
 
   const isLowPowerDevice = useMemo(() => {
     if (typeof window === "undefined") return false;
@@ -58,11 +43,49 @@ export default function Hero() {
     const lowCpu = (navigator.hardwareConcurrency || 8) <= 4;
     return prefersReducedMotion || saveData || lowMemory || lowCpu;
   }, []);
-  const showEnhancedHero = !isLowPowerDevice && enableHeavyHero;
 
-  const markReady = (index) => {
-    setReadyVideos((prev) => (prev[index] ? prev : { ...prev, [index]: true }));
-  };
+  useEffect(() => {
+    videoRefs.current.forEach((video, index) => {
+      if (!video) return;
+
+      if (index === activeVideoIndex) {
+        const playPromise = video.play();
+        if (playPromise?.catch) {
+          playPromise.catch(() => {});
+        }
+      } else {
+        video.pause();
+      }
+    });
+  }, [activeVideoIndex]);
+
+  // Preload metadata for adjacent videos
+  useEffect(() => {
+    if (typeof window !== "undefined" && "requestIdleCallback" in window) {
+      window.requestIdleCallback(
+        () => {
+          videoRefs.current.forEach((video) => {
+            if (video?.readyState < 1) {
+              video.load();
+            }
+          });
+        },
+        { timeout: 2000 },
+      );
+    }
+  }, []);
+
+  const handleProjectsClick = useCallback(() => {
+    document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
+  }, []);
+
+  const handleContactClick = useCallback(() => {
+    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+  }, []);
+
+  const handleOrderChange = useCallback((order) => {
+    setActiveVideoIndex(order[0] ?? 0);
+  }, []);
 
   return (
     <div
@@ -70,7 +93,7 @@ export default function Hero() {
       className="relative overflow-hidden dark:bg-[#131313] bg-white min-h-dvh flex flex-col md:flex-row items-center justify-start md:justify-center gap-2 sm:gap-8 md:gap-0 px-4 pt-36 pb-10 md:py-0"
     >
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-        {showEnhancedHero ? (
+        {!isLowPowerDevice ? (
           <Suspense fallback={null}>
             <LightRays
               raysOrigin="top-center"
@@ -110,21 +133,13 @@ export default function Hero() {
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
           <button
-            onClick={() =>
-              document
-                .getElementById("projects")
-                ?.scrollIntoView({ behavior: "smooth" })
-            }
+            onClick={handleProjectsClick}
             className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-[#151515] dark:bg-white text-white dark:text-black rounded-full hover:bg-[#131313] dark:hover:bg-white/90 transition-all transform hover:scale-105 font-medium text-sm sm:text-base"
           >
             {t("viewWork")}
           </button>
           <StarBorderButton
-            onClick={() =>
-              document
-                .getElementById("contact")
-                ?.scrollIntoView({ behavior: "smooth" })
-            }
+            onClick={handleContactClick}
             color="#ffffff"
             speed="6s"
             thickness={1}
@@ -136,94 +151,41 @@ export default function Hero() {
       </div>
 
       <div className="relative z-10 w-full md:w-1/2 flex justify-center items-center">
-        {!showEnhancedHero ? (
-          <div className="relative h-[290px] w-[360px] overflow-hidden rounded-3xl border border-white bg-[#151515]">
-            <img
-              src="/assets/images/i1.webp"
-              alt="Project showcase"
-              width="1200"
-              height="720"
-              loading="eager"
-              fetchPriority="high"
-              decoding="async"
-              className="h-full w-full object-cover opacity-85"
-            />
-            <div className="absolute inset-0 bg-gradient-to-tr from-black/70 via-transparent to-black/30" />
-            <div className="absolute bottom-4 left-4 rounded-full border border-white/20 bg-black/45 px-4 py-2 text-xs font-medium uppercase tracking-[0.18em] text-white/80">
-              Portfolio Preview
-            </div>
-          </div>
-        ) : (
-          <Suspense
-            fallback={
-              <div className="relative h-[290px] w-[360px] overflow-hidden rounded-3xl border border-white bg-[#151515]">
-                <img
-                  src="/assets/images/i1.webp"
-                  alt="Project showcase"
-                  width="1200"
-                  height="720"
-                  loading="eager"
-                  fetchPriority="high"
-                  decoding="async"
-                  className="h-full w-full object-cover opacity-85"
-                />
-              </div>
-            }
+        <div className="relative">
+          <CardSwap
+            width={isMdUp ? 500 : 420}
+            height={isMdUp ? 400 : 330}
+            cardDistance={isMdUp ? 40 : 30}
+            verticalDistance={isMdUp ? 50 : 36}
+            delay={5000}
+            pauseOnHover={false}
+            onOrderChange={handleOrderChange}
           >
-            <div className="relative">
-              <CardSwap
-                width={isMdUp ? 500 : 420}
-                height={isMdUp ? 400 : 330}
-                cardDistance={isMdUp ? 40 : 30}
-                verticalDistance={isMdUp ? 50 : 36}
-                delay={5000}
-                pauseOnHover={false}
-                onOrderChange={(order) => setActiveVideoIndex(order[0] ?? 0)}
-              >
-                {CARD_SWAP_VIDEOS.map((src, index) => (
-                  <div
-                    key={`${src}-${index}`}
-                    className="absolute top-1/2 left-1/2 overflow-hidden rounded-3xl border border-white bg-[#151515] [transform-style:preserve-3d] [will-change:transform] [backface-visibility:hidden]"
-                  >
-                    <div className="relative h-full w-full bg-white dark:bg-zinc-900">
-                      {!readyVideos[index] ? (
-                        <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/90 dark:bg-zinc-800/90">
-                          <div className="flex flex-col items-center gap-3">
-                            <div className="h-10 w-10 animate-spin rounded-full border-4 border-[#D5C05C]/35 border-t-[#414141]" />
-                            <span className="text-xs font-medium tracking-wide text-black/60 dark:text-white/60">
-                              Loading
-                            </span>
-                          </div>
-                        </div>
-                      ) : null}
-
-                      <video
-                        src={src}
-                        autoPlay={activeVideoIndex === index}
-                        preload={index === 0 ? "metadata" : "none"}
-                        muted
-                        loop={activeVideoIndex === index}
-                        playsInline
-                        width="1280"
-                        height="720"
-                        poster="/assets/images/i1.webp"
-                        className={
-                          readyVideos[index]
-                            ? "h-full w-full object-cover opacity-100 transition-opacity duration-300"
-                            : "h-full w-full object-cover opacity-0"
-                        }
-                        onLoadedData={() => markReady(index)}
-                        onCanPlay={() => markReady(index)}
-                        onError={() => markReady(index)}
-                      ></video>
-                    </div>
-                  </div>
-                ))}
-              </CardSwap>
-            </div>
-          </Suspense>
-        )}
+            {CARD_SWAP_VIDEOS.map((src, index) => (
+              <Card key={`${src}-${index}`}>
+                <div className="relative h-full w-full bg-black dark:bg-black">
+                  <video
+                    src={src}
+                    ref={(node) => {
+                      videoRefs.current[index] = node;
+                    }}
+                    autoPlay={activeVideoIndex === index}
+                    preload={activeVideoIndex === index ? "auto" : "metadata"}
+                    muted
+                    loop={activeVideoIndex === index}
+                    playsInline
+                    width="1280"
+                    height="720"
+                    className="h-full w-full object-cover opacity-100"
+                  ></video>
+                </div>
+              </Card>
+            ))}
+          </CardSwap>
+        </div>
       </div>
     </div>
   );
-}
+};
+
+export default React.memo(HeroContent);
