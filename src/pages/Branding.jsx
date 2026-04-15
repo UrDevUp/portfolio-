@@ -8,15 +8,45 @@ import Loading from "@/layouts/Loading";
 const brandingItems = [
   {
     src: "./assets/images/menu2.webp",
-    alt: "Branding preview Betty",
+    alt: "Menu Restaurent ",
     galleryItems: [
       {
         src: "./assets/images/menu1.webp",
-        alt: "Branding gallery Betty 2",
+        alt: "Menu Restaurent ",
       },
       {
         src: "./assets/images/menu2.webp",
-        alt: "Branding gallery Betty CD",
+        alt: "Menu Restaurent ",
+      },
+    ],
+  },
+  {
+    src: "./assets/images/2.webp",
+    alt: "Branding social media ",
+    galleryItems: [
+      {
+        src: "./assets/images/2.webp",
+        alt: "Branding gallery ",
+      },
+      {
+        src: "./assets/images/545shots_so.webp",
+        alt: "Branding gallery ",
+      },
+      {
+        src: "./assets/images/144shots_so.webp",
+        alt: "Branding gallery ",
+      },
+            {
+        src: "./assets/images/612shots_so.webp",
+        alt: "Branding gallery ",
+      },
+      {
+        src: "./assets/images/694shots_so.webp",
+        alt: "Branding gallery ",
+      },
+            {
+        src: "./assets/images/11shots_so.webp",
+        alt: "Branding gallery ",
       },
     ],
   },
