@@ -233,7 +233,7 @@ export default function About() {
                       whileHover={{
                         y: -6,
                         scale: 1.02,
-                        boxShadow: "0 14px 30px rgba(0, 0, 0, 0.24)",
+                        boxShadow: "0 14px 30px white/10, 0 4px 8px white/8",
                       }}
                       transition={{ duration: 0.22, ease: "easeOut" }}
                       className="star-border-button star-border-button--double group absolute inset-0 flex flex-col justify-center  border border-transparent bg-white p-4 text-center shadow-[0_0_0_1px_rgba(255,255,255,0.08)] dark:bg-[#151515] dark:shadow-[0_0_0_1px_rgba(255,255,255,0.12)] sm:p-5"

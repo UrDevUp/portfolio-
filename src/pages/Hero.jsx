@@ -30,6 +30,7 @@ const HeroContent = () => {
   const { t } = useTranslation();
   const isMdUp = useIsMdUp();
   const [activeVideoIndex, setActiveVideoIndex] = useState(0);
+  const [enableVisualFx, setEnableVisualFx] = useState(false);
   const videoRefs = useRef([]);
   const heroWords = t("heroTypeWords", { returnObjects: true });
 
@@ -59,20 +60,44 @@ const HeroContent = () => {
     });
   }, [activeVideoIndex]);
 
-  // Preload metadata for adjacent videos
   useEffect(() => {
-    if (typeof window !== "undefined" && "requestIdleCallback" in window) {
-      window.requestIdleCallback(
-        () => {
-          videoRefs.current.forEach((video) => {
-            if (video?.readyState < 1) {
-              video.load();
-            }
-          });
-        },
-        { timeout: 2000 },
-      );
+    if (typeof window === "undefined" || isLowPowerDevice) {
+      return;
     }
+
+    let timerId;
+    if ("requestIdleCallback" in window) {
+      window.requestIdleCallback(() => setEnableVisualFx(true), {
+        timeout: 1200,
+      });
+    } else {
+      timerId = window.setTimeout(() => setEnableVisualFx(true), 600);
+    }
+
+    return () => {
+      if (timerId) {
+        window.clearTimeout(timerId);
+      }
+    };
+  }, [isLowPowerDevice]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const preloadTimer = window.setTimeout(() => {
+      videoRefs.current.forEach((video, index) => {
+        if (!video || index === activeVideoIndex || video.readyState >= 1) {
+          return;
+        }
+
+        video.preload = "metadata";
+        video.load();
+      });
+    }, 2400);
+
+    return () => window.clearTimeout(preloadTimer);
   }, []);
 
   const handleProjectsClick = useCallback(() => {
@@ -93,7 +118,7 @@ const HeroContent = () => {
       className="relative overflow-hidden dark:bg-[#131313] bg-white min-h-dvh flex flex-col md:flex-row items-center justify-start md:justify-center gap-2 sm:gap-8 md:gap-0 px-4 pt-36 pb-10 md:py-0"
     >
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-        {!isLowPowerDevice ? (
+        {!isLowPowerDevice && enableVisualFx ? (
           <Suspense fallback={null}>
             <LightRays
               raysOrigin="top-center"
@@ -170,7 +195,7 @@ const HeroContent = () => {
                       videoRefs.current[index] = node;
                     }}
                     autoPlay={activeVideoIndex === index}
-                    preload={activeVideoIndex === index ? "auto" : "metadata"}
+                    preload={activeVideoIndex === index ? "metadata" : "none"}
                     muted
                     loop={activeVideoIndex === index}
                     playsInline

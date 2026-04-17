@@ -7,63 +7,92 @@ import Hero from "@/pages/Hero";
 import Footer from "@/pages/Footer";
 import useLenis from "@/hooks/useLenis";
 import HorizontalSection from "./HorizontalSection";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "../styles/homestyle.css";
 import { lazy, Suspense } from "react";
 import Loading from "@/layouts/Loading";
 import { useTheme } from "@/theme";
-import Meet from "./Meet";
 import DeferRender from "@/components/ui/DeferRender";
 const LogosClients = lazy(() => import("@/pages/LogosClients"));
 const Branding = lazy(() => import("@/pages/Branding"));
 const Projets = lazy(() => import("@/pages/Projets"));
 const Contact = lazy(() => import("@/pages/Contact"));
+const Meet = lazy(() => import("./Meet"));
 
 export default function Home() {
   useLenis();
   const { themeName } = useTheme();
 
   useEffect(() => {
-    const initHorizontalScroll = () => {
+    let idleId;
+    let timeoutId;
+    let cleanupTween = () => {};
+    let isCancelled = false;
+
+    const initHorizontalScroll = async () => {
+      if (window.innerWidth < 768 || isCancelled) {
+        return;
+      }
+
+      const [{ gsap }, { ScrollTrigger }] = await Promise.all([
+        import("gsap"),
+        import("gsap/ScrollTrigger"),
+      ]);
+
+      if (isCancelled) {
+        return;
+      }
+
       gsap.registerPlugin(ScrollTrigger);
 
-      // Only run horizontal scroll logic on md and up
-      if (window.innerWidth >= 768) {
-        const contents = gsap.utils.toArray("#horizontal .content ");
-        const horizontal = document.getElementById("horizontal");
-        if (horizontal && contents.length > 0) {
-          horizontal.style.width = `${100 * contents.length}vw`;
-          gsap.to(contents, {
-            xPercent: -100 * (contents.length - 1),
-            ease: "none",
-            scrollTrigger: {
-              trigger: "#horizontal",
-              pin: true,
-              scrub: 0.3,
-              snap: 1 / (contents.length - 1),
-              start: "top top",
-              end: () => `+=${window.innerWidth * contents.length}`,
-            },
-          });
-        }
+      const contents = gsap.utils.toArray("#horizontal .content ");
+      const horizontal = document.getElementById("horizontal");
+
+      if (!horizontal || contents.length === 0) {
+        return;
       }
+
+      horizontal.style.width = `${100 * contents.length}vw`;
+      const tween = gsap.to(contents, {
+        xPercent: -100 * (contents.length - 1),
+        ease: "none",
+        scrollTrigger: {
+          trigger: "#horizontal",
+          pin: true,
+          scrub: 0.3,
+          snap: 1 / (contents.length - 1),
+          start: "top top",
+          end: () => `+=${window.innerWidth * contents.length}`,
+        },
+      });
+
+      cleanupTween = () => {
+        tween?.scrollTrigger?.kill();
+        tween?.kill();
+        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      };
     };
 
-    let idleId;
     if ("requestIdleCallback" in window) {
-      idleId = window.requestIdleCallback(initHorizontalScroll, {
+      idleId = window.requestIdleCallback(() => {
+        void initHorizontalScroll();
+      }, {
         timeout: 1200,
       });
     } else {
-      window.setTimeout(initHorizontalScroll, 0);
+      timeoutId = window.setTimeout(() => {
+        void initHorizontalScroll();
+      }, 150);
     }
 
     return () => {
+      isCancelled = true;
       if (idleId && "cancelIdleCallback" in window) {
         window.cancelIdleCallback(idleId);
       }
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      if (timeoutId) {
+        window.clearTimeout(timeoutId);
+      }
+      cleanupTween();
     };
   }, []);
 
@@ -96,7 +125,9 @@ export default function Home() {
       </DeferRender>
 
       <DeferRender placeholder={<div className="min-h-[220px]" />}>
-        <Meet />
+        <Suspense fallback={<div className="min-h-[220px]" />}>
+          <Meet />
+        </Suspense>
       </DeferRender>
 
       <DeferRender placeholder={<div className="min-h-[260px]" />}>

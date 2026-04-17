@@ -48,7 +48,14 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    const sectionIds = ["hero", "about", "branding", "logos", "projects", "contact"];
+    const sectionIds = [
+      "hero",
+      "about",
+      "branding",
+      "logos",
+      "projects",
+      "contact",
+    ];
     const elements = sectionIds
       .map((id) => ({ id, element: document.getElementById(id) }))
       .filter((entry) => entry.element);
@@ -60,7 +67,10 @@ export default function Header() {
       (entries) => {
         entries.forEach((entry) => {
           const id = entry.target.id;
-          visibleRatios.set(id, entry.isIntersecting ? entry.intersectionRatio : 0);
+          visibleRatios.set(
+            id,
+            entry.isIntersecting ? entry.intersectionRatio : 0,
+          );
         });
 
         if (window.scrollY < 120) {

@@ -1,16 +1,32 @@
-import React from "react";
+import React, { lazy, Suspense, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "./theme";
-import { lazy, Suspense } from "react";
 import SeoHead from "@/components/seo/SeoHead";
 import WhatsAppFloatingButton from "@/components/ui/WhatsAppFloatingButton";
-const Home = lazy(() => import("./pages/Home"));
+import Home from "./pages/Home";
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const TermsOfService = lazy(() => import("./pages/TermsOfService.jsx"));
 import "./i18n";
 import Loading from "./layouts/Loading";
 
 const App = () => {
+  useEffect(() => {
+    const preloadRoutes = () => {
+      void import("./pages/PrivacyPolicy");
+      void import("./pages/TermsOfService.jsx");
+    };
+
+    if (typeof window === "undefined") return;
+
+    if ("requestIdleCallback" in window) {
+      window.requestIdleCallback(preloadRoutes, { timeout: 2000 });
+      return;
+    }
+
+    const timer = window.setTimeout(preloadRoutes, 900);
+    return () => window.clearTimeout(timer);
+  }, []);
+
   return (
     <ThemeProvider>
       <Router>
