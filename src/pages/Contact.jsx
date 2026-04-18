@@ -69,7 +69,7 @@ export default function Contact() {
       </Suspense>
       <section
         id="contact"
-        className="relative bg-white dark:bg-[#131313] min-h-screen"
+        className="relative bg-white dark:bg-[#111213] min-h-screen"
       >
         <div className="max-w-4xl mx-auto relative z-10 py-20 px-6">
           <div className="text-center mb-12">

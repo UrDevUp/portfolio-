@@ -73,11 +73,14 @@ export default function Home() {
     };
 
     if ("requestIdleCallback" in window) {
-      idleId = window.requestIdleCallback(() => {
-        void initHorizontalScroll();
-      }, {
-        timeout: 1200,
-      });
+      idleId = window.requestIdleCallback(
+        () => {
+          void initHorizontalScroll();
+        },
+        {
+          timeout: 1200,
+        },
+      );
     } else {
       timeoutId = window.setTimeout(() => {
         void initHorizontalScroll();
@@ -97,7 +100,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen text-white overflow-x-hidden">
+    <div className="min-h-screen bg-[#111213] text-white overflow-x-hidden">
       <Header />
       <Hero />
       <DeferRender placeholder={<div className="min-h-[260px]" />}>

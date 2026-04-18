@@ -51,7 +51,7 @@ const Projets = () => {
   return (
     <section
       id="projects"
-      className="min-h-[120vh] sm:min-h-screen py-12 px-2 sm:py-20 sm:px-6 w-full z-10 overflow-hidden bg-white dark:bg-[#131313]"
+      className="min-h-[120vh] sm:min-h-screen py-12 px-2 sm:py-20 sm:px-6 w-full z-10 overflow-hidden bg-white dark:bg-[#111213]"
     >
       <motion.div
         className="relative z-10 pt-12 sm:pt-20 pb-8 px-6"

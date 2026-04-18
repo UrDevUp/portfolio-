@@ -23,7 +23,7 @@ const FirstVisitIntro = ({ onComplete }) => {
 
   return (
     <div
-      className={`fixed inset-0 z-[200] flex items-center justify-center bg-[#131313] transition-all duration-700 ease-out ${
+      className={`fixed inset-0 z-[200] flex items-center justify-center bg-[#111213] transition-all duration-700 ease-out ${
         isExiting ? "-translate-y-full opacity-0" : "translate-y-0 opacity-100"
       }`}
       role="dialog"

@@ -5,11 +5,11 @@ body::-webkit-scrollbar {
   display: flex;
   overflow-x: hidden; /* Hide horizontal overflow */
   min-width: 100vw;
-  background-color: white;
+  background-color: #111213;
 }
 
 :root.dark #horizontal {
-  background-color: black;
+  background-color: #111213;
 }
 .content {
   width: 100vw; /* Take full viewport width */
@@ -20,9 +20,9 @@ body::-webkit-scrollbar {
   margin: 0 auto;
   align-items: center;
   justify-content: center;
-  background-color: white;
+  background-color: #111213;
 }
 
 :root.dark .content {
-  background-color: black;
+  background-color: #111213;
 }

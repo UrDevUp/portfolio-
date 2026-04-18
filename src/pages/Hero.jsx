@@ -115,7 +115,7 @@ const HeroContent = () => {
   return (
     <div
       id="hero"
-      className="relative overflow-hidden dark:bg-[#131313] bg-white min-h-dvh flex flex-col md:flex-row items-center justify-start md:justify-center gap-2 sm:gap-8 md:gap-0 px-4 pt-36 pb-10 md:py-0"
+      className="relative overflow-hidden dark:bg-[#111213] bg-white min-h-dvh flex flex-col md:flex-row items-center justify-start md:justify-center gap-2 sm:gap-8 md:gap-0 px-4 pt-36 pb-10 md:py-0"
     >
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
         {!isLowPowerDevice && enableVisualFx ? (
@@ -159,7 +159,7 @@ const HeroContent = () => {
         <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
           <button
             onClick={handleProjectsClick}
-            className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-[#151515] dark:bg-white text-white dark:text-black rounded-full hover:bg-[#131313] dark:hover:bg-white/90 transition-all transform hover:scale-105 font-medium text-sm sm:text-base"
+            className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-[#151515] dark:bg-white text-white dark:text-black rounded-full hover:bg-[#111213] dark:hover:bg-white/90 transition-all transform hover:scale-105 font-medium text-sm sm:text-base"
           >
             {t("viewWork")}
           </button>

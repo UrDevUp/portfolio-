@@ -36,7 +36,7 @@ const brandingItems = [
         src: "./assets/images/144shots_so.webp",
         alt: "Branding gallery ",
       },
-            {
+      {
         src: "./assets/images/612shots_so.webp",
         alt: "Branding gallery ",
       },
@@ -44,7 +44,7 @@ const brandingItems = [
         src: "./assets/images/694shots_so.webp",
         alt: "Branding gallery ",
       },
-            {
+      {
         src: "./assets/images/11shots_so.webp",
         alt: "Branding gallery ",
       },
@@ -151,7 +151,7 @@ const Branding = () => {
   return (
     <section
       id="branding"
-      className="relative w-full overflow-hidden bg-white px-4 pb-24 pt-14 text-black dark:bg-[#131313] sm:px-6 md:px-10"
+      className="relative w-full overflow-hidden bg-white px-4 pb-24 pt-14 text-black dark:bg-[#111213] sm:px-6 md:px-10"
     >
       <div className="mx-auto w-full max-w-5xl">
         <div className="mb-10 flex items-center justify-center md:mb-14">
@@ -197,7 +197,7 @@ const Branding = () => {
 
       {selectedIndex !== null && activeGalleryItems.length > 0 ? (
         <div
-          className="fixed inset-0 z-[120] flex items-center justify-center bg-[#131313]/85 p-4"
+          className="fixed inset-0 z-[120] flex items-center justify-center bg-[#111213]/85 p-4"
           role="dialog"
           aria-modal="true"
           onClick={closeGallery}

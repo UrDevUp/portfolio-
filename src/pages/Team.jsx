@@ -87,7 +87,7 @@ export default function Team() {
   return (
     <section
       id="team"
-      className="flex min-h-0 -mt-8 items-start justify-start pt-0 pb-6 px-2 sm:py-10 sm:px-6 md:mt-0 md:min-h-screen md:items-center md:justify-center bg-white dark:bg-[#131313] w-full overflow-hidden"
+      className="flex min-h-0 -mt-8 items-start justify-start pt-0 pb-6 px-2 sm:py-10 sm:px-6 md:mt-0 md:min-h-screen md:items-center md:justify-center bg-white dark:bg-[#111213] w-full overflow-hidden"
     >
       <div className="w-full max-w-full sm:max-w-6xl mx-auto flex flex-col items-center justify-center">
         <motion.div
@@ -196,7 +196,7 @@ export default function Team() {
       <AnimatePresence>
         {selectedMember && (
           <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-[#131313]/80 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-[#111213]/80 backdrop-blur-sm"
             onClick={(e) => {
               if (e.target === e.currentTarget) {
                 setSelectedMember(null);

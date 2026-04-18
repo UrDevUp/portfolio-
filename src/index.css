@@ -105,6 +105,7 @@ body {
 /* Optional: Improve scroll performance */
 html,
 body {
+  background-color: #111213;
   overscroll-behavior-y: none;
   -webkit-overflow-scrolling: touch;
 }

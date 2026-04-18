@@ -9,7 +9,12 @@ export default function useLenis() {
     const saveData = navigator.connection?.saveData;
     const lowCpu = (navigator.hardwareConcurrency || 8) <= 4;
 
-    if (window.innerWidth < 1024 || prefersReducedMotion || saveData || lowCpu) {
+    if (
+      window.innerWidth < 1024 ||
+      prefersReducedMotion ||
+      saveData ||
+      lowCpu
+    ) {
       return undefined;
     }
 

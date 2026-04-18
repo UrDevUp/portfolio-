@@ -157,7 +157,7 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-4 left-1/2 z-50 w-[calc(100%-1.5rem)] -translate-x-1/2 rounded-[2rem] border border-white/10 bg-[#131313]/90 backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.35)] transition-transform duration-300 md:w-[calc(100%-6rem)] ${
+      className={`fixed top-4 left-1/2 z-50 w-[calc(100%-1.5rem)] -translate-x-1/2 rounded-[2rem] border border-white/10 bg-[#111213]/90 backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.35)] transition-transform duration-300 md:w-[calc(100%-6rem)] ${
         showNavbar ? "translate-y-0" : "-translate-y-full"
       }`}
     >
@@ -232,7 +232,7 @@ export default function Header() {
 
             <button
               onClick={() => scrollToSection("contact")}
-              className="bg-[#131313] text-white px-6 py-2 rounded-full hover:bg-[#151515] dark:bg-white dark:text-black dark:hover:bg-white/90 transition-colors"
+              className="bg-[#111213] text-white px-6 py-2 rounded-full hover:bg-[#151515] dark:bg-white dark:text-black dark:hover:bg-white/90 transition-colors"
             >
               {t("contact")}
             </button>
@@ -304,7 +304,7 @@ export default function Header() {
               </button>
               <button
                 onClick={() => scrollToSection("contact")}
-                className="bg-white text-black dark:bg-[#131313] dark:text-white px-6 py-2 rounded-full hover:bg-white/90 dark:hover:bg-[#151515] transition-colors text-center"
+                className="bg-white text-black dark:bg-[#111213] dark:text-white px-6 py-2 rounded-full hover:bg-white/90 dark:hover:bg-[#151515] transition-colors text-center"
               >
                 {t("contact")}
               </button>

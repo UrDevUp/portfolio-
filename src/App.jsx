@@ -33,7 +33,7 @@ const App = () => {
         <SeoHead />
         <Suspense
           fallback={
-            <div className="flex items-center justify-center min-h-screen dark:bg-[#131313]">
+            <div className="flex items-center justify-center min-h-screen dark:bg-[#111213]">
               <Loading />
             </div>
           }

@@ -162,7 +162,7 @@ export default function About() {
   return (
     <section
       id="about"
-      className="pt-12 pb-0 px-2 sm:py-20 sm:px-6 bg-white dark:bg-[#131313] w-full z-10 overflow-hidden"
+      className="pt-12 pb-0 px-2 sm:py-20 sm:px-6 bg-white dark:bg-[#111213] w-full z-10 overflow-hidden"
     >
       <svg
         className="absolute h-0 w-0 overflow-hidden"
