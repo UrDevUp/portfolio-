@@ -11,8 +11,6 @@ import "../styles/homestyle.css";
 import { lazy, Suspense } from "react";
 import Loading from "@/layouts/Loading";
 import { useTheme } from "@/theme";
-import DeferRender from "@/components/ui/DeferRender";
-const LogosClients = lazy(() => import("@/pages/LogosClients"));
 const Branding = lazy(() => import("@/pages/Branding"));
 const Projets = lazy(() => import("@/pages/Projets"));
 const Contact = lazy(() => import("@/pages/Contact"));
@@ -103,45 +101,31 @@ export default function Home() {
     <div className="min-h-screen bg-[#111213] text-white overflow-x-hidden">
       <Header />
       <Hero />
-      <DeferRender placeholder={<div className="min-h-[260px]" />}>
-        <div id="container__horizontal">
-          <HorizontalSection />
-        </div>
-      </DeferRender>
+      <div id="container__horizontal">
+        <HorizontalSection />
+      </div>
 
-      <DeferRender placeholder={<div className="min-h-[220px]" />}>
-        <Suspense fallback={<Loading />}>
-          <LogosClients />
-        </Suspense>
-      </DeferRender>
-
-      <DeferRender placeholder={<div className="min-h-[320px]" />}>
+      <section id="branding" className="w-full">
         <Suspense fallback={<Loading />}>
           <Branding />
         </Suspense>
-      </DeferRender>
+      </section>
 
-      <DeferRender placeholder={<div className="min-h-[320px]" />}>
+      <section id="projects" className="w-full">
         <Suspense fallback={<Loading />}>
           <Projets />
         </Suspense>
-      </DeferRender>
+      </section>
 
-      <DeferRender placeholder={<div className="min-h-[220px]" />}>
-        <Suspense fallback={<div className="min-h-[220px]" />}>
-          <Meet />
-        </Suspense>
-      </DeferRender>
+      <Suspense fallback={<div className="min-h-[220px]" />}>
+        <Meet />
+      </Suspense>
 
-      <DeferRender placeholder={<div className="min-h-[260px]" />}>
-        <Suspense fallback={<Loading />}>
-          <Contact />
-        </Suspense>
-      </DeferRender>
+      <Suspense fallback={<Loading />}>
+        <Contact />
+      </Suspense>
 
-      <DeferRender placeholder={<div className="min-h-[180px]" />}>
-        <Footer />
-      </DeferRender>
+      <Footer />
     </div>
   );
 }

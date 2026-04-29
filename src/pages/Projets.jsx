@@ -3,7 +3,9 @@ import { useTranslation } from "react-i18next";
 import Loading from "@/layouts/Loading";
 import { projects } from "@/data/galleryData";
 import { motion } from "framer-motion";
-const InfiniteMenu = lazy(() => import("@/components/animation/InfiniteMenu"));
+const RollingGallery = lazy(
+  () => import("@/components/animation/RollingGallery"),
+);
 
 const headingVariant = {
   hidden: { opacity: 0, y: 80, scale: 0.92 },
@@ -11,7 +13,7 @@ const headingVariant = {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { duration: 0.95, ease: [0.16, 1, 0.3, 1] },
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
   },
 };
 
@@ -19,8 +21,8 @@ const headingContentVariant = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.14,
-      delayChildren: 0.08,
+      staggerChildren: 0.08,
+      delayChildren: 0.04,
     },
   },
 };
@@ -30,7 +32,7 @@ const headingItemVariant = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
   },
 };
 
@@ -41,18 +43,32 @@ const menuVariant = {
     y: 0,
     scale: 1,
     rotateX: 0,
-    transition: { duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 },
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.1 },
   },
 };
 
 const Projets = () => {
   const { t } = useTranslation();
+  const projectCards = projects.map((project) => ({
+    id: `project-${project.id}`,
+    slug: project.slug || String(project.id),
+    category: "PROJET WEB",
+    year: project.links?.date || "2026",
+    title: project.title,
+    description: project.description,
+    tags: ["React", "Vite", "Frontend"],
+    status: project.links?.website ? "En ligne" : "En cours",
+    statusColor: project.links?.website ? "#10B981" : "#F59E0B",
+    href: `/projets/${project.slug || project.id}`,
+    image: project.image,
+    topGradient:
+      Number(project.id) % 2 === 0
+        ? "from-[#A44326] via-[#C96E4E] to-[#D98566]"
+        : "from-[#2A5D9C] via-[#4F8BCF] to-[#6EA8E6]",
+  }));
 
   return (
-    <section
-      id="projects"
-      className="min-h-[120vh] sm:min-h-screen py-12 px-2 sm:py-20 sm:px-6 w-full z-10 overflow-hidden bg-white dark:bg-[#111213]"
-    >
+    <section className="min-h-[120vh] sm:min-h-screen py-12 px-2 sm:py-20 sm:px-6 w-full z-10 overflow-hidden bg-white dark:bg-[#111213]">
       <motion.div
         className="relative z-10 pt-12 sm:pt-20 pb-8 px-6"
         variants={headingVariant}
@@ -72,49 +88,24 @@ const Projets = () => {
           </motion.h2>
           <motion.p
             variants={headingItemVariant}
-            className="text-lg md:text-xl text-black/80 max-w-3xl mx-auto mb-8"
+            className="mx-auto mt-3 max-w-3xl text-white/70 text-base sm:text-lg"
           >
-            {t("projectsIntro")}
+            {t("projectsIntro") ||
+              "Une sélection de projets récents montrant notre savoir-faire en design et développement web."}
           </motion.p>
-          <motion.div
-            variants={headingItemVariant}
-            className="flex flex-wrap justify-center gap-4 text-sm text-black/60 dark:text-white/60"
-          >
-            <span className="flex items-center gap-2">
-              <span className="w-2 h-2 bg-[#D5C05C] rounded-full animate-pulse"></span>
-              {t("dragToExplore")}
-            </span>
-          </motion.div>
         </motion.div>
       </motion.div>
       <motion.div
-        className="h-[80vh] sm:h-[70vh]"
+        className="min-h-[80vh]"
         variants={menuVariant}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.35 }}
       >
         <Suspense fallback={<Loading />}>
-          <InfiniteMenu
-            items={
-              projects != []
-                ? projects
-                : [
-                    {
-                      id: 0,
-                      title: "No Project available",
-                      image: "/assets/images/logo.svg",
-                      description:
-                        "we are updating our projects, please check back later.",
-                      links: {},
-                    },
-                  ]
-            }
-            bend={3}
-            textColor="#ffffff"
-            borderRadius={0.05}
-            scrollEase={0.02}
-          />
+          <div className="mx-auto max-w-6xl">
+            <RollingGallery projects={projectCards} />
+          </div>
         </Suspense>
       </motion.div>
     </section>

@@ -1,167 +1,133 @@
-import { useEffect, useState } from "react";
-import {
-  motion,
-  useMotionValue,
-  useAnimation,
-  useTransform,
-} from "framer-motion";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
-const IMGS = [
-  "https://images.unsplash.com/photo-1528181304800-259b08848526?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  "https://images.unsplash.com/photo-1506665531195-3566af2b4dfa?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=3456&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  "https://images.unsplash.com/photo-1495103033382-fe343886b671?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  "https://images.unsplash.com/photo-1506781961370-37a89d6b3095?q=80&w=3264&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  "https://images.unsplash.com/photo-1599576838688-8a6c11263108?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  "https://images.unsplash.com/photo-1494094892896-7f14a4433b7a?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  "https://plus.unsplash.com/premium_photo-1664910706524-e783eed89e71?q=80&w=3869&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  "https://images.unsplash.com/photo-1503788311183-fa3bf9c4bc32?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  "https://images.unsplash.com/photo-1585970480901-90d6bb2a48b5?q=80&w=3774&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+const DEFAULT_PROJECTS = [
+  {
+    id: "shop",
+    category: "E-COMMERCE",
+    year: "2023",
+    title: "Boutique Artisanale",
+    description:
+      "Plateforme e-commerce complete avec gestion des stocks, paiement securise et panneau admin.",
+    tags: ["Next.js", "Stripe", "Prisma", "PostgreSQL"],
+    status: "En cours",
+    statusColor: "#F59E0B",
+    href: "#",
+    topGradient: "from-[#A44326] via-[#C96E4E] to-[#D98566]",
+  },
+  {
+    id: "assistant-ai",
+    category: "IA & API",
+    year: "2025",
+    title: "Assistant IA Multilingue",
+    description:
+      "Chatbot intelligent integrant plusieurs LLMs avec memoire contextuelle et historique persistant.",
+    tags: ["Python", "FastAPI", "OpenAI", "Redis"],
+    status: "En ligne",
+    statusColor: "#10B981",
+    href: "#",
+    topGradient: "from-[#2A5D9C] via-[#4F8BCF] to-[#6EA8E6]",
+  },
 ];
 
 const RollingGallery = ({
   autoplay = false,
   pauseOnHover = false,
   images = [],
+  projects = [],
   grayscale = false,
   logoOnly = false,
 }) => {
-  images = images.length > 0 ? images : IMGS;
+  const cardProjects =
+    projects.length > 0
+      ? projects
+      : images.map((url, index) => ({
+          id: `image-${index}`,
+          category: "Projet",
+          year: "",
+          title: `Projet ${index + 1}`,
+          description: "",
+          tags: [],
+          status: "",
+          statusColor: "#9CA3AF",
+          href: "#",
+          image: url,
+          topGradient: "from-[#3F3F46] via-[#52525B] to-[#71717A]",
+        }));
 
-  const [isScreenSizeSm, setIsScreenSizeSm] = useState(
-    window.innerWidth <= 640,
-  );
-  useEffect(() => {
-    let lastResizeCall = 0;
-    const throttledResize = () => {
-      const now = Date.now();
-      if (now - lastResizeCall > 100) {
-        // 10fps throttle
-        setIsScreenSizeSm(window.innerWidth <= 640);
-        lastResizeCall = now;
-      }
-    };
-    window.addEventListener("resize", throttledResize);
-    return () => window.removeEventListener("resize", throttledResize);
-  }, []);
-
-  const cylinderWidth = isScreenSizeSm ? 1000 : 1300;
-  const faceCount = images.length;
-  const minFaceWidth = 150; // Minimum width for each card
-  const faceWidth = Math.max((cylinderWidth / faceCount) * 0.5, minFaceWidth);
-  const radius = cylinderWidth / (2 * Math.PI);
-
-  const dragFactor = 0.05;
-  const rotation = useMotionValue(0);
-  const controls = useAnimation();
-
-  const transform = useTransform(
-    rotation,
-    (val) => `rotate3d(0,1,0,${val}deg)`,
-  );
-
-  const startInfiniteSpin = (startAngle) => {
-    controls.start({
-      rotateY: [startAngle, startAngle - 360],
-      transition: {
-        duration: 20,
-        ease: "linear",
-        repeat: Infinity,
-      },
-    });
-  };
-
-  useEffect(() => {
-    if (autoplay) {
-      const currentAngle = rotation.get();
-      startInfiniteSpin(currentAngle);
-    } else {
-      controls.stop();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [autoplay]);
-
-  const handleUpdate = (latest) => {
-    if (typeof latest.rotateY === "number") {
-      rotation.set(latest.rotateY);
-    }
-  };
-
-  let lastDragCall = 0;
-  const handleDrag = (_, info) => {
-    const now = Date.now();
-    if (now - lastDragCall > 50) {
-      // 20fps throttle
-      controls.stop();
-      rotation.set(rotation.get() + info.offset.x * dragFactor);
-      lastDragCall = now;
-    }
-  };
-
-  const handleDragEnd = (_, info) => {
-    const finalAngle = rotation.get() + info.velocity.x * dragFactor;
-    rotation.set(finalAngle);
-
-    if (autoplay) {
-      startInfiniteSpin(finalAngle);
-    }
-  };
-
-  const handleMouseEnter = () => {
-    if (autoplay && pauseOnHover) {
-      controls.stop();
-    }
-  };
-  const handleMouseLeave = () => {
-    if (autoplay && pauseOnHover) {
-      const currentAngle = rotation.get();
-      startInfiniteSpin(currentAngle);
-    }
-  };
+  const cards = cardProjects.length > 0 ? cardProjects : DEFAULT_PROJECTS;
 
   return (
-    <div className="relative h-[500px] w-full overflow-hidden">
-      <div className="flex h-full items-center justify-center [perspective:1000px] [transform-style:preserve-3d]">
-        <motion.div
-          drag="x"
-          dragElastic={0}
-          onDrag={handleDrag}
-          onDragEnd={handleDragEnd}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-          animate={controls}
-          onUpdate={handleUpdate}
-          style={{
-            transform: transform,
-            rotateY: rotation,
-            width: cylinderWidth,
-            transformStyle: "preserve-3d",
-          }}
-          className="flex min-h-[200px] cursor-grab items-center justify-center [transform-style:preserve-3d]"
-        >
-          {images.map((url, i) => (
-            <div
-              key={i}
-              className="group absolute flex h-fit items-center justify-center p-[0.5%] [backface-visibility:hidden] md:p-[0%]"
-              style={{
-                width: `${faceWidth}px`,
-                transform: `rotateY(${
-                  (360 / faceCount) * i
-                }deg) translateZ(${radius}px)`,
+    <div className="relative mx-auto w-full max-w-7xl px-2 sm:px-4">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {cards.map((project, index) => (
+          <Link
+            key={project.id || index}
+            to={project.href || "#"}
+            className="group block"
+            aria-label={`Ouvrir ${project.title || "le projet"}`}
+          >
+            <motion.article
+              initial={{ opacity: 0, y: 32, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{
+                duration: 0.5,
+                delay: index * 0.08,
+                ease: "easeOut",
               }}
+              whileHover={{ y: -12, transition: { duration: 0.3 } }}
+              className="relative h-full overflow-hidden rounded-[32px] border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.1)] hover:shadow-[0_16px_48px_rgba(255,255,255,0.06),0_8px_32px_rgba(0,0,0,0.32)] transition-all duration-500"
             >
-              <img
-                src={url}
-                alt="gallery"
-                className={`pointer-events-none shrink-0 h-[120px] w-[120px] transition-all duration-300 ease-out sm:h-[120px] sm:w-[120px] ${
-                  logoOnly
-                    ? "object-contain group-hover:scale-105"
-                    : "rounded-[15px] object-cover group-hover:scale-105 group-hover:shadow-2xl bg-gradient-to-br from-white/10 to-white/5 dark:from-white/10 dark:to-transparent backdrop-blur-md border border-white/20 dark:border-white/10 shadow-lg hover:border-white/30 dark:hover:border-white/20"
-                } ${grayscale ? "grayscale" : ""}`}
-              />
-            </div>
-          ))}
-        </motion.div>
+              {/* Premium gradient background */}
+              <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-white/[0.02] to-white/0" />
+
+              {/* Hero image section with premium effects */}
+              <div
+                className={`relative h-[280px] overflow-hidden bg-gradient-to-br ${project.topGradient || "from-[#3F3F46] via-[#52525B] to-[#71717A]"}`}
+              >
+                {project.image ? (
+                  <>
+                    <img
+                      src={project.image}
+                      alt={project.title || "project"}
+                      className={`absolute inset-0 h-full w-full object-cover transition-all duration-700 group-hover:scale-110 ${
+                        grayscale ? "grayscale" : ""
+                      } ${logoOnly ? "opacity-80" : "opacity-100"}`}
+                    />
+                    {/* Premium overlay gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent opacity-100 group-hover:opacity-70 transition-opacity duration-500" />
+                  </>
+                ) : (
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent" />
+                )}
+
+                {/* Icon button with premium styling */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-full border border-white/30 bg-black/40 text-2xl text-white backdrop-blur-sm">
+                    ↗
+                  </div>
+                </div>
+
+                {/* Accent line top removed per request */}
+              </div>
+
+              {/* Content section matching the reference: dark strip with title and badge */}
+              <div className="relative z-20 flex items-center justify-between gap-4 bg-[#232325] px-4 py-5 sm:px-5">
+                <h3 className="min-w-0 text-[1.15rem] font-semibold leading-tight tracking-[-0.02em] text-white sm:text-[1.35rem]">
+                  {project.title}
+                </h3>
+
+                <span className="shrink-0 rounded-full border border-white/16 bg-transparent px-3 py-1 text-[11px] font-medium uppercase tracking-[0.08em] text-white/80 transition-all duration-300 shadow-[0_6px_18px_rgba(255,255,255,0.03)] group-hover:border-white/30 group-hover:shadow-[0_10px_28px_rgba(255,255,255,0.05)]">
+                  {project.category || "PROJET"}
+                </span>
+              </div>
+
+              {/* Premium border glow effect on hover */}
+              <div className="absolute inset-0 rounded-[32px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none border border-white/20 shadow-[inset_0_0_40px_rgba(255,255,255,0.1)]" />
+            </motion.article>
+          </Link>
+        ))}
       </div>
     </div>
   );

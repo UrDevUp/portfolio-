@@ -143,7 +143,7 @@ export default function Header() {
       ? "text-left"
       : "text-[17px] font-medium tracking-[-0.01em]";
     const stateClass = isActive
-      ? "text-white underline decoration-white decoration-2 underline-offset-[10px]"
+      ? "text-white font-semibold underline decoration-white decoration-[1.25px] underline-offset-[10px]"
       : "text-white/70 hover:text-white";
 
     return `${baseClass} ${stateClass} transition-colors`;
@@ -211,12 +211,12 @@ export default function Header() {
               {t("branding")}
             </button>
 
-            <button
+            {/* <button
               onClick={() => scrollToSection("logos")}
               className={getNavLinkClass("logos")}
             >
               {t("logos")}
-            </button>
+            </button> */}
             <button
               onClick={() => scrollToSection("projects")}
               className={getNavLinkClass("projects")}
@@ -290,12 +290,12 @@ export default function Header() {
                 {t("branding")}
               </button>
 
-              <button
+              {/* <button
                 onClick={() => scrollToSection("logos")}
                 className={getNavLinkClass("logos", true)}
               >
                 {t("logos")}
-              </button>
+              </button> */}
               <button
                 onClick={() => scrollToSection("projects")}
                 className={getNavLinkClass("projects", true)}

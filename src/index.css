@@ -260,3 +260,22 @@ html.dark .text-black\/70 {
 html.dark .text-black\/60 {
   color: rgba(255, 255, 255, 0.6) !important;
 }
+
+/* Circular text rotation for project detail badge */
+.circular-text-rotator {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: circularTextRotate 12s linear infinite;
+}
+.circular-text-rotator:hover {
+  animation-play-state: paused;
+}
+
+@keyframes circularTextRotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

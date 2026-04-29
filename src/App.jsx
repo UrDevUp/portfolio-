@@ -4,6 +4,7 @@ import { ThemeProvider } from "./theme";
 import SeoHead from "@/components/seo/SeoHead";
 import WhatsAppFloatingButton from "@/components/ui/WhatsAppFloatingButton";
 import Home from "./pages/Home";
+const ProjectDetail = lazy(() => import("./pages/ProjectDetail.jsx"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const TermsOfService = lazy(() => import("./pages/TermsOfService.jsx"));
 import "./i18n";
@@ -12,6 +13,7 @@ import Loading from "./layouts/Loading";
 const App = () => {
   useEffect(() => {
     const preloadRoutes = () => {
+      void import("./pages/ProjectDetail.jsx");
       void import("./pages/PrivacyPolicy");
       void import("./pages/TermsOfService.jsx");
     };
@@ -40,6 +42,7 @@ const App = () => {
         >
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/projets/:projectId" element={<ProjectDetail />} />
             <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<TermsOfService />} />
             {/* Ajoutez d'autres routes ici */}

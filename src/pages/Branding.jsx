@@ -149,10 +149,7 @@ const Branding = () => {
   }, [previewIndex, selectedIndex]);
 
   return (
-    <section
-      id="branding"
-      className="relative w-full overflow-hidden bg-white px-4 pb-24 pt-14 text-black dark:bg-[#111213] sm:px-6 md:px-10"
-    >
+    <section className="relative w-full overflow-hidden bg-white px-4 pb-24 pt-14 text-black dark:bg-[#111213] sm:px-6 md:px-10">
       <div className="mx-auto w-full max-w-5xl">
         <div className="mb-10 flex items-center justify-center md:mb-14">
           <h2 className="bg-gradient-to-r from-black via-black/80 to-black/60 dark:from-white/20 dark:via-white/80 dark:to-white text-center text-4xl sm:text-5xl md:text-6xl font-bold mb-8 sm:mb-10 bg-clip-text text-transparent">
