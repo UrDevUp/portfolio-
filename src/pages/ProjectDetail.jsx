@@ -122,12 +122,12 @@ const ProjectDetail = () => {
           </div>
 
           <div className="relative mx-auto mt-16 max-w-5xl">
-            <div className="absolute right-[-0.25rem] top-[-0.75rem] z-20 block sm:-right-6 sm:-top-10">
+            <div className="absolute right-2 top-2 z-20 block sm:-right-6 sm:-top-10">
               <a
                 href={project.links?.website || "#"}
                 target="_blank"
                 rel="noreferrer"
-                className="star-border-button star-border-button--double star-border-button--glass relative block h-24 w-24 transition hover:scale-110 sm:h-28 sm:w-28"
+                className="star-border-button star-border-button--double star-border-button--glass relative block h-20 w-20 transition hover:scale-110 sm:h-28 sm:w-28"
               >
                 <svg
                   className="relative z-10 h-full w-full"
