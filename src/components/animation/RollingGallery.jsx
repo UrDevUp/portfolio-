@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import ArrowUpRight from "lucide-react/dist/esm/icons/arrow-up-right";
 
 const DEFAULT_PROJECTS = [
   {
@@ -105,7 +106,7 @@ const RollingGallery = ({
                 {/* Icon button with premium styling */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                   <div className="flex h-16 w-16 items-center justify-center rounded-full border border-white/30 bg-black/40 text-2xl text-white backdrop-blur-sm">
-                    ↗
+                    <ArrowUpRight size={22} strokeWidth={2.25} aria-hidden="true" />
                   </div>
                 </div>
 
