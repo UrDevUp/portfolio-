@@ -122,12 +122,12 @@ const ProjectDetail = () => {
           </div>
 
           <div className="relative mx-auto mt-16 max-w-5xl">
-            <div className="absolute right-[-0.5rem] top-[-0.85rem] z-20 block sm:-right-6 sm:-top-10">
+            <div className="absolute right-[-0.25rem] top-[-0.75rem] z-20 block sm:-right-6 sm:-top-10">
               <a
                 href={project.links?.website || "#"}
                 target="_blank"
                 rel="noreferrer"
-                className="star-border-button star-border-button--double star-border-button--glass relative block h-20 w-20 transition hover:scale-110 sm:h-28 sm:w-28"
+                className="star-border-button star-border-button--double star-border-button--glass relative block h-24 w-24 transition hover:scale-110 sm:h-28 sm:w-28"
               >
                 <svg
                   className="relative z-10 h-full w-full"
@@ -154,10 +154,10 @@ const ProjectDetail = () => {
                   <text
                     className="circular-text-rotator"
                     fill="#fff"
-                    fontSize="6.5"
+                    fontSize="6"
                     fontWeight="700"
-                    letterSpacing="1"
-                    textLength="264"
+                    letterSpacing="0.85"
+                    textLength="252"
                     lengthAdjust="spacing"
                   >
                     <textPath

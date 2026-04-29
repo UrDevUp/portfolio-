@@ -271,6 +271,13 @@ html.dark .text-black\/60 {
   animation-play-state: paused;
 }
 
+@media (max-width: 640px) {
+  .circular-text-rotator {
+    font-size: 5.25px;
+    letter-spacing: 0.65px;
+  }
+}
+
 @keyframes circularTextRotate {
   from {
     transform: rotate(0deg);
