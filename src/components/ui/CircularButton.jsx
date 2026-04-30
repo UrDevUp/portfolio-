@@ -21,8 +21,8 @@ export default function CircularButton({ href = '#', target = '_blank' }) {
 
         .cb-wrap {
           position: relative;
-          width: 190px;
-          height: 190px;
+          width: 120px;
+          height: 120px;
           cursor: pointer;
           animation: breathe 4s ease-in-out infinite;
           transition: transform .35s cubic-bezier(.34,1.56,.64,1);
@@ -51,8 +51,8 @@ export default function CircularButton({ href = '#', target = '_blank' }) {
           position: absolute;
           top: 50%; left: 50%;
           transform: translate(-50%, -50%);
-          width: 56px;
-          height: 56px;
+          width: 38px;
+          height: 38px;
           border-radius: 50%;
           background: #fff;
           display: flex;
@@ -68,10 +68,10 @@ export default function CircularButton({ href = '#', target = '_blank' }) {
         }
         .cb-play {
           width: 0; height: 0;
-          border-top: 10px solid transparent;
-          border-bottom: 10px solid transparent;
-          border-left: 16px solid #111;
-          margin-left: 3px;
+          border-top: 6px solid transparent;
+          border-bottom: 6px solid transparent;
+          border-left: 10px solid #111;
+          margin-left: 1px;
           animation: playPulse 2s ease-in-out infinite;
         }
       `}</style>
@@ -80,7 +80,7 @@ export default function CircularButton({ href = '#', target = '_blank' }) {
 
         {/* Badge scalloped noir */}
         <div className="cb-badge">
-          <svg width="190" height="190" viewBox="0 0 260 260">
+          <svg width="120" height="120" viewBox="0 0 260 260">
             <defs>
               <radialGradient id="cbBg" cx="50%" cy="50%" r="50%">
                 <stop offset="0%" stopColor="#1a1a1a"/>
@@ -107,7 +107,7 @@ export default function CircularButton({ href = '#', target = '_blank' }) {
               C64,56 70,51 72,43 C74,35 82,31 90,33
               C98,35 104,32 108,25 C112,18 120,10 130,10Z
             " fill="url(#cbBg)" stroke="rgba(255,255,255,0.08)" strokeWidth="1"/>
-            <circle cx="130" cy="130" r="100" fill="none"
+            <circle cx="130" cy="130" r="62" fill="none"
               stroke="rgba(255,255,255,0.07)" strokeWidth="0.8"/>
           </svg>
         </div>
