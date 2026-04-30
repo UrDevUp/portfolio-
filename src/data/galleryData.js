@@ -4,6 +4,7 @@ export const projects = [
     slug: "restaurent",
     title: "Restaurent",
     image: "/assets/images/p1.webp",
+    detailImage: "/assets/images/pp1.webp",
     description: "Un site vitrine élégant pour un restaurant haut de gamme ",
     shortDescription:
       "Un site vitrine premium pensé pour présenter la carte, l'univers et la réservation en ligne.",
@@ -19,7 +20,7 @@ export const projects = [
     ],
     techStack: ["React", "Vite", "Tailwind CSS", "Framer Motion"],
     media: {
-      images: ["/assets/images/p1.webp"],
+      images: ["/assets/images/ppp1.webp"],
       video: "",
     },
     links: {
@@ -34,6 +35,7 @@ export const projects = [
     slug: "streamplay",
     title: "StreamPlay",
     image: "/assets/images/p2.webp",
+    detailImage: "/assets/images/pp2.webp",
     description:
       "Une plateforme IPTV moderne proposant un large choix de chaînes de télévision",
     shortDescription:
@@ -50,7 +52,7 @@ export const projects = [
     ],
     techStack: ["React", "Vite", "Tailwind CSS", "TypeScript"],
     media: {
-      images: ["/assets/images/p2.webp"],
+      images: ["/assets/images/pp2.webp"],
       video: "",
     },
     links: {
@@ -65,6 +67,7 @@ export const projects = [
     slug: "ridex",
     title: "RideX",
     image: "/assets/images/p3.webp",
+    detailImage: "/assets/images/pp3.webp",
     description:
       "RideX est une plateforme de location de voitures innovante qui offre une large sélection",
     shortDescription:
@@ -81,7 +84,7 @@ export const projects = [
     ],
     techStack: ["React", "Vite", "Tailwind CSS", "Framer Motion"],
     media: {
-      images: ["/assets/images/p3.webp"],
+      images: ["/assets/images/pp3.webp"],
       video: "",
     },
     links: {

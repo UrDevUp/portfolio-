@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { projects } from "@/data/galleryData";
+import CircularButton from "@/components/ui/CircularButton";
 
 const fallbackFeatures = [
   "Hero avec visuel principal",
@@ -55,7 +56,7 @@ const ProjectDetail = () => {
     );
   }
 
-  const heroImage = project.image;
+  const heroImage = project.detailImage || project.image;
   const mediaImages = project.media?.images?.length
     ? project.media.images
     : project.image
@@ -74,7 +75,7 @@ const ProjectDetail = () => {
     <div className="min-h-screen bg-[#111213] text-white">
       <section className="relative overflow-hidden px-6 pb-14 pt-6 sm:pb-18 sm:pt-8 lg:px-10">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(164,67,38,0.35),_transparent_42%),radial-gradient(circle_at_top_right,_rgba(42,93,156,0.32),_transparent_40%)]" />
-        <div className="relative mx-auto max-w-6xl">
+        <div className="relative mx-auto max-w-5xl">
           <div className="flex items-center justify-between gap-4">
             <Link
               to="/#projects"
@@ -123,69 +124,11 @@ const ProjectDetail = () => {
 
           <div className="relative mx-auto mt-16 max-w-5xl">
             <div className="absolute right-2 top-2 z-20 block sm:-right-6 sm:-top-10">
-              <a
-                href={project.links?.website || "#"}
-                target="_blank"
-                rel="noreferrer"
-                className="star-border-button star-border-button--double star-border-button--glass relative block h-20 w-20 transition hover:scale-110 sm:h-28 sm:w-28"
-              >
-                <svg
-                  className="relative z-10 h-full w-full"
-                  viewBox="0 0 120 120"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <defs>
-                    <path
-                      id="circlePath"
-                      d="M60,60 m -48,0 a48,48 0 1,0 96,0 a48,48 0 1,0 -96,0"
-                      fill="none"
-                    />
-                  </defs>
-
-                  <circle
-                    cx="60"
-                    cy="60"
-                    r="55"
-                    fill="rgba(0,0,0,0.42)"
-                    stroke="rgba(255,255,255,0.14)"
-                    strokeWidth="1"
-                  />
-
-                  <text
-                    className="circular-text-rotator"
-                    fill="#fff"
-                    fontSize="6"
-                    fontWeight="700"
-                    letterSpacing="0.85"
-                    textLength="252"
-                    lengthAdjust="spacing"
-                  >
-                    <textPath
-                      href="#circlePath"
-                      startOffset="50%"
-                      textAnchor="middle"
-                    >
-                      VISIT LIVE SITE • VISIT LIVE SITE •
-                    </textPath>
-                  </text>
-
-                  <g transform="translate(60,60)">
-                    <circle
-                      cx="0"
-                      cy="0"
-                      r="26"
-                      fill="rgba(255,255,255,0.08)"
-                      stroke="rgba(255,255,255,0.14)"
-                      strokeWidth="1"
-                    />
-                    <path d="M -6 -8 L 6 0 L -6 8 Z" fill="#fff" />
-                  </g>
-                </svg>
-              </a>
+              <CircularButton href={project.links?.website || "#"} target="_blank" />
             </div>
 
             <div className="overflow-hidden rounded-[36px] bg-gradient-to-br from-[#A44326]/20 via-[#4F8BCF]/10 to-[#111213] p-5 shadow-[0_24px_80px_rgba(0,0,0,0.35)] sm:p-7">
-              <div className="overflow-hidden rounded-[28px] border border-white/10">
+              <div className="overflow-hidden rounded-[28px] border-[0.25px] border-white/10">
                 {heroImage ? (
                   <img
                     src={heroImage}
@@ -206,7 +149,7 @@ const ProjectDetail = () => {
       {/* Description / Problem / Solution section removed on user request */}
 
       <section className="px-6 pb-10 lg:px-10">
-        <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-2">
+        <div className="mx-auto grid max-w-5xl gap-6 lg:grid-cols-2">
           <article className="rounded-[28px] border border-white/10 bg-white/5 p-7 shadow-[0_10px_40px_rgba(0,0,0,0.15)] sm:p-8">
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-white/45">
               Features
@@ -240,7 +183,7 @@ const ProjectDetail = () => {
       </section>
 
       <section className="px-6 pb-20 lg:px-10">
-        <div className="mx-auto max-w-6xl rounded-[32px] border border-white/10 bg-white/5 p-7 shadow-[0_10px_40px_rgba(0,0,0,0.15)] sm:p-8">
+        <div className="mx-auto max-w-5xl rounded-[32px] border border-white/10 bg-white/5 p-7 shadow-[0_10px_40px_rgba(0,0,0,0.15)] sm:p-8">
           <div className="flex items-center justify-between gap-4">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-white/45">
@@ -294,7 +237,7 @@ const ProjectDetail = () => {
                 </div>
               ) : (
                 <div className="flex min-h-[260px] items-center justify-center rounded-[24px] border border-dashed border-white/15 bg-black/10 px-6 text-center text-white/55 sm:min-h-[320px]">
-                  Ajoute une vidéo si disponible pour enrichir cette section.
+                  {/* Ajoute une vidéo si disponible pour enrichir cette section. */}
                 </div>
               )}
 
