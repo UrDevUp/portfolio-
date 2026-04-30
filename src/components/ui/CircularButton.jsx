@@ -21,8 +21,8 @@ export default function CircularButton({ href = '#', target = '_blank' }) {
 
         .cb-wrap {
           position: relative;
-          width: 260px;
-          height: 260px;
+          width: 140px;
+          height: 140px;
           cursor: pointer;
           animation: breathe 4s ease-in-out infinite;
           transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -57,8 +57,8 @@ export default function CircularButton({ href = '#', target = '_blank' }) {
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
-          width: 72px;
-          height: 72px;
+          width: 36px;
+          height: 36px;
           border-radius: 50%;
           background: #fff;
           display: flex;
@@ -76,10 +76,10 @@ export default function CircularButton({ href = '#', target = '_blank' }) {
         .cb-play {
           width: 0;
           height: 0;
-          border-top: 13px solid transparent;
-          border-bottom: 13px solid transparent;
-          border-left: 20px solid #111;
-          margin-left: 4px;
+          border-top: 6px solid transparent;
+          border-bottom: 6px solid transparent;
+          border-left: 9px solid #111;
+          margin-left: 1px;
           animation: playPulse 2s ease-in-out infinite;
         }
       `}</style>
@@ -88,7 +88,7 @@ export default function CircularButton({ href = '#', target = '_blank' }) {
         <div className="cb-wrap">
           {/* Badge scalloped noir */}
           <div className="cb-badge">
-            <svg width="260" height="260" viewBox="0 0 260 260">
+            <svg width="140" height="140" viewBox="0 0 260 260">
               <defs>
                 <radialGradient id="cbBg" cx="50%" cy="50%" r="50%">
                   <stop offset="0%" stopColor="#1a1a1a" />
@@ -120,17 +120,17 @@ export default function CircularButton({ href = '#', target = '_blank' }) {
                 stroke="rgba(255,255,255,0.08)"
                 strokeWidth="1"
               />
-              <circle cx="130" cy="130" r="100" fill="none" stroke="rgba(255,255,255,0.07)" strokeWidth="0.8" />
+              <circle cx="130" cy="130" r="53" fill="none" stroke="rgba(255,255,255,0.07)" strokeWidth="0.8" />
             </svg>
           </div>
 
           {/* Texte qui tourne */}
           <div className="cb-text">
-            <svg width="260" height="260" viewBox="0 0 260 260">
+            <svg width="140" height="140" viewBox="0 0 260 260">
               <defs>
-                <path id="cbTp" d="M130,130 m-68,0 a68,68 0 1,1 136,0 a68,68 0 1,1 -136,0" />
+                <path id="cbTp" d="M130,130 m-36,0 a36,36 0 1,1 72,0 a36,36 0 1,1 -72,0" />
               </defs>
-              <text fontSize="11" fontWeight="700" letterSpacing="3" fill="rgba(255,255,255,0.92)" fontFamily="'Helvetica Neue', Arial, sans-serif">
+              <text fontSize="6" fontWeight="700" letterSpacing="2" fill="rgba(255,255,255,0.92)" fontFamily="'Helvetica Neue', Arial, sans-serif">
                 <textPath href="#cbTp" startOffset="0%">
                   VISIT • LIVE VISIT • LIVE • LINK • VISIT • LIVE VISIT • LIVE • LINK •
                 </textPath>
@@ -138,18 +138,17 @@ export default function CircularButton({ href = '#', target = '_blank' }) {
             </svg>
           </div>
 
-          {/* Points décoratifs */}
+          {/* Texte décoratif en cercle */}
           <div className="cb-dots">
-            <svg width="260" height="260" viewBox="0 0 260 260">
-              <g opacity="0.25">
-                {[0, 26, 51, 77, 103, 129, 154, 180, 206, 231, 257, 283, 309, 334].map((angle, i) => {
-                  const rad = (angle * Math.PI) / 180;
-                  const r = 118;
-                  const x = 130 + r * Math.cos(rad);
-                  const y = 130 + r * Math.sin(rad);
-                  return <circle key={i} cx={x} cy={y} r={i % 2 === 0 ? 2 : 1.5} fill="white" />;
-                })}
-              </g>
+            <svg width="140" height="140" viewBox="0 0 260 260">
+              <defs>
+                <path id="cbDots" d="M130,130 m-62,0 a62,62 0 1,1 124,0 a62,62 0 1,1 -124,0" />
+              </defs>
+              <text fontSize="5" fontWeight="700" letterSpacing="2" fill="rgba(255,255,255,0.35)" fontFamily="'Helvetica Neue', Arial, sans-serif">
+                <textPath href="#cbDots" startOffset="0%">
+                  • LIVE • VISIT • LINK • LIVE • VISIT • LINK • LIVE • VISIT •
+                </textPath>
+              </text>
             </svg>
           </div>
 
