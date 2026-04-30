@@ -23,6 +23,7 @@ export default function CircularButton({ href = '#', target = '_blank' }) {
           position: relative;
           width: 120px;
           height: 120px;
+          overflow: visible;
           cursor: pointer;
           animation: breathe 4s ease-in-out infinite;
           transition: transform .35s cubic-bezier(.34,1.56,.64,1);
@@ -41,10 +42,14 @@ export default function CircularButton({ href = '#', target = '_blank' }) {
         .cb-text {
           position: absolute; inset: 0;
           animation: spin 18s linear infinite;
+          transform: translateY(-22px); /* push the rotating text slightly outward */
+          pointer-events: none;
         }
         .cb-dots {
           position: absolute; inset: 0;
           animation: spinRev 30s linear infinite;
+          transform: translateY(-10px); /* move decorative ring outward a bit */
+          pointer-events: none;
         }
 
         .cb-center {
