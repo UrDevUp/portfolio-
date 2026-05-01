@@ -96,11 +96,11 @@ const ProjectDetail = () => {
   }
 
   const heroImage = project.detailImage || project.image;
-  const mediaImages = project.media?.images?.length
-    ? project.media.images
-    : project.image
-      ? [project.image]
-      : [];
+  const mediaImages = [
+    heroImage,
+    project.image,
+    ...(project.media?.images || []),
+  ].filter((image, index, images) => image && images.indexOf(image) === index);
   const features = project.features?.length
     ? project.features
     : fallbackFeatures;
@@ -112,6 +112,7 @@ const ProjectDetail = () => {
 
   return (
     <div className="min-h-screen bg-[#111213] text-white">
+      <style>{techStackStyles}</style>
       <section className="relative overflow-hidden px-6 pb-14 pt-6 sm:pb-18 sm:pt-8 lg:px-10">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(164,67,38,0.35),_transparent_42%),radial-gradient(circle_at_top_right,_rgba(42,93,156,0.32),_transparent_40%)]" />
         <div className="relative mx-auto max-w-5xl">
@@ -162,7 +163,11 @@ const ProjectDetail = () => {
                     className="inline-flex items-center gap-1 text-xl font-medium tracking-tight sm:text-[2rem]"
                   >
                     {tech.icon ? (
-                      <i className={`${tech.icon} text-lg sm:text-xl`}></i>
+                      <i
+                        className={`${tech.icon} text-lg sm:text-xl`}
+                        style={{ color: tech.color || undefined }}
+                        aria-hidden="true"
+                      ></i>
                     ) : null}
                     <span className="text-lg sm:text-2xl">
                       {tech.name || tech}
@@ -281,9 +286,19 @@ const ProjectDetail = () => {
               {techStack.map((tech) => (
                 <span
                   key={tech.name || tech}
-                  className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-white/80"
+                  className="tech-badge inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-white/80"
                 >
-                  {tech.icon ? <i className={tech.icon}></i> : null}
+                  {tech.icon ? (
+                    <i
+                      className={`${tech.icon} tech-icon min-w-4 text-center text-base sm:text-lg`}
+                      style={{ color: tech.color || undefined }}
+                      aria-hidden="true"
+                    ></i>
+                  ) : (
+                    <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-white/10 text-[10px] font-semibold">
+                      {(tech.name || tech).slice(0, 1)}
+                    </span>
+                  )}
                   {tech.name || tech}
                 </span>
               ))}
@@ -310,60 +325,41 @@ const ProjectDetail = () => {
             ) : null}
           </div>
 
-          <div className="mt-7 grid gap-6 lg:grid-cols-2">
-            <div className="grid gap-6">
-              {mediaImages.slice(0, 2).map((image, index) => (
-                <div
-                  key={image}
-                  className="overflow-hidden rounded-[24px] border border-white/10 bg-black/20"
-                >
-                  <img
-                    src={image}
-                    alt={`${project.title} capture ${index + 1}`}
-                    className="h-[260px] w-full object-cover sm:h-[320px]"
-                  />
-                </div>
-              ))}
-            </div>
+          <div className="mt-7 grid gap-6 sm:grid-cols-2">
+            {mediaImages.map((image, index) => (
+              <div
+                key={`${image}-${index}`}
+                className="overflow-hidden rounded-[24px] border border-white/10 bg-black/20"
+              >
+                <img
+                  src={image}
+                  alt={`${project.title} capture ${index + 1}`}
+                  className="h-[240px] w-full object-cover sm:h-[320px]"
+                  loading={index === 0 ? "eager" : "lazy"}
+                  decoding="async"
+                />
+              </div>
+            ))}
 
-            <div className="grid gap-6">
-              {project.media?.video ? (
-                <div className="overflow-hidden rounded-[24px] border border-white/10 bg-black/20">
-                  {project.media.video.includes("youtube") ? (
-                    <iframe
-                      title={`${project.title} video`}
-                      src={project.media.video.replace("watch?v=", "embed/")}
-                      className="aspect-video w-full"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    />
-                  ) : (
-                    <video
-                      controls
-                      className="aspect-video w-full object-cover"
-                      src={project.media.video}
-                    />
-                  )}
-                </div>
-              ) : (
-                <div className="flex min-h-[260px] items-center justify-center rounded-[24px] border border-dashed border-white/15 bg-black/10 px-6 text-center text-white/55 sm:min-h-[320px]">
-                  {/* Ajoute une vidéo si disponible pour enrichir cette section. */}
-                </div>
-              )}
-
-              {mediaImages.slice(2, 4).map((image, index) => (
-                <div
-                  key={`${image}-${index}`}
-                  className="overflow-hidden rounded-[24px] border border-white/10 bg-black/20"
-                >
-                  <img
-                    src={image}
-                    alt={`${project.title} capture ${index + 3}`}
-                    className="h-[220px] w-full object-cover sm:h-[260px]"
+            {project.media?.video ? (
+              <div className="overflow-hidden rounded-[24px] border border-white/10 bg-black/20 sm:col-span-2">
+                {project.media.video.includes("youtube") ? (
+                  <iframe
+                    title={`${project.title} video`}
+                    src={project.media.video.replace("watch?v=", "embed/")}
+                    className="aspect-video w-full"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
                   />
-                </div>
-              ))}
-            </div>
+                ) : (
+                  <video
+                    controls
+                    className="aspect-video w-full object-cover"
+                    src={project.media.video}
+                  />
+                )}
+              </div>
+            ) : null}
           </div>
         </div>
       </section>

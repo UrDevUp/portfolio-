@@ -21,6 +21,28 @@ export default function Home() {
   const { themeName } = useTheme();
 
   useEffect(() => {
+    if (typeof window === "undefined" || window.location.hash !== "#projects") {
+      return;
+    }
+
+    const scrollToProjects = () => {
+      const projectsSection = document.getElementById("projects");
+      if (!projectsSection) return;
+
+      const offsetPosition =
+        projectsSection.getBoundingClientRect().top + window.pageYOffset + 50;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    };
+
+    const timeoutId = window.setTimeout(scrollToProjects, 100);
+    return () => window.clearTimeout(timeoutId);
+  }, []);
+
+  useEffect(() => {
     let idleId;
     let timeoutId;
     let cleanupTween = () => {};
