@@ -140,7 +140,7 @@ const ProjectDetail = () => {
             </div>
           </div>
 
-          <div className="mx-auto mt-14 grid max-w-5xl gap-8 text-center sm:grid-cols-3 sm:gap-10">
+          <div className="mx-auto mt-14 grid max-w-3xl gap-8 text-center sm:grid-cols-2 sm:gap-10">
             <div>
               <p className="text-sm text-white/45">Client</p>
               <p className="mt-3 text-2xl font-medium tracking-tight sm:text-[2rem]">
@@ -152,27 +152,6 @@ const ProjectDetail = () => {
               <p className="mt-3 text-2xl font-medium tracking-tight sm:text-[2rem]">
                 {project.links?.date || "2026"}
               </p>
-            </div>
-            <div>
-              <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
-                {techStack.slice(0, 3).map((tech) => (
-                  <span
-                    key={tech.name || tech}
-                    className="inline-flex items-center gap-1 text-xl font-medium tracking-tight sm:text-[2rem]"
-                  >
-                    {tech.icon ? (
-                      <i
-                        className={`${tech.icon} text-lg sm:text-xl`}
-                        style={{ color: tech.color || undefined }}
-                        aria-hidden="true"
-                      ></i>
-                    ) : null}
-                    <span className="text-lg sm:text-2xl">
-                      {tech.name || tech}
-                    </span>
-                  </span>
-                ))}
-              </div>
             </div>
           </div>
 
