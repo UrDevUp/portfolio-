@@ -1,7 +1,33 @@
 import React, { useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { projects } from "@/data/galleryData";
-import CircularButton from "@/components/ui/CircularButton";
+import "@fortawesome/fontawesome-free/css/all.css";
+
+const techStackStyles = `
+  @keyframes techFloat {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-4px); }
+  }
+  @keyframes techGlow {
+    0%, 100% { box-shadow: 0 0 8px rgba(255, 255, 255, 0.1), inset 0 0 8px rgba(255, 255, 255, 0.05); }
+    50% { box-shadow: 0 0 16px rgba(255, 255, 255, 0.2), inset 0 0 12px rgba(255, 255, 255, 0.1); }
+  }
+  .tech-badge {
+    animation: techGlow 2s ease-in-out infinite;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .tech-badge:hover {
+    animation: techFloat 1.5s ease-in-out infinite;
+    transform: scale(1.08);
+  }
+  .tech-icon {
+    display: inline-block;
+    transition: transform 0.3s ease;
+  }
+  .tech-badge:hover .tech-icon {
+    transform: scale(1.2) rotate(5deg);
+  }
+`;
 
 const fallbackFeatures = [
   "Hero avec visuel principal",
@@ -14,6 +40,19 @@ const fallbackFeatures = [
 
 const ProjectDetail = () => {
   const { projectId } = useParams();
+  const navigate = useNavigate();
+
+  const handleBackClick = () => {
+    if (
+      typeof window !== "undefined" &&
+      window.matchMedia("(max-width: 767px)").matches
+    ) {
+      navigate("/#projects");
+      return;
+    }
+
+    navigate(-1);
+  };
 
   const project = projects.find(
     (item) => item.slug === projectId || String(item.id) === projectId,
@@ -77,12 +116,12 @@ const ProjectDetail = () => {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(164,67,38,0.35),_transparent_42%),radial-gradient(circle_at_top_right,_rgba(42,93,156,0.32),_transparent_40%)]" />
         <div className="relative mx-auto max-w-5xl">
           <div className="flex items-center justify-between gap-4">
-            <Link
-              to="/#projects"
+            <button
+              onClick={handleBackClick}
               className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-medium text-white/80 transition hover:bg-white/10"
             >
               ← Back
-            </Link>
+            </button>
 
             <div className="hidden rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-white/45 sm:inline-flex">
               Project Detail
@@ -116,15 +155,85 @@ const ProjectDetail = () => {
             </div>
             <div>
               <p className="text-sm text-white/45">Scope of work</p>
-              <p className="mt-3 text-xl font-medium tracking-tight sm:text-[2rem]">
-                {scopeLabel}
-              </p>
+              <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
+                {techStack.slice(0, 3).map((tech) => (
+                  <span
+                    key={tech.name || tech}
+                    className="inline-flex items-center gap-1 text-xl font-medium tracking-tight sm:text-[2rem]"
+                  >
+                    {tech.icon ? (
+                      <i className={`${tech.icon} text-lg sm:text-xl`}></i>
+                    ) : null}
+                    <span className="text-lg sm:text-2xl">
+                      {tech.name || tech}
+                    </span>
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
 
           <div className="relative mx-auto mt-16 max-w-5xl">
             <div className="absolute right-2 top-2 z-20 block sm:-right-6 sm:-top-10">
-              <CircularButton href={project.links?.website || "#"} target="_blank" />
+              <a
+                href={project.links?.website || "#"}
+                target="_blank"
+                rel="noreferrer"
+                className="star-border-button star-border-button--double star-border-button--glass relative block h-20 w-20 transition hover:scale-110 sm:h-28 sm:w-28"
+              >
+                <svg
+                  className="relative z-10 h-full w-full"
+                  viewBox="0 0 120 120"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <defs>
+                    <path
+                      id="circlePath"
+                      d="M60,60 m -48,0 a48,48 0 1,0 96,0 a48,48 0 1,0 -96,0"
+                      fill="none"
+                    />
+                  </defs>
+
+                  <circle
+                    cx="60"
+                    cy="60"
+                    r="55"
+                    fill="rgba(0,0,0,0.42)"
+                    stroke="rgba(255,255,255,0.14)"
+                    strokeWidth="1"
+                  />
+
+                  <text
+                    className="circular-text-rotator"
+                    fill="#fff"
+                    fontSize="6"
+                    fontWeight="700"
+                    letterSpacing="0.85"
+                    textLength="252"
+                    lengthAdjust="spacing"
+                  >
+                    <textPath
+                      href="#circlePath"
+                      startOffset="50%"
+                      textAnchor="middle"
+                    >
+                      VISIT LIVE SITE • VISIT LIVE SITE •
+                    </textPath>
+                  </text>
+
+                  <g transform="translate(60,60)">
+                    <circle
+                      cx="0"
+                      cy="0"
+                      r="26"
+                      fill="rgba(255,255,255,0.08)"
+                      stroke="rgba(255,255,255,0.14)"
+                      strokeWidth="1"
+                    />
+                    <path d="M -6 -8 L 6 0 L -6 8 Z" fill="#fff" />
+                  </g>
+                </svg>
+              </a>
             </div>
 
             <div className="overflow-hidden rounded-[36px] bg-gradient-to-br from-[#A44326]/20 via-[#4F8BCF]/10 to-[#111213] p-5 shadow-[0_24px_80px_rgba(0,0,0,0.35)] sm:p-7">
@@ -171,10 +280,11 @@ const ProjectDetail = () => {
             <div className="mt-5 flex flex-wrap gap-3">
               {techStack.map((tech) => (
                 <span
-                  key={tech}
-                  className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-white/80"
+                  key={tech.name || tech}
+                  className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-white/80"
                 >
-                  {tech}
+                  {tech.icon ? <i className={tech.icon}></i> : null}
+                  {tech.name || tech}
                 </span>
               ))}
             </div>

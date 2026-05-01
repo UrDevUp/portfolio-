@@ -1,24 +1,30 @@
 export const projects = [
-  {
+{
     id: 0,
     slug: "restaurent",
     title: "Restaurent",
     image: "/assets/images/p1.webp",
     detailImage: "/assets/images/pp1.webp",
-    description: "Un site vitrine élégant pour un restaurant haut de gamme ",
+    description:
+      "Une expérience digitale raffinée qui capture l’essence du luxe culinaire et transforme chaque visite en immersion sensorielle.",
     shortDescription:
-      "Un site vitrine premium pensé pour présenter la carte, l'univers et la réservation en ligne.",
+      "Une vitrine digitale haut de gamme qui sublime l’univers du restaurant et transforme chaque visite en intention de réservation.",
     problem:
-      "Le restaurant avait besoin d'une présence digitale claire pour mettre en avant son image et faciliter la réservation.",
+      "Le restaurant souhaitait renforcer sa présence digitale avec une identité visuelle haut de gamme et un parcours utilisateur plus efficace pour les réservations.",
     solution:
-      "Nous avons conçu une landing page immersive avec une hiérarchie visuelle forte, des appels à l'action simples et une navigation rapide.",
+      "Nous avons conçu une landing page immersive combinant storytelling visuel, hiérarchie claire et appels à l’action stratégiques pour maximiser l’engagement.",
     features: [
-      "Hero immersif avec image principale",
-      "Présentation de la carte et des points forts",
-      "CTA de réservation visible",
-      "Design responsive orienté conversion",
+      "Hero immersif avec visuel plein écran captivant",
+      "Présentation élégante du menu et des spécialités",
+      "CTA stratégiques pour augmenter les réservations",
+      "Expérience responsive fluide sur tous les appareils",
     ],
-    techStack: ["React", "Vite", "Tailwind CSS", "Framer Motion"],
+    techStack: [
+      { name: "React", icon: "fab fa-react" },
+      { name: "Vite", icon: "fas fa-zap" },
+      { name: "Tailwind CSS", icon: "fab fa-css3-alt" },
+      { name: "Framer Motion", icon: "fas fa-film" }
+    ],
     media: {
       images: ["/assets/images/ppp1.webp"],
       video: "",
@@ -30,6 +36,7 @@ export const projects = [
       behance: "",
     },
   },
+
   {
     id: 1,
     slug: "streamplay",
@@ -37,20 +44,25 @@ export const projects = [
     image: "/assets/images/p2.webp",
     detailImage: "/assets/images/pp2.webp",
     description:
-      "Une plateforme IPTV moderne proposant un large choix de chaînes de télévision",
+      "Une plateforme immersive qui redéfinit l’accès au divertissement grâce à une navigation fluide et une expérience visuelle moderne.",
     shortDescription:
-      "Une interface moderne pour parcourir les chaînes, les contenus et les abonnements.",
+      "Une expérience de streaming fluide et moderne pensée pour explorer, découvrir et accéder aux contenus sans effort.",
     problem:
-      "Il fallait simplifier l'accès aux contenus IPTV et rendre l'offre plus lisible sur mobile comme sur desktop.",
+      "L’objectif était de simplifier l’accès aux contenus IPTV tout en rendant les offres plus lisibles sur desktop et mobile.",
     solution:
-      "Nous avons structuré l'information autour de sections courtes, d'une navigation fluide et d'une mise en avant claire des abonnements.",
+      "Nous avons structuré une expérience claire et dynamique avec navigation optimisée, architecture intuitive et mise en avant stratégique des abonnements.",
     features: [
-      "Catalogue clair des chaînes",
-      "Navigation rapide entre catégories",
-      "Mise en avant des offres et avantages",
-      "Expérience responsive et fluide",
+      "Catalogue organisé avec navigation intuitive",
+      "Transitions rapides et expérience sans friction",
+      "Présentation dynamique des offres premium",
+      "Interface responsive optimisée multi-écrans",
     ],
-    techStack: ["React", "Vite", "Tailwind CSS", "TypeScript"],
+    techStack: [
+      { name: "React", icon: "fab fa-react", color: "#06B6D4", gradient: "from-cyan-500 to-blue-500" },
+      { name: "Vite", icon: "fas fa-zap", color: "#FBBF24", gradient: "from-yellow-400 to-orange-500" },
+      { name: "Tailwind CSS", icon: "fab fa-css3-alt", color: "#0EA5E9", gradient: "from-sky-400 to-cyan-500" },
+      { name: "TypeScript", icon: "fab fa-js-square", color: "#3178C6", gradient: "from-blue-600 to-indigo-700" }
+    ],
     media: {
       images: ["/assets/images/pp2.webp"],
       video: "",
@@ -62,6 +74,7 @@ export const projects = [
       behance: "",
     },
   },
+
   {
     id: 2,
     slug: "ridex",
@@ -69,20 +82,25 @@ export const projects = [
     image: "/assets/images/p3.webp",
     detailImage: "/assets/images/pp3.webp",
     description:
-      "RideX est une plateforme de location de voitures innovante qui offre une large sélection",
+      "Une solution de location nouvelle génération pensée pour offrir une expérience rapide, fluide et orientée conversion.",
     shortDescription:
-      "Une plateforme de location pensée pour comparer rapidement les véhicules et réserver en quelques clics.",
+      "Une plateforme intelligente qui simplifie la location de véhicules et transforme chaque recherche en réservation rapide.",
     problem:
-      "Le besoin était de rendre le parcours de location plus rapide, plus lisible et plus rassurant pour l'utilisateur.",
+      "Le défi consistait à rendre le parcours de réservation plus rapide, intuitif et rassurant pour maximiser les conversions.",
     solution:
-      "Nous avons créé une interface orientée conversion avec des filtres clairs, des visuels forts et des étapes de réservation simplifiées.",
+      "Nous avons conçu une interface premium avec filtres intelligents, visuels engageants et tunnel de réservation optimisé.",
     features: [
-      "Catalogue véhicules avec filtres",
-      "Parcours de réservation simplifié",
-      "Cartes de véhicules détaillées",
-      "Interface claire et responsive",
+      "Catalogue interactif avec filtres avancés",
+      "Réservation simplifiée en quelques étapes",
+      "Cartes véhicules détaillées et immersives",
+      "Design premium axé performance et UX",
     ],
-    techStack: ["React", "Vite", "Tailwind CSS", "Framer Motion"],
+    techStack: [
+      { name: "React", icon: "fab fa-react", color: "#06B6D4", gradient: "from-cyan-500 to-blue-500" },
+      { name: "Vite", icon: "fas fa-zap", color: "#FBBF24", gradient: "from-yellow-400 to-orange-500" },
+      { name: "Tailwind CSS", icon: "fab fa-css3-alt", color: "#0EA5E9", gradient: "from-sky-400 to-cyan-500" },
+      { name: "Framer Motion", icon: "fas fa-film", color: "#EC4899", gradient: "from-pink-500 to-purple-600" }
+    ],
     media: {
       images: ["/assets/images/pp3.webp"],
       video: "",
@@ -94,6 +112,8 @@ export const projects = [
       behance: "",
     },
   },
+
+
   // {
   //   id: 3,
   //   title: "Cabinet Dentaire",
@@ -131,3 +151,4 @@ export const projects = [
   //   },
   // },
 ];
+
