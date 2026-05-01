@@ -108,7 +108,6 @@ const ProjectDetail = () => {
     ? project.techStack
     : ["React", "Vite", "Tailwind CSS"];
   const clientLabel = project.client || project.title;
-  const scopeLabel = project.scopeOfWork || techStack.slice(0, 3).join(" · ");
 
   return (
     <div className="min-h-screen bg-[#111213] text-white">
@@ -155,7 +154,6 @@ const ProjectDetail = () => {
               </p>
             </div>
             <div>
-              <p className="text-sm text-white/45">Scope of work</p>
               <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
                 {techStack.slice(0, 3).map((tech) => (
                   <span
