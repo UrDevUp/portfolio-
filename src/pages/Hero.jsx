@@ -2,6 +2,7 @@
 import CardSwap, { Card } from "./CardSwap";
 import { useIsMdUp } from "@/hooks/useIsMdUp";
 import { useTranslation } from "react-i18next";
+import { useTheme } from "@/theme";
 
 import React, {
   lazy,
@@ -28,6 +29,7 @@ const CARD_SWAP_VIDEOS = [
 
 const HeroContent = () => {
   const { t } = useTranslation();
+  const { themeName } = useTheme();
   const isMdUp = useIsMdUp();
   const [activeVideoIndex, setActiveVideoIndex] = useState(0);
   const [enableVisualFx, setEnableVisualFx] = useState(false);
@@ -115,9 +117,9 @@ const HeroContent = () => {
   return (
     <div
       id="hero"
-      className="relative overflow-hidden dark:bg-[#111213] bg-white min-h-dvh flex flex-col md:flex-row items-center justify-start md:justify-center gap-2 sm:gap-8 md:gap-0 px-4 pt-36 pb-10 md:py-0"
+      className="relative overflow-hidden bg-[#ffffff] dark:bg-[#111213] min-h-dvh flex flex-col md:flex-row items-center justify-start md:justify-center gap-2 sm:gap-8 md:gap-0 px-4 pt-36 pb-10 md:py-0"
     >
-      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-[#ffffff] dark:bg-[#111213]">
         {!isLowPowerDevice && enableVisualFx ? (
           <Suspense fallback={null}>
             <LightRays
@@ -136,14 +138,14 @@ const HeroContent = () => {
         ) : null}
       </div>
       <div className="relative z-10 w-full md:w-1/2 md:pl-20 max-w-[620px] md:max-w-none">
-        <h1 className="bg-gradient-to-r from-black via-black/80 to-black/60 dark:from-white/20 dark:via-white/80 dark:to-white text-4xl sm:text-5xl md:text-6xl font-bold leading-none mb-4 sm:mb-6 text-center md:text-left bg-clip-text text-transparent">
+        <h1 className="bg-gradient-to-r from-gray-800 via-gray-600 to-gray-500 dark:from-white/20 dark:via-white/80 dark:to-white text-4xl sm:text-5xl md:text-6xl font-bold leading-none mb-4 sm:mb-6 text-center md:text-left bg-clip-text text-transparent">
           Creative
-          <span className="font-brand block sm:inline sm:ml-3 bg-gradient-to-r from-black via-black/80 to-black/60 dark:from-white/20 dark:via-white/80 dark:to-white bg-clip-text text-transparent">
+          <span className="font-brand block sm:inline sm:ml-3 bg-gradient-to-r from-gray-800 via-gray-600 to-gray-500 dark:from-white/20 dark:via-white/80 dark:to-white bg-clip-text text-transparent">
             UrDevUp
           </span>
         </h1>
 
-        <div className="text-base sm:text-lg md:text-xl text-white/75 dark:text-white/75 mb-8 sm:mb-12 leading-relaxed text-center md:text-left">
+        <div className="text-base sm:text-lg md:text-xl text-black/75 dark:text-white/75 mb-8 sm:mb-12 leading-relaxed text-center md:text-left">
           {t("heroDescriptionBase")}
           <TextType
             text={heroWords}
@@ -151,7 +153,7 @@ const HeroContent = () => {
             pauseDuration={1500}
             showCursor={true}
             cursorCharacter="|"
-            textColors={["#ffffff"]}
+            textColors={[themeName === "dark" ? "#ffffff" : "#000000"]}
             className="font-semibold"
           />
         </div>
@@ -168,7 +170,7 @@ const HeroContent = () => {
             color="#ffffff"
             speed="6s"
             thickness={1}
-            className="star-border-button--double star-border-button--glass w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 !text-white transition-all font-medium text-sm sm:text-base"
+            className="star-border-button--double star-border-button--glass w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 !text-black dark:!text-white transition-all font-medium text-sm sm:text-base"
           >
             {t("viewCatalog")}
           </StarBorderButton>

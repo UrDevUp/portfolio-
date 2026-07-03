@@ -139,9 +139,9 @@ export default function Home() {
         </Suspense>
       </section>
 
-      <Suspense fallback={<div className="min-h-[220px]" />}>
+      {/* <Suspense fallback={<div className="min-h-[220px]" />}>
         <Meet />
-      </Suspense>
+      </Suspense> */}
 
       <Suspense fallback={<Loading />}>
         <Contact />

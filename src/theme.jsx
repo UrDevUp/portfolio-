@@ -56,21 +56,35 @@ const themes = {
 const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
-  const theme = "dark";
+  const [theme, setTheme] = useState("light");
 
-  // Force dark mode globally
-  React.useEffect(() => {
-    const html = document.documentElement;
-    html.classList.add("dark");
-    html.setAttribute("data-theme", "dark");
-    localStorage.setItem("theme", "dark");
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const storedTheme = window.localStorage.getItem("theme");
+    if (storedTheme === "dark" || storedTheme === "light") {
+      setTheme(storedTheme);
+      return;
+    }
+
+    const prefersDark = window.matchMedia?.(
+      "(prefers-color-scheme: dark)",
+    ).matches;
+    setTheme(prefersDark ? "dark" : "light");
   }, []);
 
+  useEffect(() => {
+    const html = document.documentElement;
+    html.classList.toggle("dark", theme === "dark");
+    html.setAttribute("data-theme", theme);
+    window.localStorage.setItem("theme", theme);
+  }, [theme]);
+
   const toggleTheme = () => {
-    // No-op: dark theme only
+    setTheme((current) => (current === "dark" ? "light" : "dark"));
   };
 
-  const currentTheme = themes.dark;
+  const currentTheme = theme === "dark" ? themes.dark : themes.light;
 
   return (
     <ThemeContext.Provider

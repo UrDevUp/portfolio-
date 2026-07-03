@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import ArrowUpRight from "lucide-react/dist/esm/icons/arrow-up-right";
+import { useTheme } from "@/theme";
 
 const DEFAULT_PROJECTS = [
   {
@@ -39,6 +40,8 @@ const RollingGallery = ({
   grayscale = false,
   logoOnly = false,
 }) => {
+  const { themeName } = useTheme();
+  const isDarkMode = themeName === "dark";
   const cardProjects =
     projects.length > 0
       ? projects
@@ -78,7 +81,11 @@ const RollingGallery = ({
                 ease: "easeOut",
               }}
               whileHover={{ y: -12, transition: { duration: 0.3 } }}
-              className="relative h-full overflow-hidden rounded-[32px] border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.1)] hover:shadow-[0_16px_48px_rgba(255,255,255,0.06),0_8px_32px_rgba(0,0,0,0.32)] transition-all duration-500"
+              className={`relative h-full overflow-hidden rounded-[32px] transition-all duration-500 ${
+                isDarkMode
+                  ? "border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.1)] hover:shadow-[0_16px_48px_rgba(255,255,255,0.06),0_8px_32px_rgba(0,0,0,0.32)]"
+                  : "border border-black/10 bg-white shadow-[0_10px_30px_rgba(0,0,0,0.08)] hover:shadow-[0_16px_40px_rgba(0,0,0,0.12)]"
+              }`}
             >
               {/* Premium gradient background */}
               <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-white/[0.02] to-white/0" />
@@ -97,7 +104,13 @@ const RollingGallery = ({
                       } ${logoOnly ? "opacity-80" : "opacity-100"}`}
                     />
                     {/* Premium overlay gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent opacity-100 group-hover:opacity-70 transition-opacity duration-500" />
+                    <div
+                      className={`absolute inset-0 opacity-100 group-hover:opacity-70 transition-opacity duration-500 ${
+                        isDarkMode
+                          ? "bg-gradient-to-t from-black/60 via-black/30 to-transparent"
+                          : "bg-gradient-to-t from-black/30 via-black/10 to-transparent"
+                      }`}
+                    />
                   </>
                 ) : (
                   <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent" />
@@ -105,8 +118,18 @@ const RollingGallery = ({
 
                 {/* Icon button with premium styling */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-full border border-white/30 bg-black/40 text-2xl text-white backdrop-blur-sm">
-                    <ArrowUpRight size={22} strokeWidth={2.25} aria-hidden="true" />
+                  <div
+                    className={`flex h-16 w-16 items-center justify-center rounded-full border px-0 text-2xl backdrop-blur-sm ${
+                      isDarkMode
+                        ? "border-white/30 bg-black/40 text-white"
+                        : "border-black/10 bg-white/90 text-black"
+                    }`}
+                  >
+                    <ArrowUpRight
+                      size={22}
+                      strokeWidth={2.25}
+                      aria-hidden="true"
+                    />
                   </div>
                 </div>
 
@@ -114,12 +137,26 @@ const RollingGallery = ({
               </div>
 
               {/* Content section matching the reference: dark strip with title and badge */}
-              <div className="relative z-20 flex items-center justify-between gap-4 bg-[#232325] px-4 py-5 sm:px-5">
-                <h3 className="min-w-0 text-[1.15rem] font-semibold leading-tight tracking-[-0.02em] text-white sm:text-[1.35rem]">
+              <div
+                className={`relative z-20 flex items-center justify-between gap-4 px-4 py-5 sm:px-5 ${
+                  isDarkMode ? "bg-[#232325]" : "bg-white"
+                }`}
+              >
+                <h3
+                  className={`min-w-0 text-[1.15rem] font-semibold leading-tight tracking-[-0.02em] sm:text-[1.35rem] ${
+                    isDarkMode ? "text-white" : "text-black"
+                  }`}
+                >
                   {project.title}
                 </h3>
 
-                <span className="shrink-0 rounded-full border border-white/16 bg-transparent px-3 py-1 text-[11px] font-medium uppercase tracking-[0.08em] text-white/80 transition-all duration-300 shadow-[0_6px_18px_rgba(255,255,255,0.03)] group-hover:border-white/30 group-hover:shadow-[0_10px_28px_rgba(255,255,255,0.05)]">
+                <span
+                  className={`shrink-0 rounded-full border px-3 py-1 text-[11px] font-medium uppercase tracking-[0.08em] transition-all duration-300 ${
+                    isDarkMode
+                      ? "border-white/16 bg-transparent text-white/80 shadow-[0_6px_18px_rgba(255,255,255,0.03)] group-hover:border-white/30 group-hover:shadow-[0_10px_28px_rgba(255,255,255,0.05)]"
+                      : "border-black/10 bg-black/5 text-black/70 shadow-[0_6px_18px_rgba(0,0,0,0.04)] group-hover:border-black/20 group-hover:shadow-[0_10px_28px_rgba(0,0,0,0.06)]"
+                  }`}
+                >
                   {project.category || "PROJET"}
                 </span>
               </div>

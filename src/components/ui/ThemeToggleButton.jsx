@@ -12,7 +12,7 @@ const ThemeToggleButton = () => {
       onClick={toggleTheme}
       aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
       className={`flex items-center justify-center p-2 rounded-full transition-colors duration-300 shadow-md border-none focus:outline-none ${
-        isDarkMode ? "bg-gray-800 text-[#D5C05C]" : "bg-gray-200 text-gray-800"
+        isDarkMode ? "bg-gray-800 text-[#f8f8f8]" : "bg-gray-200 text-gray-800"
       }`}
       style={{ width: 44, height: 44 }}>
       {isDarkMode ? (

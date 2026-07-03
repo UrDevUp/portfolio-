@@ -88,7 +88,7 @@ const Projets = () => {
           </motion.h2>
           <motion.p
             variants={headingItemVariant}
-            className="mx-auto mt-3 max-w-3xl text-white/70 text-base sm:text-lg"
+            className="mx-auto mt-3 max-w-3xl text-gray-700 dark:text-white/70 text-base sm:text-lg"
           >
             {t("projectsIntro") ||
               "Une sélection de projets récents montrant notre savoir-faire en design et développement web."}

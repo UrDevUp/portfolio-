@@ -4,6 +4,8 @@ import { useState, useEffect, useRef } from "react";
 import Menu from "lucide-react/dist/esm/icons/menu";
 import X from "lucide-react/dist/esm/icons/x";
 import LanguageSelector from "@/components/ui/LanguageSelector";
+import ThemeToggleButton from "@/components/ui/ThemeToggleButton";
+import { useTheme } from "@/theme";
 import { useTranslation } from "react-i18next";
 
 export default function Header() {
@@ -14,6 +16,7 @@ export default function Header() {
   const lastScrollYRef = useRef(0);
   const tickingRef = useRef(false);
   const rafIdRef = useRef(null);
+  const { themeName } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -142,9 +145,16 @@ export default function Header() {
     const baseClass = isMobile
       ? "text-left"
       : "text-[17px] font-medium tracking-[-0.01em]";
+
+    const activeColor = themeName === "dark" ? "text-white" : "text-black";
+    const inactiveColor =
+      themeName === "dark"
+        ? "text-white/70 hover:text-white"
+        : "text-black/70 hover:text-black";
+
     const stateClass = isActive
-      ? "text-white font-semibold underline decoration-white decoration-[1.25px] underline-offset-[10px]"
-      : "text-white/70 hover:text-white";
+      ? `${activeColor} font-semibold underline decoration-current decoration-[1.25px] underline-offset-[10px]`
+      : inactiveColor;
 
     return `${baseClass} ${stateClass} transition-colors`;
   };
@@ -155,9 +165,15 @@ export default function Header() {
     setShowNavbar(true);
   };
 
+  const headerBaseClasses = `fixed top-4 left-1/2 z-50 w-[calc(100%-1.5rem)] -translate-x-1/2 rounded-[2rem] backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.35)] transition-transform duration-300 md:w-[calc(100%-6rem)]`;
+  const headerThemeClasses =
+    themeName === "dark"
+      ? "border border-white/10 bg-[#111213]/90"
+      : "border border-black/10 bg-white/90";
+
   return (
     <header
-      className={`fixed top-4 left-1/2 z-50 w-[calc(100%-1.5rem)] -translate-x-1/2 rounded-[2rem] border border-white/10 bg-[#111213]/90 backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.35)] transition-transform duration-300 md:w-[calc(100%-6rem)] ${
+      className={`${headerBaseClasses} ${headerThemeClasses} ${
         showNavbar ? "translate-y-0" : "-translate-y-full"
       }`}
     >
@@ -174,14 +190,14 @@ export default function Header() {
                 alt="UrDevUp logo"
                 width="48"
                 height="48"
-                className="h-full w-full object-contain dark:brightness-0 dark:invert"
+                className="h-full w-full object-contain brightness-0 dark:brightness-0 dark:invert"
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"
               />
             </div>
             {/* <span className="text-xl font-bold bg-gradient-to-r from-[#D5C05C] to-[#47412B] bg-clip-text text-transparent"> */}
-            <span className="font-brand text-[1.35rem] md:text-2xl font-semibold tracking-[-0.04em] text-white">
+            <span className="font-brand text-[1.35rem] md:text-2xl font-semibold tracking-[-0.04em] text-black dark:text-white">
               UrDevUp.
             </span>
           </div>
@@ -225,14 +241,19 @@ export default function Header() {
             </button>
           </nav>
 
-          <div className="hidden md:flex items-center gap-6">
+          <div className="hidden md:flex items-center gap-4">
+            <ThemeToggleButton />
             <div className="relative" style={{ minWidth: 110, maxWidth: 130 }}>
               <LanguageSelector />
             </div>
 
             <button
               onClick={() => scrollToSection("contact")}
-              className="bg-[#111213] text-white px-6 py-2 rounded-full hover:bg-[#151515] dark:bg-white dark:text-black dark:hover:bg-white/90 transition-colors"
+              className={
+                themeName === "dark"
+                  ? "bg-[#111213] text-white px-6 py-2 rounded-full hover:bg-[#151515] transition-colors"
+                  : "bg-black text-white px-6 py-2 rounded-full hover:bg-gray-800 transition-colors"
+              }
             >
               {t("contact")}
             </button>
@@ -266,10 +287,17 @@ export default function Header() {
         {isMenuOpen && (
           <nav
             id="mobile-menu"
-            className="md:hidden mt-4 pb-4 border-t border-white/10 pt-4"
+            className={`md:hidden mt-4 pb-4 pt-4 ${
+              themeName === "dark"
+                ? "border-t border-white/10"
+                : "border-t border-black/10"
+            }`}
             aria-label="Mobile navigation"
           >
             <div className="flex flex-col space-y-4">
+              <div className="flex items-center">
+                <ThemeToggleButton />
+              </div>
               <button
                 onClick={() => scrollToSection("hero")}
                 className={getNavLinkClass("hero", true)}
@@ -304,7 +332,7 @@ export default function Header() {
               </button>
               <button
                 onClick={() => scrollToSection("contact")}
-                className="bg-white text-black dark:bg-[#111213] dark:text-white px-6 py-2 rounded-full hover:bg-white/90 dark:hover:bg-[#151515] transition-colors text-center"
+                className="bg-black text-white dark:bg-[#111213] dark:text-white px-6 py-2 rounded-full hover:bg-gray-800 dark:hover:bg-[#151515] transition-colors text-center"
               >
                 {t("contact")}
               </button>

@@ -189,7 +189,7 @@ export default function Contact() {
                     color="#ffffff"
                     speed="6s"
                     thickness={1}
-                    className="star-border-button--double star-border-button--glass w-full px-6 py-3 !text-white font-medium"
+                    className="star-border-button--double star-border-button--glass w-full px-6 py-3 !text-black dark:!text-white font-medium"
                   >
                     {t("sendMessage")}
                   </StarBorderButton>

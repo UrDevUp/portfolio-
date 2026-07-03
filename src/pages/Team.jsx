@@ -4,10 +4,12 @@ import { FastAverageColor } from "fast-average-color";
 import { motion } from "framer-motion";
 import { AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import { useTheme } from "@/theme";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
 
 export default function Team() {
+  const { themeName } = useTheme();
   const { t } = useTranslation();
   const team = [
     {
@@ -196,7 +198,9 @@ export default function Team() {
       <AnimatePresence>
         {selectedMember && (
           <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-[#111213]/80 backdrop-blur-sm"
+            className={`fixed inset-0 z-50 flex items-center justify-center ${
+              themeName === "dark" ? "bg-[#111213]/80" : "bg-white/90"
+            } backdrop-blur-sm`}
             onClick={(e) => {
               if (e.target === e.currentTarget) {
                 setSelectedMember(null);
@@ -208,14 +212,22 @@ export default function Team() {
             transition={{ duration: 0.2 }}
           >
             <motion.div
-              className="bg-neutral-900/95 backdrop-blur-xl shadow-2xl max-w-2xl w-full p-8 relative border border-white/20 rounded-2xl"
+              className={`backdrop-blur-xl shadow-2xl max-w-2xl w-full p-8 relative rounded-2xl ${
+                themeName === "dark"
+                  ? "bg-neutral-900/95 border border-white/20"
+                  : "bg-white/95 border border-black/10"
+              }`}
               variants={modalVariants}
               initial="hidden"
               animate="visible"
               exit="exit"
             >
               <motion.button
-                className="absolute top-4 right-4 text-neutral-400 hover:text-white text-2xl w-8 h-8 flex items-center justify-center rounded-full bg-neutral-800 hover:bg-neutral-700 transition-all"
+                className={`absolute top-4 right-4 text-neutral-400 text-2xl w-8 h-8 flex items-center justify-center rounded-full transition-all ${
+                  themeName === "dark"
+                    ? "bg-neutral-800 hover:bg-neutral-700 hover:text-white"
+                    : "bg-white shadow-sm hover:bg-gray-100 hover:text-black"
+                }`}
                 onClick={() => setSelectedMember(null)}
                 aria-label="Close"
                 whileHover={{ scale: 1.1 }}
@@ -223,7 +235,9 @@ export default function Team() {
               >
                 <FontAwesomeIcon
                   icon={faCircleXmark}
-                  className="text-white/80"
+                  className={
+                    themeName === "dark" ? "text-white/80" : "text-black/70"
+                  }
                 />
               </motion.button>
               <motion.div
@@ -235,27 +249,39 @@ export default function Team() {
                 <motion.img
                   src={selectedMember.image || "/placeholder.svg"}
                   alt={selectedMember.name}
-                  className="w-28 h-28 rounded-full object-cover border-4 border-white/70 shadow-lg mb-2"
+                  className={`w-28 h-28 rounded-full object-cover shadow-lg mb-2 border-4 ${
+                    themeName === "dark" ? "border-white/70" : "border-gray-200"
+                  }`}
                   initial={{ scale: 0.8 }}
                   animate={{ scale: 1 }}
                   transition={{ type: "spring", stiffness: 200 }}
                 />
                 <motion.h3
-                  className="text-2xl font-extrabold text-white text-center tracking-tight"
+                  className={`text-2xl font-extrabold text-center tracking-tight ${
+                    themeName === "dark" ? "text-white" : "text-black"
+                  }`}
                   initial={{ y: -10 }}
                   animate={{ y: 0 }}
                 >
                   {selectedMember.name}
                 </motion.h3>
                 <motion.p
-                  className="text-base font-medium text-center mb-1 bg-gradient-to-r from-black via-black/80 to-black/60 dark:from-white/20 dark:via-white/80 dark:to-white bg-clip-text text-transparent"
+                  className={`text-base font-medium text-center mb-1 ${
+                    themeName === "dark"
+                      ? "bg-gradient-to-r from-black via-black/80 to-black/60 bg-clip-text text-transparent"
+                      : "text-gray-700"
+                  }`}
                   initial={{ y: 10 }}
                   animate={{ y: 0 }}
                 >
                   {selectedMember.role}
                 </motion.p>
                 <motion.div
-                  className="w-full border-t border-neutral-700 my-2"
+                  className={`w-full border-t my-2 ${
+                    themeName === "dark"
+                      ? "border-neutral-700"
+                      : "border-gray-200"
+                  }`}
                   initial={{ width: 0 }}
                   animate={{ width: "100%" }}
                   transition={{ duration: 0.5 }}
@@ -267,10 +293,14 @@ export default function Team() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.3 }}
                   >
-                    <span className="text-neutral-400 font-semibold min-w-[30px] text-sm">
+                    <span
+                      className={`font-semibold min-w-[30px] text-sm ${themeName === "dark" ? "text-white" : "text-gray-700"}`}
+                    >
                       {t("bio")}
                     </span>
-                    <span className="text-neutral-200 text-sm">
+                    <span
+                      className={`text-sm ${themeName === "dark" ? "text-white" : "text-gray-800"}`}
+                    >
                       {selectedMember.bio}
                     </span>
                   </motion.div>
@@ -280,10 +310,14 @@ export default function Team() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.35 }}
                   >
-                    <span className="text-neutral-400 font-semibold min-w-[50px] text-sm">
+                    <span
+                      className={`font-semibold min-w-[50px] text-sm ${themeName === "dark" ? "text-white" : "text-gray-700"}`}
+                    >
                       {t("experience")}
                     </span>
-                    <span className="text-neutral-200 ps-2 text-sm">
+                    <span
+                      className={`ps-2 text-sm ${themeName === "dark" ? "text-white" : "text-gray-800"}`}
+                    >
                       {selectedMember.experience}
                     </span>
                   </motion.div>
@@ -294,7 +328,9 @@ export default function Team() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.4 }}
                   >
-                    <span className="text-neutral-400 font-semibold min-w-[50px] text-sm mt-1">
+                    <span
+                      className={`font-semibold min-w-[50px] text-sm mt-1 ${themeName === "dark" ? "text-neutral-400" : "text-gray-600"}`}
+                    >
                       {t("skills")}
                     </span>
                     <div className="flex flex-wrap gap-2 mt-1">
@@ -302,7 +338,11 @@ export default function Team() {
                         selectedMember.skills.map((skill, idx) => (
                           <motion.span
                             key={idx}
-                            className="bg-white/5 text-white/80 cursor-default px-2 py-0.5 rounded-full text-xs font-medium border border-white/25 shadow-sm"
+                            className={`cursor-default px-2 py-0.5 rounded-full text-xs font-medium shadow-sm ${
+                              themeName === "dark"
+                                ? "bg-white/5 text-white/80 border border-white/25"
+                                : "bg-gray-100 text-gray-800 border border-gray-200"
+                            }`}
                             initial={{ scale: 0 }}
                             animate={{ scale: 1 }}
                             transition={{
