@@ -108,7 +108,7 @@ export const projects = [
     links: {
       date: "2026",
       github: "",
-      website: "Hhttps://rentcar-ridex.vercel.app/",
+      website: "https://rentcar-ridex.vercel.app/",
       behance: "",
     },
   },
