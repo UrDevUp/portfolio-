@@ -10,15 +10,14 @@ import HorizontalSection from "./HorizontalSection";
 import "../styles/homestyle.css";
 import { lazy, Suspense } from "react";
 import Loading from "@/layouts/Loading";
-import { useTheme } from "@/theme";
 const Branding = lazy(() => import("@/pages/Branding"));
 const Projets = lazy(() => import("@/pages/Projets"));
 const Contact = lazy(() => import("@/pages/Contact"));
-const Meet = lazy(() => import("./Meet"));
+// Meet est desactive (voir le bloc commente plus bas) : garder le lazy import
+// generait un chunk jamais telecharge.
 
 export default function Home() {
   useLenis();
-  const { themeName } = useTheme();
 
   useEffect(() => {
     if (typeof window === "undefined" || window.location.hash !== "#projects") {

@@ -186,7 +186,7 @@ export default function Header() {
           >
             <div className="w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center">
               <img
-                src="assets/images/logo_dev.webp"
+                src="/assets/images/logo_dev.webp"
                 alt="UrDevUp logo"
                 width="48"
                 height="48"

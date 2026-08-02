@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { projects } from "@/data/galleryData";
-import "@fortawesome/fontawesome-free/css/all.css";
+import TechIcon from "@/components/ui/TechIcon";
 
 const techStackStyles = `
   @keyframes techFloat {
@@ -58,10 +58,8 @@ const ProjectDetail = () => {
     (item) => item.slug === projectId || String(item.id) === projectId,
   );
 
-  useEffect(() => {
-    if (!project) return;
-    document.title = `${project.title} | Projets`;
-  }, [project]);
+  // Le titre est gere par SeoHead (voir lib/seoConfig) : l'ecrire ici aussi
+  // creait deux effets concurrents sur document.title.
 
   // Ensure we show the top of the page (hero) when opening a project
   useEffect(() => {
@@ -266,11 +264,11 @@ const ProjectDetail = () => {
                   className="tech-badge inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-white/80"
                 >
                   {tech.icon ? (
-                    <i
-                      className={`${tech.icon} tech-icon min-w-4 text-center text-base sm:text-lg`}
-                      style={{ color: tech.color || undefined }}
-                      aria-hidden="true"
-                    ></i>
+                    <TechIcon
+                      icon={tech.icon}
+                      color={tech.color}
+                      className="tech-icon min-w-4 text-center text-base sm:text-lg"
+                    />
                   ) : (
                     <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-white/10 text-[10px] font-semibold">
                       {(tech.name || tech).slice(0, 1)}

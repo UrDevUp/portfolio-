@@ -6,8 +6,8 @@ import React, {
   useEffect,
   useMemo,
   useRef,
+  useState,
 } from "react";
-import gsap from "gsap";
 
 // Card component
 export const Card = forwardRef(({ customClass, ...rest }, ref) => (
@@ -30,7 +30,7 @@ const makeSlot = (i, distX, distY, total) => ({
 });
 
 // Place element in 3D space
-const placeNow = (el, slot, skew) =>
+const placeNow = (gsap, el, slot, skew) =>
   gsap.set(el, {
     x: slot.x,
     y: slot.y,
@@ -92,41 +92,22 @@ const CardSwap = ({
   const intervalRef = useRef();
   const startTimeoutRef = useRef();
   const container = useRef(null);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const isMobile = window.matchMedia("(max-width: 768px)").matches;
-    const total = refs.length;
+    // GSAP est charge a la demande : statique, il ajoutait ~111 kB au chunk
+    // initial du hero. L'effet reste synchrone (React exige un cleanup
+    // synchrone) et le travail dependant de GSAP se fait dans le .then().
+    let cancelled = false;
+    let cleanupHover = null;
 
-    refs.forEach((r, i) => {
-      const slot = isMobile
-        ? {
-            x: 0,
-            y: -i * verticalDistance,
-            z: -i * verticalDistance * 1.5,
-            zIndex: total - i,
-          }
-        : makeSlot(i, cardDistance, verticalDistance, total);
+    void import("gsap").then(({ default: gsap }) => {
+      if (cancelled) return;
 
-      placeNow(r.current, slot, isMobile ? 0 : skewAmount);
-    });
+      const isMobile = window.matchMedia("(max-width: 768px)").matches;
+      const total = refs.length;
 
-    const swap = () => {
-      if (order.current.length < 2) return;
-
-      const [front, ...rest] = order.current;
-      const elFront = refs[front].current;
-      const tl = gsap.timeline();
-      tlRef.current = tl;
-
-      tl.to(elFront, {
-        y: "+=500",
-        duration: config.durDrop,
-        ease: config.ease,
-      });
-
-      tl.addLabel("promote", `-=${config.durDrop * config.promoteOverlap}`);
-      rest.forEach((idx, i) => {
-        const el = refs[idx].current;
+      refs.forEach((r, i) => {
         const slot = isMobile
           ? {
               x: 0,
@@ -134,94 +115,136 @@ const CardSwap = ({
               z: -i * verticalDistance * 1.5,
               zIndex: total - i,
             }
-          : makeSlot(i, cardDistance, verticalDistance, refs.length);
+          : makeSlot(i, cardDistance, verticalDistance, total);
 
-        tl.set(el, { zIndex: slot.zIndex }, "promote");
+        placeNow(gsap, r.current, slot, isMobile ? 0 : skewAmount);
+      });
+
+      // Les cartes ne sont revelees qu'une fois positionnees, sinon elles
+      // apparaitraient toutes empilees au centre le temps du chargement.
+      setReady(true);
+
+      const swap = () => {
+        if (order.current.length < 2) return;
+
+        const [front, ...rest] = order.current;
+        const elFront = refs[front].current;
+        const tl = gsap.timeline();
+        tlRef.current = tl;
+
+        tl.to(elFront, {
+          y: "+=500",
+          duration: config.durDrop,
+          ease: config.ease,
+        });
+
+        tl.addLabel("promote", `-=${config.durDrop * config.promoteOverlap}`);
+        rest.forEach((idx, i) => {
+          const el = refs[idx].current;
+          const slot = isMobile
+            ? {
+                x: 0,
+                y: -i * verticalDistance,
+                z: -i * verticalDistance * 1.5,
+                zIndex: total - i,
+              }
+            : makeSlot(i, cardDistance, verticalDistance, refs.length);
+
+          tl.set(el, { zIndex: slot.zIndex }, "promote");
+          tl.to(
+            el,
+            {
+              x: slot.x,
+              y: slot.y,
+              z: slot.z,
+              duration: config.durMove,
+              ease: config.ease,
+            },
+            `promote+=${i * 0.15}`,
+          );
+        });
+
+        const backSlot = isMobile
+          ? {
+              x: 0,
+              y: -(refs.length - 1) * verticalDistance,
+              z: -(refs.length - 1) * verticalDistance * 1.5,
+              zIndex: 0,
+            }
+          : makeSlot(
+              refs.length - 1,
+              cardDistance,
+              verticalDistance,
+              refs.length,
+            );
+
+        tl.addLabel(
+          "return",
+          `promote+=${config.durMove * config.returnDelay}`,
+        );
+        tl.call(
+          () => {
+            gsap.set(elFront, { zIndex: backSlot.zIndex });
+          },
+          undefined,
+          "return",
+        );
+        tl.set(elFront, { x: backSlot.x, z: backSlot.z }, "return");
         tl.to(
-          el,
+          elFront,
           {
-            x: slot.x,
-            y: slot.y,
-            z: slot.z,
-            duration: config.durMove,
+            y: backSlot.y,
+            duration: config.durReturn,
             ease: config.ease,
           },
-          `promote+=${i * 0.15}`,
+          "return",
         );
-      });
 
-      const backSlot = isMobile
-        ? {
-            x: 0,
-            y: -(refs.length - 1) * verticalDistance,
-            z: -(refs.length - 1) * verticalDistance * 1.5,
-            zIndex: 0,
-          }
-        : makeSlot(
-            refs.length - 1,
-            cardDistance,
-            verticalDistance,
-            refs.length,
-          );
-
-      tl.addLabel("return", `promote+=${config.durMove * config.returnDelay}`);
-      tl.call(
-        () => {
-          gsap.set(elFront, { zIndex: backSlot.zIndex });
-        },
-        undefined,
-        "return",
-      );
-      tl.set(elFront, { x: backSlot.x, z: backSlot.z }, "return");
-      tl.to(
-        elFront,
-        {
-          y: backSlot.y,
-          duration: config.durReturn,
-          ease: config.ease,
-        },
-        "return",
-      );
-
-      tl.call(() => {
-        order.current = [...rest, front];
-        onOrderChange?.(order.current);
-      });
-    };
-
-    onOrderChange?.(order.current);
-    const shouldAnimate = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    if (shouldAnimate) {
-      startTimeoutRef.current = window.setTimeout(() => {
-        swap();
-        intervalRef.current = window.setInterval(swap, delay);
-      }, Math.min(1200, delay));
-    }
-
-    if (pauseOnHover) {
-      const node = container.current;
-      const pause = () => {
-        tlRef.current?.pause();
-        clearInterval(intervalRef.current);
-        clearTimeout(startTimeoutRef.current);
+        tl.call(() => {
+          order.current = [...rest, front];
+          onOrderChange?.(order.current);
+        });
       };
-      const resume = () => {
-        if (!shouldAnimate) return;
-        tlRef.current?.play();
-        intervalRef.current = window.setInterval(swap, delay);
-      };
-      node.addEventListener("mouseenter", pause);
-      node.addEventListener("mouseleave", resume);
-      return () => {
-        node.removeEventListener("mouseenter", pause);
-        node.removeEventListener("mouseleave", resume);
-        clearInterval(intervalRef.current);
-        clearTimeout(startTimeoutRef.current);
-      };
-    }
+
+      onOrderChange?.(order.current);
+      const shouldAnimate = !window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+
+      if (shouldAnimate) {
+        startTimeoutRef.current = window.setTimeout(
+          () => {
+            swap();
+            intervalRef.current = window.setInterval(swap, delay);
+          },
+          Math.min(1200, delay),
+        );
+      }
+
+      if (pauseOnHover) {
+        const node = container.current;
+        const pause = () => {
+          tlRef.current?.pause();
+          clearInterval(intervalRef.current);
+          clearTimeout(startTimeoutRef.current);
+        };
+        const resume = () => {
+          if (!shouldAnimate) return;
+          tlRef.current?.play();
+          intervalRef.current = window.setInterval(swap, delay);
+        };
+        node.addEventListener("mouseenter", pause);
+        node.addEventListener("mouseleave", resume);
+        cleanupHover = () => {
+          node.removeEventListener("mouseenter", pause);
+          node.removeEventListener("mouseleave", resume);
+        };
+      }
+    });
 
     return () => {
+      cancelled = true;
+      cleanupHover?.();
       clearInterval(intervalRef.current);
       clearTimeout(startTimeoutRef.current);
     };
@@ -253,7 +276,9 @@ const CardSwap = ({
   return (
     <div
       ref={container}
-      className="relative md:-bottom-24 transform left-1/2 translate-x-[-50%] translate-y-[25%] origin-bottom sm:left-auto sm:right-0 sm:translate-x-[-5%] sm:translate-y-[10%] sm:origin-bottom-left perspective-[900px] overflow-visible max-[480px]:scale-[0.72]"
+      className={`relative md:-bottom-24 transform left-1/2 translate-x-[-50%] translate-y-[25%] origin-bottom sm:left-auto sm:right-0 sm:translate-x-[-5%] sm:translate-y-[10%] sm:origin-bottom-left perspective-[900px] overflow-visible max-[480px]:scale-[0.72] transition-opacity duration-300 ${
+        ready ? "opacity-100" : "opacity-0"
+      }`}
       style={{ width, height }}
     >
       {rendered}

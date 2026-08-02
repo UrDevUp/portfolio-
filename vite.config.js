@@ -27,17 +27,29 @@ export default defineConfig({
           if (!id.includes("node_modules")) return;
           if (id.includes("gsap")) return "vendor_gsap";
           if (id.includes("lucide-react")) return "vendor_icons";
-          if (id.includes("@fortawesome")) return "vendor_icons_fa";
           if (id.includes("framer-motion")) return "vendor_motion";
           if (id.includes("i18next")) return "vendor_i18n";
-          if (id.includes("ogl") || id.includes("animejs")) return "vendor_fx";
+          if (id.includes("ogl")) return "vendor_fx";
+          if (id.includes("lenis")) return "vendor_lenis";
+          // react-router change bien plus souvent que react lui-meme : le
+          // separer evite d'invalider le gros chunk react a chaque mise a jour.
+          if (id.includes("react-router")) return "vendor_router";
+          if (
+            id.includes("/react/") ||
+            id.includes("/react-dom/") ||
+            id.includes("scheduler")
+          ) {
+            return "vendor_react";
+          }
           return "vendor";
         },
       },
     },
     minify: "esbuild",
-    esbuild: {
-      drop: ["console", "debugger"],
-    },
+  },
+  // `esbuild` est une option racine de Vite : imbriquee sous `build`, elle est ignoree
+  // silencieusement et les console.* partent en production.
+  esbuild: {
+    drop: ["console", "debugger"],
   },
 });

@@ -1,6 +1,63 @@
+import { projects } from "@/data/galleryData";
+
 export const SEO_BASE_URL = "https://www.urdevup.com";
 
 const defaultImage = `${SEO_BASE_URL}/assets/images/og-image.jpg`;
+
+const PROJECT_PATH = /^\/projets\/([^/]+)$/;
+
+function toAbsolute(url) {
+  if (!url) return defaultImage;
+  return url.startsWith("http") ? url : `${SEO_BASE_URL}${url}`;
+}
+
+export function findProjectBySlug(slug) {
+  return projects.find(
+    (project) => project.slug === slug || String(project.id) === slug,
+  );
+}
+
+/**
+ * Resout les metadonnees d'une URL.
+ * Les fiches projet etaient absentes de `routeSeo` : elles heritaient donc du
+ * titre et de la description de l'accueil, ce qui produisait des titres
+ * dupliques sur toutes les pages projet.
+ */
+export function resolveSeo(pathname) {
+  const staticSeo = routeSeo[pathname];
+  if (staticSeo) {
+    return { seo: staticSeo, isKnownRoute: true };
+  }
+
+  const projectMatch = pathname.match(PROJECT_PATH);
+  if (projectMatch) {
+    const project = findProjectBySlug(projectMatch[1]);
+    if (!project) {
+      return { seo: defaultSeo, isKnownRoute: false };
+    }
+
+    const description = project.shortDescription || project.description;
+    return {
+      isKnownRoute: true,
+      project,
+      seo: {
+        title: {
+          en: `${project.title} | UrDevUp`,
+          fr: `${project.title} | UrDevUp`,
+        },
+        description: { en: description, fr: description },
+        keywords: `${project.title}, ${(project.techStack || [])
+          .map((tech) => tech.name)
+          .filter(Boolean)
+          .join(", ")}, web development, UrDevUp`,
+        image: toAbsolute(project.detailImage || project.image),
+        type: "article",
+      },
+    };
+  }
+
+  return { seo: defaultSeo, isKnownRoute: false };
+}
 
 export const routeSeo = {
   "/": {

@@ -7,87 +7,87 @@ import Loading from "@/layouts/Loading";
 
 const brandingItems = [
   {
-    src: "./assets/images/menu2.webp",
+    src: "/assets/images/menu2.webp",
     alt: "Menu Restaurent ",
     galleryItems: [
       {
-        src: "./assets/images/menu1.webp",
+        src: "/assets/images/menu1.webp",
         alt: "Menu Restaurent ",
       },
       {
-        src: "./assets/images/menu2.webp",
+        src: "/assets/images/menu2.webp",
         alt: "Menu Restaurent ",
       },
     ],
   },
   {
-    src: "./assets/images/2.webp",
+    src: "/assets/images/2.webp",
     alt: "Branding social media ",
     galleryItems: [
       {
-        src: "./assets/images/2.webp",
+        src: "/assets/images/2.webp",
         alt: "Branding gallery ",
       },
       {
-        src: "./assets/images/545shots_so.webp",
+        src: "/assets/images/545shots_so.webp",
         alt: "Branding gallery ",
       },
       {
-        src: "./assets/images/144shots_so.webp",
+        src: "/assets/images/144shots_so.webp",
         alt: "Branding gallery ",
       },
       {
-        src: "./assets/images/612shots_so.webp",
+        src: "/assets/images/612shots_so.webp",
         alt: "Branding gallery ",
       },
       {
-        src: "./assets/images/694shots_so.webp",
+        src: "/assets/images/694shots_so.webp",
         alt: "Branding gallery ",
       },
       {
-        src: "./assets/images/11shots_so.webp",
+        src: "/assets/images/11shots_so.webp",
         alt: "Branding gallery ",
       },
     ],
   },
   // {
-  //   src: "./assets/images/kio2.webp",
+  //   src: "/assets/images/kio2.webp",
   //   alt: "Branding preview Kio",
   //   galleryItems: [
   //     {
-  //       src: "./assets/images/kio.webp",
+  //       src: "/assets/images/kio.webp",
   //       alt: "Branding gallery Kio",
   //     },
   //     {
-  //       src: "./assets/images/ph_H.webp",
+  //       src: "/assets/images/ph_H.webp",
   //       alt: "Branding gallery Kio PH",
   //     },
   //   ],
   // },
   // {
-  //   src: "./assets/images/luxydev.webp",
+  //   src: "/assets/images/luxydev.webp",
   //   alt: "Branding preview LuxyDev",
   //   galleryItems: [
   //     {
-  //       src: "./assets/images/logo_dev.webp",
+  //       src: "/assets/images/logo_dev.webp",
   //       alt: "Branding gallery LuxyDev logo",
   //     },
   //     {
-  //       src: "./assets/images/menu1.webp",
+  //       src: "/assets/images/menu1.webp",
   //       alt: "Branding gallery LuxyDev menu",
   //     },
   //   ],
   // },
   // {
-  //   src: "./assets/images/logo_luxy.webp",
+  //   src: "/assets/images/logo_luxy.webp",
   //   alt: "Branding preview logo Luxy",
   //   galleryItems: [
   //     {
-  //       src: "./assets/images/menu2.webp",
+  //       src: "/assets/images/menu2.webp",
   //       alt: "Branding gallery Luxy menu",
   //     },
   //     {
-  //       src: "./assets/images/ph_F.webp",
+  //       src: "/assets/images/ph_F.webp",
   //       alt: "Branding gallery Luxy PH",
   //     },
   //   ],

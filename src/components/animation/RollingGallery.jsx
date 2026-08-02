@@ -33,8 +33,6 @@ const DEFAULT_PROJECTS = [
 ];
 
 const RollingGallery = ({
-  autoplay = false,
-  pauseOnHover = false,
   images = [],
   projects = [],
   grayscale = false,
