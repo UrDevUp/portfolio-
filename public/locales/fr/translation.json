@@ -72,5 +72,11 @@
   "measurableResults": "Résultats mesurables.",
   "openMenu": "Ouvrir le menu de navigation",
   "closeMenu": "Fermer le menu de navigation",
-  "meetTitle": "Prendre un rendez-vous"
+  "meetTitle": "Prendre un rendez-vous",
+  "notFoundTitle": "Page introuvable",
+  "notFoundDescription": "Désolé, la page que vous cherchez n'existe pas ou a été déplacée.",
+  "backToHome": "Retour à l'accueil",
+  "bookingIntro": "Prêt à lancer votre projet ? Choisissez un créneau qui vous convient et discutons-en.",
+  "bookACall": "Réserver un appel de 30 minutes",
+  "openCalendar": "Ouvrir le calendrier"
 }

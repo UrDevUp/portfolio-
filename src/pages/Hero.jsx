@@ -20,11 +20,11 @@ import StarBorderButton from "../components/ui/StarBorderButton";
 const LightRays = lazy(() => import("@/components/animation/LightRays"));
 
 const CARD_SWAP_VIDEOS = [
-  "/Web.mp4",
-  "/Hotel.mp4",
-  "/Immediate.mp4",
-  "/Pallet.mp4",
-  "/Elyse.mp4",
+  { src: "/Web.mp4", poster: "/posters/Web.webp" },
+  { src: "/Hotel.mp4", poster: "/posters/Hotel.webp" },
+  { src: "/Immediate.mp4", poster: "/posters/Immediate.webp" },
+  { src: "/Pallet.mp4", poster: "/posters/Pallet.webp" },
+  { src: "/Elyse.mp4", poster: "/posters/Elyse.webp" },
 ];
 
 const HeroContent = () => {
@@ -188,11 +188,12 @@ const HeroContent = () => {
             pauseOnHover={false}
             onOrderChange={handleOrderChange}
           >
-            {CARD_SWAP_VIDEOS.map((src, index) => (
-              <Card key={`${src}-${index}`}>
+            {CARD_SWAP_VIDEOS.map(({ src, poster }, index) => (
+              <Card key={src}>
                 <div className="relative h-full w-full bg-black dark:bg-black">
                   <video
                     src={src}
+                    poster={poster}
                     ref={(node) => {
                       videoRefs.current[index] = node;
                     }}
@@ -201,7 +202,7 @@ const HeroContent = () => {
                     muted
                     loop={activeVideoIndex === index}
                     playsInline
-                    width="1280"
+                    width="960"
                     height="720"
                     className="h-full w-full object-cover opacity-100"
                   ></video>

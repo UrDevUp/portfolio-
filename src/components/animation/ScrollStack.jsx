@@ -1,5 +1,19 @@
 import { useLayoutEffect, useRef, useCallback } from "react";
-import Lenis from "@studio-freight/lenis";
+/**
+ * Lenis (smooth scroll) n'est charge qu'au besoin : import dynamique + garde
+ * desktop. Sur mobile / appareil modeste / prefers-reduced-motion, on retombe
+ * sur un ecouteur de scroll natif — les cartes s'animent toujours, sans le
+ * cout du lissage.
+ */
+function shouldUseSmoothScroll() {
+  if (typeof window === "undefined") return false;
+  if (window.innerWidth < 1024) return false;
+  if (window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches)
+    return false;
+  if (navigator.connection?.saveData) return false;
+  if ((navigator.hardwareConcurrency || 8) <= 4) return false;
+  return true;
+}
 import "./ScrollStack.css";
 
 export const ScrollStackItem = ({ children, itemClassName = "" }) => (
@@ -25,6 +39,8 @@ const ScrollStack = ({
   const stackCompletedRef = useRef(false);
   const animationFrameRef = useRef(null);
   const lenisRef = useRef(null);
+  const cancelledRef = useRef(false);
+  const nativeScrollCleanupRef = useRef(null);
   const cardsRef = useRef([]);
   const lastTransformsRef = useRef(new Map());
   const isUpdatingRef = useRef(false);
@@ -192,7 +208,35 @@ const ScrollStack = ({
     updateCardTransforms();
   }, [updateCardTransforms]);
 
-  const setupLenis = useCallback(() => {
+  const setupLenis = useCallback(async () => {
+    // Repli natif : sans Lenis, handleScroll ne serait jamais appele et les
+    // cartes resteraient figees.
+    if (!shouldUseSmoothScroll()) {
+      const target = useWindowScroll ? window : scrollerRef.current;
+      if (!target) return;
+
+      let ticking = false;
+      const onNativeScroll = () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+      };
+
+      target.addEventListener("scroll", onNativeScroll, { passive: true });
+      handleScroll();
+      nativeScrollCleanupRef.current = () =>
+        target.removeEventListener("scroll", onNativeScroll);
+      return;
+    }
+
+    const { default: Lenis } = await import("@studio-freight/lenis");
+    // Le composant a pu etre demonte pendant le chargement du module : sans
+    // cette garde on creerait une instance orpheline avec sa boucle rAF.
+    if (cancelledRef.current) return;
+
     if (useWindowScroll) {
       const lenis = new Lenis({
         duration: 1.2,
@@ -277,7 +321,8 @@ const ScrollStack = ({
       card.style.transition = `transform ${scaleDuration}s ease-out, filter ${scaleDuration}s ease-out`;
     });
 
-    setupLenis();
+    cancelledRef.current = false;
+    void setupLenis();
     updateCardTransforms();
 
     const onResize = () => updateCardTransforms();
@@ -287,6 +332,7 @@ const ScrollStack = ({
     }
 
     return () => {
+      cancelledRef.current = true;
       window.removeEventListener("resize", onResize);
       if (!useWindowScroll && scroller) {
         scroller.removeEventListener("scroll", onResize);
@@ -294,8 +340,13 @@ const ScrollStack = ({
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
       }
+      if (nativeScrollCleanupRef.current) {
+        nativeScrollCleanupRef.current();
+        nativeScrollCleanupRef.current = null;
+      }
       if (lenisRef.current) {
         lenisRef.current.destroy();
+        lenisRef.current = null;
       }
       stackCompletedRef.current = false;
       cardsRef.current = [];

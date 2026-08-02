@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { SEO_BASE_URL, defaultSeo, routeSeo } from "@/lib/seoConfig";
+import { SEO_BASE_URL, defaultSeo, resolveSeo } from "@/lib/seoConfig";
 
 const SUPPORTED_LANGUAGES = ["en", "fr"];
 
 function upsertMeta(name, content, useProperty = false) {
   const selector = useProperty
-    ? `meta[property=\"${name}\"]`
-    : `meta[name=\"${name}\"]`;
+    ? `meta[property="${name}"]`
+    : `meta[name="${name}"]`;
   let tag = document.head.querySelector(selector);
 
   if (!tag) {
@@ -21,10 +21,10 @@ function upsertMeta(name, content, useProperty = false) {
 }
 
 function upsertLink(rel, href, attrs = {}) {
-  const attrKey = attrs.hreflang ? `hreflang=\"${attrs.hreflang}\"` : "";
+  const attrKey = attrs.hreflang ? `hreflang="${attrs.hreflang}"` : "";
   const selector = attrKey
-    ? `link[rel=\"${rel}\"][${attrKey}]`
-    : `link[rel=\"${rel}\"]`;
+    ? `link[rel="${rel}"][${attrKey}]`
+    : `link[rel="${rel}"]`;
 
   let tag = document.head.querySelector(selector);
   if (!tag) {
@@ -41,7 +41,7 @@ function upsertLink(rel, href, attrs = {}) {
 
 function upsertJsonLd(id, payload) {
   let tag = document.head.querySelector(
-    `script[type=\"application/ld+json\"][data-seo=\"${id}\"]`,
+    `script[type="application/ld+json"][data-seo="${id}"]`,
   );
   if (!tag) {
     tag = document.createElement("script");
@@ -73,7 +73,7 @@ export default function SeoHead() {
   useEffect(() => {
     const normalizedPath = getPathname(pathname);
     const lang = getLanguage(i18n);
-    const seo = routeSeo[normalizedPath] || defaultSeo;
+    const { seo, isKnownRoute, project } = resolveSeo(normalizedPath);
 
     const title = seo.title?.[lang] || seo.title?.en || defaultSeo.title.en;
     const description =
@@ -90,7 +90,9 @@ export default function SeoHead() {
     upsertMeta("keywords", seo.keywords || defaultSeo.keywords);
     upsertMeta(
       "robots",
-      "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1",
+      isKnownRoute
+        ? "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"
+        : "noindex,follow",
     );
 
     upsertMeta("og:title", title, true);
@@ -107,12 +109,14 @@ export default function SeoHead() {
     upsertMeta("twitter:image", ogImage);
 
     upsertLink("canonical", canonical);
+    // `lng` est le parametre lu par i18next-browser-languagedetector (lookupQuerystring).
+    // Avec `lang`, les alternates servaient un contenu identique et le hreflang etait invalide.
     SUPPORTED_LANGUAGES.forEach((locale) => {
-      upsertLink("alternate", `${canonical}?lang=${locale}`, {
+      upsertLink("alternate", `${canonical}?lng=${locale}`, {
         hreflang: locale,
       });
     });
-    upsertLink("alternate", `${canonical}?lang=en`, { hreflang: "x-default" });
+    upsertLink("alternate", `${canonical}?lng=en`, { hreflang: "x-default" });
 
     upsertJsonLd("organization", {
       "@context": "https://schema.org",
@@ -132,14 +136,33 @@ export default function SeoHead() {
       inLanguage: lang,
     });
 
-    upsertJsonLd("webpage", {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      name: title,
-      description,
-      url: canonical,
-      inLanguage: lang,
-    });
+    upsertJsonLd(
+      "webpage",
+      project
+        ? {
+            "@context": "https://schema.org",
+            "@type": "CreativeWork",
+            name: project.title,
+            headline: title,
+            description,
+            url: canonical,
+            image: ogImage,
+            inLanguage: lang,
+            dateCreated: project.links?.date,
+            creator: { "@type": "Organization", name: "UrDevUp" },
+            keywords: (project.techStack || [])
+              .map((tech) => tech.name)
+              .filter(Boolean),
+          }
+        : {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: title,
+            description,
+            url: canonical,
+            inLanguage: lang,
+          },
+    );
   }, [pathname, i18n]);
 
   return null;

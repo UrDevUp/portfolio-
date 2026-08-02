@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 const ProjectDetail = lazy(() => import("./pages/ProjectDetail.jsx"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const TermsOfService = lazy(() => import("./pages/TermsOfService.jsx"));
+const NotFound = lazy(() => import("./pages/NotFound.jsx"));
 import "./i18n";
 import Loading from "./layouts/Loading";
 
@@ -46,6 +47,7 @@ const App = () => {
             <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<TermsOfService />} />
             {/* Ajoutez d'autres routes ici */}
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
         <WhatsAppFloatingButton />

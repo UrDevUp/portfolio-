@@ -1,25 +1,29 @@
-import React from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const NotFound = () => {
+  const { t } = useTranslation();
+
   return (
-    <div className="min-h-screen bg-[#111213] from-purple-900/20 via-[#111213] to-blue-900/20 flex flex-col justify-center items-center px-4">
-      <div className="text-center">
-        <h1 className="text-9xl font-bold text-gray-300 mb-4">404</h1>
-        <h2 className="text-4xl font-semibold text-gray-800 mb-4">
-          Page Not Found
-        </h2>
-        <p className="text-lg text-gray-600 mb-8 max-w-md">
-          Sorry, the page you are looking for doesn't exist or has been moved.
+    <main className="min-h-screen bg-white dark:bg-[#111213] flex flex-col justify-center items-center px-6">
+      <div className="text-center max-w-md">
+        <p className="text-8xl sm:text-9xl font-bold text-black/15 dark:text-white/20 mb-2 select-none">
+          404
+        </p>
+        <h1 className="text-3xl sm:text-4xl font-semibold text-black dark:text-white mb-4">
+          {t("notFoundTitle")}
+        </h1>
+        <p className="text-lg text-black/70 dark:text-white/70 mb-8">
+          {t("notFoundDescription")}
         </p>
         <Link
           to="/"
-          className="inline-block bg-[linear-gradient(135deg,_#D5C05C,_#47412B)] text-white px-8 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors duration-200"
+          className="inline-block bg-black text-white dark:bg-white dark:text-black px-8 py-3 rounded-full font-medium transition-colors hover:bg-gray-800 dark:hover:bg-white/90"
         >
-          Go Back Home
+          {t("backToHome")}
         </Link>
       </div>
-    </div>
+    </main>
   );
 };
 

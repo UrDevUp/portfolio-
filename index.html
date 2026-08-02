@@ -41,6 +41,28 @@
       name="apple-mobile-web-app-status-bar-style"
       content="black-translucent" />
     <title>UrDevUp</title>
+    <!--
+      Applique le theme AVANT le premier paint. Sans ce script, React monte avec
+      le theme "light" par defaut puis bascule dans un effet : les visiteurs en
+      mode sombre subissent un flash blanc a chaque chargement.
+    -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem("theme");
+          var theme =
+            stored === "dark" || stored === "light"
+              ? stored
+              : window.matchMedia("(prefers-color-scheme: dark)").matches
+                ? "dark"
+                : "light";
+          document.documentElement.classList.toggle("dark", theme === "dark");
+          document.documentElement.setAttribute("data-theme", theme);
+        } catch (e) {
+          /* localStorage inaccessible (mode prive) : on reste sur le theme clair */
+        }
+      })();
+    </script>
     <!-- Brand font loaded asynchronously to avoid render-blocking -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
