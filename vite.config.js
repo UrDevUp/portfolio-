@@ -36,8 +36,10 @@ export default defineConfig({
       },
     },
     minify: "esbuild",
-    esbuild: {
-      drop: ["console", "debugger"],
-    },
+  },
+  // `esbuild` est une option racine de Vite : imbriquee sous `build`, elle est ignoree
+  // silencieusement et les console.* partent en production.
+  esbuild: {
+    drop: ["console", "debugger"],
   },
 });
