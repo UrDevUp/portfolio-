@@ -72,5 +72,11 @@
   "measurableResults": "Measurable results.",
   "openMenu": "Open navigation menu",
   "closeMenu": "Close navigation menu",
-  "meetTitle": "Book a meeting"
+  "meetTitle": "Book a meeting",
+  "notFoundTitle": "Page not found",
+  "notFoundDescription": "Sorry, the page you are looking for doesn't exist or has been moved.",
+  "backToHome": "Back to home",
+  "bookingIntro": "Ready to start your next project? Pick a slot that suits you and let's talk.",
+  "bookACall": "Book a 30-minute call",
+  "openCalendar": "Open the calendar"
 }
