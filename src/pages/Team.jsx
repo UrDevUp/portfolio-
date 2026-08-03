@@ -1,6 +1,5 @@
 "use client";
-import React, { useState, useRef, useEffect } from "react";
-import { FastAverageColor } from "fast-average-color";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
@@ -120,40 +119,15 @@ export default function Team() {
           viewport={{ once: true, margin: "-50px" }}
           className="grid grid-cols-1 gap-6 sm:gap-8 max-w-3xl mx-auto w-full justify-items-center"
         >
-          {team.map((member, index) => {
-            const imgRef = useRef(null);
-            const [bgColor, setBgColor] = useState("#ffe066");
-
-            useEffect(() => {
-              const fac = new FastAverageColor();
-              const img = imgRef.current;
-              if (!img) return;
-              if (!img.complete) {
-                img.onload = () => {
-                  try {
-                    const color = fac.getColor(img, {
-                      algorithm: "dominant",
-                    }).hex;
-                    setBgColor(color);
-                  } catch {}
-                };
-              } else {
-                try {
-                  const color = fac.getColor(img, {
-                    algorithm: "dominant",
-                  }).hex;
-                  setBgColor(color);
-                } catch {}
-              }
-              // Clean up
-              return () => {
+          {team.map((member) => {
+            return () => {
                 if (img) img.onload = null;
               };
             }, [member.image]);
 
             return (
               <motion.div
-                key={index}
+                key={member.name}
                 variants={item}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -167,10 +141,12 @@ export default function Team() {
                     whileHover={{ scale: 1.05 }}
                   />
                   <motion.img
-                    ref={imgRef}
                     src={member.image || "/placeholder.svg"}
                     alt={member.name}
-                    crossOrigin="anonymous"
+                    width="112"
+                    height="112"
+                    loading="lazy"
+                    decoding="async"
                     className="absolute z-10 left-1/2 top-1/2 w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover border-4 border-white/90 shadow-lg transition-all duration-300 group-hover:border-white/70 group-hover:scale-110"
                     style={{ translateX: "-50%", translateY: "-50%" }}
                     whileHover={{ rotate: 5, transition: { duration: 0.3 } }}
