@@ -4,8 +4,7 @@ import { motion } from "framer-motion";
 import { AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "@/theme";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
+import CircleX from "lucide-react/dist/esm/icons/circle-x";
 
 export default function Team() {
   const { themeName } = useTheme();
@@ -120,11 +119,6 @@ export default function Team() {
           className="grid grid-cols-1 gap-6 sm:gap-8 max-w-3xl mx-auto w-full justify-items-center"
         >
           {team.map((member) => {
-            return () => {
-                if (img) img.onload = null;
-              };
-            }, [member.image]);
-
             return (
               <motion.div
                 key={member.name}
@@ -209,8 +203,9 @@ export default function Team() {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
-                <FontAwesomeIcon
-                  icon={faCircleXmark}
+                <CircleX
+                  size="1em"
+                  aria-hidden="true"
                   className={
                     themeName === "dark" ? "text-white/80" : "text-black/70"
                   }

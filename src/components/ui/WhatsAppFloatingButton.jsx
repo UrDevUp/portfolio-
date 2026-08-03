@@ -1,5 +1,4 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+import BrandIcon from "@/components/ui/BrandIcon";
 
 const WHATSAPP_NUMBER = "212638686444";
 const DEFAULT_MESSAGE =
@@ -17,7 +16,7 @@ export default function WhatsAppFloatingButton() {
       className="fixed bottom-5 right-4 z-[70] inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg ring-1 ring-black/10 transition-transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#25D366] md:bottom-6 md:right-6"
       title="Contact us on WhatsApp"
     >
-      <FontAwesomeIcon icon={faWhatsapp} className="text-[30px] leading-none" />
+      <BrandIcon name="whatsapp" className="text-[30px] leading-none" />
     </a>
   );
 }
