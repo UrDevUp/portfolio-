@@ -55,33 +55,52 @@ const themes = {
 
 const ThemeContext = createContext();
 
+// Le script inline de index.html a deja pose la classe sur <html> avant le paint.
+// On lit ce resultat pour que le premier rendu React soit deja dans le bon theme :
+// plusieurs composants (Header, Hero) choisissent leurs classes via `themeName` en JS,
+// donc un etat initial faux provoquerait un flash meme avec le CSS correct.
+function getInitialTheme() {
+  if (typeof document === "undefined") return "light";
+  return document.documentElement.classList.contains("dark") ? "dark" : "light";
+}
+
 export function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState("light");
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    const storedTheme = window.localStorage.getItem("theme");
-    if (storedTheme === "dark" || storedTheme === "light") {
-      setTheme(storedTheme);
-      return;
-    }
-
-    const prefersDark = window.matchMedia?.(
-      "(prefers-color-scheme: dark)",
-    ).matches;
-    setTheme(prefersDark ? "dark" : "light");
-  }, []);
+  const [theme, setTheme] = useState(getInitialTheme);
 
   useEffect(() => {
     const html = document.documentElement;
     html.classList.toggle("dark", theme === "dark");
     html.setAttribute("data-theme", theme);
-    window.localStorage.setItem("theme", theme);
   }, [theme]);
 
+  // Tant que l'utilisateur n'a rien choisi explicitement, on continue de suivre
+  // l'OS. Persister des le premier rendu figerait la preference et le site
+  // ignorerait un passage ulterieur en mode sombre.
+  useEffect(() => {
+    let stored = null;
+    try {
+      stored = window.localStorage.getItem("theme");
+    } catch {
+      return;
+    }
+    if (stored === "dark" || stored === "light") return;
+
+    const media = window.matchMedia("(prefers-color-scheme: dark)");
+    const onChange = (event) => setTheme(event.matches ? "dark" : "light");
+    media.addEventListener("change", onChange);
+    return () => media.removeEventListener("change", onChange);
+  }, []);
+
   const toggleTheme = () => {
-    setTheme((current) => (current === "dark" ? "light" : "dark"));
+    setTheme((current) => {
+      const next = current === "dark" ? "light" : "dark";
+      try {
+        window.localStorage.setItem("theme", next);
+      } catch {
+        /* mode prive : le choix ne survivra pas au rechargement */
+      }
+      return next;
+    });
   };
 
   const currentTheme = theme === "dark" ? themes.dark : themes.light;
