@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState, createElement } from "react";
-import { gsap } from "gsap";
 
 const TextType = ({
   text,
@@ -56,25 +55,15 @@ const TextType = ({
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     observer.observe(containerRef.current);
     return () => observer.disconnect();
   }, [startOnVisible]);
 
-  useEffect(() => {
-    if (showCursor && cursorRef.current) {
-      gsap.set(cursorRef.current, { opacity: 1 });
-      gsap.to(cursorRef.current, {
-        opacity: 0,
-        duration: cursorBlinkDuration,
-        repeat: -1,
-        yoyo: true,
-        ease: "power2.inOut",
-      });
-    }
-  }, [showCursor, cursorBlinkDuration]);
+  // Le clignotement du curseur se fait en CSS : il ne justifiait pas de tirer
+  // GSAP (111 kB) dans le chunk initial du hero.
 
   useEffect(() => {
     if (!isVisible) return;
@@ -100,7 +89,7 @@ const TextType = ({
 
           setCurrentTextIndex((prev) => (prev + 1) % textArray.length);
           setCurrentCharIndex(0);
-          timeout = setTimeout(() => { }, pauseDuration);
+          timeout = setTimeout(() => {}, pauseDuration);
         } else {
           timeout = setTimeout(() => {
             setDisplayedText((prev) => prev.slice(0, -1));
@@ -111,11 +100,11 @@ const TextType = ({
           timeout = setTimeout(
             () => {
               setDisplayedText(
-                (prev) => prev + processedText[currentCharIndex]
+                (prev) => prev + processedText[currentCharIndex],
               );
               setCurrentCharIndex((prev) => prev + 1);
             },
-            variableSpeed ? getRandomSpeed() : typingSpeed
+            variableSpeed ? getRandomSpeed() : typingSpeed,
           );
         } else if (textArray.length > 1) {
           timeout = setTimeout(() => {
@@ -167,11 +156,12 @@ const TextType = ({
     showCursor && (
       <span
         ref={cursorRef}
-        className={`ml-1 inline-block opacity-100 ${shouldHideCursor ? "hidden" : ""} ${cursorClassName}`}
+        className={`ml-1 inline-block animate-cursor-blink ${shouldHideCursor ? "hidden" : ""} ${cursorClassName}`}
+        style={{ animationDuration: `${cursorBlinkDuration * 2}s` }}
       >
         {cursorCharacter}
       </span>
-    )
+    ),
   );
 };
 
